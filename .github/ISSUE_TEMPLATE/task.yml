@@ -1,0 +1,34 @@
+name: "Other PBI / Course Task"
+description: "Create a technical, art, audio, or course-related task"
+title: "Task: [Short Title]"
+labels: ["task"]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Issue Category
+      options:
+        - Code / Mechanics
+        - Art / UI / 3D Asset
+        - Audio / SFX
+        - Level Design
+        - Course Assignment / Report
+        - DevOps / Architecture
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "Task details and justification."
+    validations:
+      required: true
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Completion / Acceptance Criteria
+      value: |
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true

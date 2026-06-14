@@ -1,0 +1,42 @@
+name: "User Story"
+description: "Propose a new gameplay feature or player requirement"
+title: "US-XX: [Short Feature Title]"
+labels: ["user story"]
+body:
+  - type: textarea
+    id: persona
+    attributes:
+      label: Role / Persona
+      description: "As a [type of user / persona]"
+      placeholder: "e.g., Player, Modder, Administrator"
+    validations:
+      required: true
+  - type: textarea
+    id: action
+    attributes:
+      label: Desired Action
+      description: "I want to [perform a specific action]"
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: Expected Value
+      description: "so that [I achieve a specific goal or value]"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Game Design Notes & Constraints
+      description: "Mechanics, visual effects, sound requirements, or technical constraints."
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: "Conditions to verify completion."
+      value: |
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
