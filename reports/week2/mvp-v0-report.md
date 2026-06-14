@@ -27,14 +27,12 @@ As a foundational version, MVP v0 has several limitations:
 
 ## Local Setup Instructions
 Follow this link, download and lauch the game for your system
-https://github.com/Team-33-GameDev/mvp-build
+https://disk.yandex.ru/d/2_aqU4Wrhgp3tQ
 
-## Repeatable Smoke-Check Scenario
+## Repeatable Smoke-Check Scenario\
 
-### Access Instructions
-1. Open a modern web browser (Chrome, Firefox, or Edge).
-2. Navigate to the Deployment URL: [INSERT YOUR DEPLOYMENT URL HERE]
-3. Wait for the game to load in the browser window.
+Download and launch the game
+https://disk.yandex.ru/d/2_aqU4Wrhgp3tQ
 
 ### Steps
 1. **Movement:** Press the arrow keys to move the wolf one tile at a time.
