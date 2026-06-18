@@ -1,34 +1,20 @@
-name: "Course Task"
-description: "Create a technical, art, audio, or course-related task"
-title: "Task: [Short Title]"
-labels: ["task"]
+name: Course Task
+description: Template for course assignments and tasks
+title: "[Course task]: "
+labels: ["course-task"]
 body:
-  - type: dropdown
-    id: type
-    attributes:
-      label: Issue Category
-      options:
-        - Code / Mechanics
-        - Art / UI / 3D Asset
-        - Audio / SFX
-        - Level Design
-        - Course Assignment / Report
-        - DevOps / Architecture
-    validations:
-      required: true
   - type: textarea
     id: description
     attributes:
       label: Description
-      description: "Task details and justification."
+      description: Detailed description of the course task.
     validations:
       required: true
+      
   - type: textarea
-    id: criteria
+    id: expected-evidence
     attributes:
-      label: Acceptance Criteria
-      value: |
-        - [ ] 
-        - [ ] 
+      label: Expected Evidence or Deliverable
+      description: List the expected outputs.
     validations:
       required: true
