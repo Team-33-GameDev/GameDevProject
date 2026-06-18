@@ -1,4 +1,4 @@
-name: "Other PBI / Course Task"
+name: "Other PBI"
 description: "Create a technical, art, audio, or course-related task"
 title: "Task: [Short Title]"
 labels: ["task"]
@@ -26,7 +26,7 @@ body:
   - type: textarea
     id: criteria
     attributes:
-      label: Completion / Acceptance Criteria
+      label: Acceptance Criteria
       value: |
         - [ ] 
         - [ ] 
