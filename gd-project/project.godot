@@ -15,6 +15,10 @@ run/main_scene="uid://dc5qvyc1qv2t1"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*uid://b380fyqs7e7wx"
+
 [global_group]
 
 selectable="The group of object that can be selected on the scene when player aim on them "

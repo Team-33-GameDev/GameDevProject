@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dl1rlysl588xw"]
+
+[ext_resource type="PackedScene" uid="uid://b4jd3a8obtj00" path="res://scenes/props/monitor.tscn" id="1_b8axl"]
+[ext_resource type="PackedScene" uid="uid://own7vjlgoa0i" path="res://scenes/props/display.tscn" id="2_b7i7s"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_b8axl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b7i7s"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_b8axl")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oo1wx"]
+size = Vector2(3.12, 5.345)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_b7i7s"]
+viewport_path = NodePath("SubViewport")
+
+[node name="monitor_system" type="Node3D" unique_id=1195916526]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2081973362]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.08449435, 0, 0)
+material_override = SubResource("StandardMaterial3D_b7i7s")
+mesh = SubResource("PlaneMesh_oo1wx")
+
+[node name="monitor" parent="." unique_id=2076166671 instance=ExtResource("1_b8axl")]
+
+[node name="display" parent="monitor" unique_id=1972858391 instance=ExtResource("2_b7i7s")]
+transform = Transform3D(-1.2239188e-08, 0, 0.28, 0, 0.28, 0, -0.28, 0, -1.2239188e-08, 0.09, 0.02586925, 0)
+texture = SubResource("ViewportTexture_b7i7s")

@@ -22,6 +22,17 @@ shape = SubResource("ConvexPolygonShape3D_rp718")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.135, -0.1)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1090001904]
+fov = 90.0
+
+[node name="Cam_sight" type="ColorRect" parent="Head/Camera3D" unique_id=1659936223]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 567.0
+offset_top = 315.0
+offset_right = -575.0
+offset_bottom = -323.0
+mouse_filter = 2
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D" unique_id=187224294]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.345)
