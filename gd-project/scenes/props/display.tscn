@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://own7vjlgoa0i"]
+
+[ext_resource type="Script" uid="uid://cgp3xnk4b4meb" path="res://scenes/props/score_lable.gd" id="1_h15v5"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_m2rlg"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Display" type="Sprite3D" unique_id=1972858391]
+texture = SubResource("ViewportTexture_m2rlg")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=465064728]
+size = Vector2i(1920, 1080)
+
+[node name="Score" type="Label" parent="SubViewport" unique_id=1981036875]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -44.0
+offset_right = 0.5
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 128
+script = ExtResource("1_h15v5")
