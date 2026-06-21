@@ -13,7 +13,7 @@ Rogue-lite incremental game in dystopian setting. Player fulfills quotas by clic
 - [Roadmap](../../docs/roadmap.md)
 - [Definition of Done](../../docs/definition-of-done.md)
 - [CHANGELOG](../../CHANGELOG.md)
-- [Process Requirements](../../Process_Requirements.md)
+- [Process Requirements](https://gitlab.pg.innopolis.university/swp_26/swp_26/-/blob/main/Process_Requirements.md#product-backlog-items-and-scope)
 
 ## Backlog & Sprint
 - **Product Backlog:** [GitHub Projects](https://github.com/orgs/Team-33-GameDev/projects/2)
