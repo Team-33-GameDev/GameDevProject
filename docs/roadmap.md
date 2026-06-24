@@ -36,6 +36,12 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 - US-020: Click Multiplier Upgrade
 - US-022: Visual Feedback for Clicks
 - US-023: Shop Interaction
+- US-027: Save/Load System
+
+**Scope (Priority 2 - Could Haves):**
+- US-024: Shop Item - Overtime
+- US-025: Shop Item - Grace Period
+- US-026: Lucky Bonus Upgrade
 
 **Quality & Automation Scope:**
 - Define 3 ISO/IEC 25010 Quality Requirements.
@@ -50,10 +56,7 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 **Goal:** Expand the meta-progression system with additional upgrades, shop items, and save/load functionality.
 
 **Scope:**
-- US-024: Shop Item - Overtime
-- US-025: Shop Item - Grace Period
-- US-026: Lucky Bonus Upgrade
-- US-027: Save/Load System
+
 - US-028: AI Jailer (Boss) Presence
 
 **Deliverable:** MVP v3 — Extended build with deeper progression systems, diverse upgrade paths, and enhanced atmosphere.
