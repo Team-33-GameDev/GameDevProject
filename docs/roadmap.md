@@ -37,6 +37,11 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 - US-022: Visual Feedback for Clicks
 - US-023: Shop Interaction
 
+**Quality & Automation Scope:**
+- Define 3 ISO/IEC 25010 Quality Requirements.
+- Implement automated Quality Requirement Tests (QRTs) for Performance, Reliability, and Usability.
+- Set up CI pipeline with automated testing and coverage checks.
+
 **Deliverable:** MVP v2 — Fully playable build with complete core loop (timer, quota, HUD, all three phases) and initial upgrade/shop mechanics.
 
 ---
