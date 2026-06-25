@@ -12,7 +12,7 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 
 **Deferred to Sprint 2 (Customer Approved):**
 - US-014: Timer and Quota System
-- US-015: Basic HUD/UI
+- US-015: Basic UI
 - US-016: Preparation Phase Flow
 - US-017: Death Phase & Meta-Progression
 - US-018: Basic Upgrade Selection
@@ -26,7 +26,7 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 
 **Scope (Priority 1 - Deferred Must Haves):**
 - US-014: Timer and Quota System
-- US-015: Basic HUD/UI
+- US-015: Basic UI
 - US-016: Preparation Phase Flow
 - US-017: Death Phase & Meta-Progression
 - US-018: Basic Upgrade Selection
