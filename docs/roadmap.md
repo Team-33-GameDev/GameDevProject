@@ -12,7 +12,7 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 
 **Deferred to Sprint 2 (Customer Approved):**
 - US-014: Timer and Quota System
-- US-015: Basic HUD/UI
+- US-015: Basic UI
 - US-016: Preparation Phase Flow
 - US-017: Death Phase & Meta-Progression
 - US-018: Basic Upgrade Selection
@@ -26,7 +26,7 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 
 **Scope (Priority 1 - Deferred Must Haves):**
 - US-014: Timer and Quota System
-- US-015: Basic HUD/UI
+- US-015: Basic UI
 - US-016: Preparation Phase Flow
 - US-017: Death Phase & Meta-Progression
 - US-018: Basic Upgrade Selection
@@ -36,6 +36,17 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 - US-020: Click Multiplier Upgrade
 - US-022: Visual Feedback for Clicks
 - US-023: Shop Interaction
+- US-027: Save/Load System
+
+**Scope (Priority 2 - Could Haves):**
+- US-024: Shop Item - Overtime
+- US-025: Shop Item - Grace Period
+- US-026: Lucky Bonus Upgrade
+
+**Quality & Automation Scope:**
+- Define 3 ISO/IEC 25010 Quality Requirements.
+- Implement automated Quality Requirement Tests (QRTs) for Performance, Reliability, and Usability.
+- Set up CI pipeline with automated testing and coverage checks.
 
 **Deliverable:** MVP v2 — Fully playable build with complete core loop (timer, quota, HUD, all three phases) and initial upgrade/shop mechanics.
 
@@ -45,10 +56,7 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 **Goal:** Expand the meta-progression system with additional upgrades, shop items, and save/load functionality.
 
 **Scope:**
-- US-024: Shop Item - Overtime
-- US-025: Shop Item - Grace Period
-- US-026: Lucky Bonus Upgrade
-- US-027: Save/Load System
+
 - US-028: AI Jailer (Boss) Presence
 
 **Deliverable:** MVP v3 — Extended build with deeper progression systems, diverse upgrade paths, and enhanced atmosphere.
