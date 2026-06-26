@@ -20,3 +20,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+var tickets: int = 0
+signal tickets_changed(new_amount: int)
+
+func add_tickets(amount: int) -> void:
+	tickets += amount
+	tickets_changed.emit(tickets)
