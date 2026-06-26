@@ -27,3 +27,9 @@ signal tickets_changed(new_amount: int)
 func add_tickets(amount: int) -> void:
 	tickets += amount
 	tickets_changed.emit(tickets)
+	
+	
+func reset_game() -> void:
+	score = 0
+	tickets = 0
+	score_changed.emit(score)

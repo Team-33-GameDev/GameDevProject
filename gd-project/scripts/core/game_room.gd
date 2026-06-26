@@ -11,5 +11,13 @@ func _on_points_button_clicked() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_cancel"):
+		# Полный сброс игры
+		if has_node("/root/QuotaManager"):
+			QuotaManager.pause_game()
+		if has_node("/root/GameManager"):
+			GameManager.reset_game()
+		
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		get_tree().change_scene_to_file("res://scenes/ui/mainmenu.tscn")

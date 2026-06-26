@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cvxpxqr8xmtlc" path="res://scripts/core/game_room.gd" id="1_wlvec"]
 [ext_resource type="PackedScene" uid="uid://csj1cxy74xjv7" path="res://scenes/props/click_botton.tscn" id="2_wlvec"]
 [ext_resource type="PackedScene" uid="uid://dl1rlysl588xw" path="res://scenes/props/monitor_system.tscn" id="4_4pl3d"]
+[ext_resource type="AudioStream" uid="uid://b1hwtl1wvj6db" path="res://assets/audio/музончик для игры.mp3" id="5_net07"]
 
 [sub_resource type="Environment" id="Environment_hjm0p"]
 
@@ -109,3 +110,7 @@ shape = SubResource("ConvexPolygonShape3D_0kvo2")
 
 [node name="monitor_system" parent="." unique_id=1195916526 instance=ExtResource("4_4pl3d")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.199017, 2.7751422, 0)
+
+[node name="music" type="AudioStreamPlayer" parent="." unique_id=1309610683]
+stream = ExtResource("5_net07")
+autoplay = true
