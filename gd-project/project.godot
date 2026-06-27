@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 GameManager="*uid://b380fyqs7e7wx"
 QuotaManager="*uid://qs327fjpkeeu"
 
+[filesystem]
+
+import/blender/enabled.android=true
+import/blender/enabled.web=true
+
 [global_group]
 
 selectable="The group of object that can be selected on the scene when player aim on them "
