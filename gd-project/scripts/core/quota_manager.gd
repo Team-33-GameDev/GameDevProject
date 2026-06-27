@@ -89,3 +89,14 @@ func _trigger_game_over() -> void:
 	current_state = GameState.IDLE 
 	# Перезагружаем текущую сцену (комнату)
 	get_tree().change_scene_to_file("res://scenes/levels/death_room.tscn")
+
+func pause_game() -> void:
+	current_state = GameState.IDLE
+	time_left = 0.0
+	current_quota_index = 0
+	_last_printed_second = -1
+	
+	# Сбросить очки
+	GameManager.score = 0
+	
+	print("⏸️ Game paused and reset.")
