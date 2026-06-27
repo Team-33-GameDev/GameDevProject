@@ -20,7 +20,7 @@ script = ExtResource("1_wlvec")
 transform = Transform3D(-0.8660254, -0.5000001, -3.7252907e-09, 1.2904785e-08, -2.980232e-08, 1, -0.50000006, 0.8660254, 3.226196e-08, 1.7995763, 6.880452, -0.24326968)
 light_color = Color(0.8370549, 0.5116421, 0.14199764, 1)
 light_energy = 5.31
-spot_range = 8.955302
+spot_range = 9.0
 spot_angle = 40.89167
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=650722288]
@@ -33,7 +33,7 @@ shadow_enabled = true
 environment = SubResource("Environment_hjm0p")
 
 [node name="Player" parent="." unique_id=1100387674 instance=ExtResource("1_aamux")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29444146, 3.474465, -0.7806158)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28564167, 1.5752821, -0.7745447)
 
 [node name="Buttons" type="Node3D" parent="." unique_id=1675684213]
 transform = Transform3D(1.84, 0, 0, 0, 1.84, 0, 0, 0, 1.84, 3.1318579, 1.6693687, -0.10862672)

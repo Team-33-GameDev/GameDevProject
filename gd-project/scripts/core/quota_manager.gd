@@ -1,5 +1,11 @@
 extends Node
 
+signal preparation_phase_started()
+signal timer_updated(time_left: float)
+signal quota_updated(target: int)
+signal run_started()
+signal run_ended(success: bool)
+
 # Состояния игры для контроля логики
 enum GameState { IDLE, RUNNING, GAME_OVER }
 var current_state: GameState = GameState.IDLE
@@ -28,6 +34,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if current_state == GameState.RUNNING:
 		time_left -= delta
+		timer_updated.emit(time_left)
 		# Вывод в консоль раз в секунду
 		var current_second = int(time_left)
 		if current_second != _last_printed_second and current_second >= 0:
@@ -54,6 +61,9 @@ func _start_run() -> void:
 	time_left = quota_data[0]
 	current_quota_target = quota_data[1]
 	_last_printed_second = -1 # Сбрасываем для корректного вывода
+	run_started.emit()
+	quota_updated.emit(current_quota_target)
+	timer_updated.emit(time_left)
 	
 	print("\n--- 🟢 RUN STARTED ---")
 	print("🎯 Target Quota: %d | ⏱️ Time: %.1fs" % [current_quota_target, time_left])
@@ -61,17 +71,19 @@ func _start_run() -> void:
 func _evaluate_quota() -> void:
 	print("\n--- ⏰ TIME IS UP ---")
 	print("Final Score: %d | Required: %d" % [GameManager.score, current_quota_target])
-	
+	var success = GameManager.score >= current_quota_target
+	run_ended.emit(success)
 	if GameManager.score >= current_quota_target:
 		print("✅ SUCCESS! Quota reached.")
-		
+	
+	# Вычитаем квоту из счета
 		GameManager.score = 0
-		# Разница в очках, на которую надо будет покупать предметы
-		# GameManager.score -= current_quota_target
-		
+	
 		current_quota_index += 1
-		current_state = GameState.IDLE 
-		print("Preparation Phase... Click the button to start next quota!")
+		current_state = GameState.IDLE
+	
+	# Эмитим сигнал о начале фазы подготовки
+		preparation_phase_started.emit()
 	else:
 		print("FAILURE! Quota not reached. DISPOSAL INITIATED.")
 		current_state = GameState.GAME_OVER
