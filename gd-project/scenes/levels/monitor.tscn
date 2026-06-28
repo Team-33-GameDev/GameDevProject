@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b4jd3a8obtj00"]
+
+[ext_resource type="PackedScene" uid="uid://bvo8qkrore2rb" path="res://assets/models/monitor.blend" id="1_dnglg"]
+
+[node name="monitor" unique_id=2076166671 instance=ExtResource("1_dnglg")]
+
+[node name="Light" parent="." index="0" unique_id=1052492161]
+visible = false
