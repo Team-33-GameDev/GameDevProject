@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dl1rlysl588xw"]
+[gd_scene format=3 uid="uid://kgiivtejo50c"]
 
 [ext_resource type="PackedScene" uid="uid://b4jd3a8obtj00" path="res://scenes/props/monitor.tscn" id="1_b8axl"]
 [ext_resource type="PackedScene" uid="uid://own7vjlgoa0i" path="res://scenes/props/display.tscn" id="2_b7i7s"]
@@ -28,8 +28,8 @@ material_override = SubResource("StandardMaterial3D_b7i7s")
 mesh = SubResource("PlaneMesh_oo1wx")
 surface_material_override/0 = SubResource("StandardMaterial3D_l8rdo")
 
-[node name="monitor" parent="." unique_id=2076166671 instance=ExtResource("1_b8axl")]
+[node name="monitor" parent="." unique_id=654611742 instance=ExtResource("1_b8axl")]
 
-[node name="display" parent="monitor" unique_id=1972858391 instance=ExtResource("2_b7i7s")]
-transform = Transform3D(-1.2239188e-08, 0, 0.28, 0, 0.28, 0, -0.28, 0, -1.2239188e-08, 0.09, 0.02586925, 0)
+[node name="Display" parent="monitor" unique_id=1972858391 instance=ExtResource("2_b7i7s")]
+transform = Transform3D(-1.2894859e-08, 0, 0.295, 0, 0.295, 0, -0.295, 0, -1.2894859e-08, 0.12934637, 0, 0)
 texture = SubResource("ViewportTexture_b7i7s")

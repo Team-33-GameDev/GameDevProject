@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bvo8qkrore2rb" path="res://assets/models/monitor.blend" id="1_dnglg"]
 
-[node name="monitor" unique_id=2076166671 instance=ExtResource("1_dnglg")]
+[node name="monitor" unique_id=654611742 instance=ExtResource("1_dnglg")]
 
-[node name="Light" parent="." index="0" unique_id=1052492161]
+[node name="Light" parent="." index="0" unique_id=829939632]
 visible = false
