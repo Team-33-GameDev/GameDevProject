@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dl1rlysl588xw"]
+
+[ext_resource type="PackedScene" uid="uid://bpj6kf78571xi" path="res://экран.glb" id="1_b7i7s"]
+[ext_resource type="PackedScene" uid="uid://own7vjlgoa0i" path="res://scenes/props/display.tscn" id="2_b7i7s"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_oo1wx"]
+viewport_path = NodePath("SubViewport")
+
+[node name="monitor_system" type="Node3D" unique_id=1195916526]
+
+[node name="экран" parent="." unique_id=771930145 instance=ExtResource("1_b7i7s")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 0, 0, 0)
+
+[node name="display" parent="экран" unique_id=1972858391 instance=ExtResource("2_b7i7s")]
+transform = Transform3D(-0.63648266, 0, -4.8956753e-08, 0, 0.56, 0, 5.5643078e-08, 0, -0.56, -1.8300342e-09, 0, -0.041866302)
+texture = SubResource("ViewportTexture_oo1wx")
