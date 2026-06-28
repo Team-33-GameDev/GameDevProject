@@ -6,7 +6,7 @@ var factory_scene = preload("res://scenes/props/factory.tscn")
 signal click
 
 func _ready():
-	#GameManager.click(100000000)
+	#GameManager.click(100000000) 
 	pass
 	
 
