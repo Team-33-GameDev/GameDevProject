@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ClickUpgradeData" format=3 uid="uid://bd15702xhyl7w"]
+
+[ext_resource type="Script" uid="uid://cgknoxjd71cqr" path="res://resources/shop_items/click_upgrade_data.gd" id="1_sf2hs"]
+
+[resource]
+script = ExtResource("1_sf2hs")
+metadata/_custom_type_script = "uid://cgknoxjd71cqr"

@@ -1,13 +1,13 @@
-extends Node3D
+class_name IClickAction extends Node
 
-@onready var mc_button = $Buttons/ClickButton
 
 # Called when the node enters the scene tree for the first time.
+func getValue() -> int:
+	assert(false, "IClickAction: The method getValue() must be overridden")
+	return 0
+	
 func _ready() -> void:
-	mc_button.button_clicked.connect(_on_points_button_clicked)
-
-func _on_points_button_clicked() -> void:
-	GameManager.add_score(10)
+	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

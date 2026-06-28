@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://dc5qvyc1qv2t1"]
 
 [ext_resource type="PackedScene" uid="uid://6stmcgq62iml" path="res://scenes/characters/player.tscn" id="1_aamux"]
-[ext_resource type="Script" uid="uid://cvxpxqr8xmtlc" path="res://scripts/core/game_room.gd" id="1_wlvec"]
+[ext_resource type="Script" uid="uid://cvxpxqr8xmtlc" path="res://scripts/core/click_actions/game_room.gd" id="1_wlvec"]
 [ext_resource type="PackedScene" uid="uid://csj1cxy74xjv7" path="res://scenes/props/click_botton.tscn" id="2_wlvec"]
 [ext_resource type="PackedScene" uid="uid://dl1rlysl588xw" path="res://scenes/props/monitor_system.tscn" id="4_4pl3d"]
+[ext_resource type="PackedScene" uid="uid://d35xngtbfuubj" path="res://scenes/props/shop.tscn" id="5_net07"]
 
 [sub_resource type="Environment" id="Environment_hjm0p"]
 
@@ -19,9 +20,9 @@ script = ExtResource("1_wlvec")
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=306939987]
 transform = Transform3D(-0.8660254, -0.5000001, -3.7252907e-09, 1.2904785e-08, -2.980232e-08, 1, -0.50000006, 0.8660254, 3.226196e-08, 1.7995763, 6.880452, -0.24326968)
 light_color = Color(0.8370549, 0.5116421, 0.14199764, 1)
-light_energy = 5.31
+light_energy = 16.0
 spot_range = 8.955302
-spot_angle = 40.89167
+spot_angle = 72.50135
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=650722288]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 20.540073, 18.200731, 19.67006)
@@ -38,9 +39,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29444146, 3.474465, -0.780
 [node name="Buttons" type="Node3D" parent="." unique_id=1675684213]
 transform = Transform3D(1.84, 0, 0, 0, 1.84, 0, 0, 0, 1.84, 3.1318579, 1.6693687, -0.10862672)
 
-[node name="ClickButton" parent="Buttons" unique_id=304157062 instance=ExtResource("2_wlvec")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.07343346, 0)
-
 [node name="Table" type="MeshInstance3D" parent="Buttons" unique_id=1233187369]
 transform = Transform3D(0.1, 0, 0, 0, 3.115, 0, 0, 0, 0.195, -0.031887412, -0.57939523, 0.024032012)
 mesh = SubResource("BoxMesh_hjm0p")
@@ -50,6 +48,69 @@ mesh = SubResource("BoxMesh_hjm0p")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Buttons/Table/StaticBody3D" unique_id=2063082654]
 transform = Transform3D(1.0000001, 0, 0, 0, 0.64000005, 0, 0, 0, 1.0000001, 0, -0.011751384, 0)
 shape = SubResource("ConvexPolygonShape3D_0kvo2")
+
+[node name="ClickButton" parent="Buttons/Table" unique_id=304157062 instance=ExtResource("2_wlvec")]
+transform = Transform3D(10, 0, 0, 0, 0.32102728, 0, 0, 0, 5.128205, 0.31887436, 0.16242754, -0.12324107)
+
+[node name="Table2" type="MeshInstance3D" parent="Buttons" unique_id=1135752608]
+transform = Transform3D(0.00276425, 0, -0.6097669, 0, 3.115, 0, 0.09996179, 0, 0.016861925, -0.996573, -0.57939523, -2.1673882)
+mesh = SubResource("BoxMesh_hjm0p")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Buttons/Table2" unique_id=783272903]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Buttons/Table2/StaticBody3D" unique_id=931373452]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.64000005, 0, 0, 0, 1.0000001, 0, -0.011751384, 0)
+shape = SubResource("ConvexPolygonShape3D_0kvo2")
+
+[node name="ClickButton2" parent="Buttons/Table2" unique_id=1119740602 instance=ExtResource("2_wlvec")]
+transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, -1.3142986, 0.16242754, 2.8900962)
+
+[node name="Label3D" type="Label3D" parent="Buttons/Table2/ClickButton2" unique_id=1599474181]
+transform = Transform3D(1, 0, 0, 0, 1.0000004, 0, 0, 0, 1.0000004, 0.010848284, 0.35345078, -0.25169683)
+text = "Buy Wooden 
+Finger Factory 
+Cost: 100"
+font_size = 16
+
+[node name="ClickButton3" parent="Buttons/Table2" unique_id=760293891 instance=ExtResource("2_wlvec")]
+transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, -1.1135483, 0.16242754, 1.7)
+
+[node name="Label3D" type="Label3D" parent="Buttons/Table2/ClickButton3" unique_id=1736993534]
+transform = Transform3D(1, 0, 0, 0, 1.0000006, 0, 0, 0, 1.0000006, 0.010848284, 0.34541035, -0.25169683)
+text = "Buy Metal 
+Finger Factory 
+Cost: 200"
+font_size = 16
+
+[node name="ClickButton4" parent="Buttons/Table2" unique_id=1149757452 instance=ExtResource("2_wlvec")]
+transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, 1.8295441, 0.16242754, 2.89646)
+
+[node name="Label3D" type="Label3D" parent="Buttons/Table2/ClickButton4" unique_id=2011113359]
+transform = Transform3D(1, 0, 0, 0, 1.0000011, 0, 0, 0, 1.0000011, 0.010848284, -0.25958264, 0.19385815)
+text = "Buy Click +1 per period
+for Woodden Factory 
+Cost: 10"
+font_size = 16
+
+[node name="ClickButton5" parent="Buttons/Table2" unique_id=1861705640 instance=ExtResource("2_wlvec")]
+transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, 0.6898651, 0.16242754, -1.0265203)
+
+[node name="Label3D" type="Label3D" parent="Buttons/Table2/ClickButton5" unique_id=1717162597]
+transform = Transform3D(1, 0, 0, 0, 1.0000013, 0, 0, 0, 1.0000013, 0.010848284, 0.28967345, -0.21311724)
+text = "Buy Own Click 
++1
+Cost: 10"
+font_size = 16
+
+[node name="ClickButton6" parent="Buttons/Table2" unique_id=1515197901 instance=ExtResource("2_wlvec")]
+transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, 0.87189674, 0.16242754, -2.1056461)
+
+[node name="Label3D" type="Label3D" parent="Buttons/Table2/ClickButton6" unique_id=241226356]
+transform = Transform3D(1, 0, 0, 0, 1.0000013, 0, 0, 0, 1.0000013, 0.010848284, 0.28967345, -0.21311724)
+text = "Buy Own Click 
+*2
+Cost: 20"
+font_size = 16
 
 [node name="Box" type="Node3D" parent="." unique_id=2119990541]
 
@@ -109,3 +170,12 @@ shape = SubResource("ConvexPolygonShape3D_0kvo2")
 
 [node name="monitor_system" parent="." unique_id=1195916526 instance=ExtResource("4_4pl3d")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.199017, 2.7751422, 0)
+
+[node name="Shop" parent="." unique_id=859627458 instance=ExtResource("5_net07")]
+
+[connection signal="button_clicked" from="Buttons/Table/ClickButton" to="." method="_on_click_button_button_clicked"]
+[connection signal="button_clicked" from="Buttons/Table2/ClickButton2" to="." method="_on_click_button_2_button_clicked"]
+[connection signal="button_clicked" from="Buttons/Table2/ClickButton3" to="." method="_on_click_button_3_button_clicked"]
+[connection signal="button_clicked" from="Buttons/Table2/ClickButton4" to="." method="_on_click_button_4_button_clicked"]
+[connection signal="button_clicked" from="Buttons/Table2/ClickButton5" to="." method="_on_click_button_5_button_clicked"]
+[connection signal="button_clicked" from="Buttons/Table2/ClickButton6" to="." method="_on_click_button_6_button_clicked"]

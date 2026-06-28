@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://own7vjlgoa0i"]
 
-[ext_resource type="Script" uid="uid://cgp3xnk4b4meb" path="res://scenes/props/score_lable.gd" id="1_h15v5"]
+[ext_resource type="Script" uid="uid://cgp3xnk4b4meb" path="res://scripts/ui/score_lable.gd" id="1_h15v5"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_m2rlg"]
 viewport_path = NodePath("SubViewport")
