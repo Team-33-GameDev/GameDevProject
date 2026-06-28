@@ -60,15 +60,15 @@ Playable prototype: first-person movement, clickable button, score tracking, 3D 
 https://disk.yandex.ru/d/36-XD6MqxggnzQ
 
 ## Customer Review
-- **Summary:** [customer-review-summary.md](./customer-review-summary.md)
-- **Transcript:** [customer-review-transcript.md](./customer-review-transcript.md)
+- **Summary:** [customer-review-summary.md](./reports/week3/customer-review-summary.md)
+- **Transcript:** [customer-review-transcript.md](./reports/week3/customer-review-transcript.md)
 
 **Outcome:** APPROVED — Customer accepted reduced MVP v1 scope. Recommended studying Berry Bury Berry and CloverPit.
 
 ## Reflection & Reports
-- [Week 3 Reflection](./reflection.md)
-- [Sprint Retrospective](./retrospective.md)
-- [LLM Report](./llm-report.md)
+- [Week 3 Reflection](./reports/week3/reflection.md)
+- [Sprint Retrospective](./reports/week3/retrospective.md)
+- [LLM Report](./reports/week3/llm-report.md)
 
 ## Screenshots
 <img width="2544" height="1401" alt="image" src="https://github.com/user-attachments/assets/0ce64ed0-4e7e-4ec8-9049-0b6a086a0802" />
