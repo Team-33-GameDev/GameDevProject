@@ -62,7 +62,7 @@ func calculate_click() -> int:
 	var percent_bonus = total_clicks * (percent_level * percent_bonus_per_level)
 	power += int(percent_bonus)
 	power = int(power * (pow(mult_bonus_per_level,mult_level) ))
-	#print("mult_level*mult_bonus_per_level: ", pow(mult_bonus_per_level,mult_level))
+	#print("mult_level*mult_bonus_per_level: ", pow(mult_bonus_per_level,mult_level)) 
 	var crit_chance = crit_level * crit_chance_per_level
 	if randf() < crit_chance:
 		power = int(power * crit_multiplier)
