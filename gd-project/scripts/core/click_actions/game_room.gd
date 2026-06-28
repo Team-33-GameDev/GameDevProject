@@ -34,3 +34,7 @@ func _on_click_button_5_button_clicked() -> void:
 
 func _on_click_button_6_button_clicked() -> void:
 	shop.upgrade_click_mult()
+
+
+func _on_click_button_7_button_clicked() -> void:
+	shop.upgrade_factory_click(1)

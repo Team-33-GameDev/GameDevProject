@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 GameManager="*uid://b380fyqs7e7wx"
 QuotaManager="*uid://qs327fjpkeeu"
 
+[display]
+
+window/size/mode=3
+
 [file_customization]
 
 folder_colors={

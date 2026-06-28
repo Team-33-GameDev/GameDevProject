@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_5jp7f")
+upgrade_base_price = 100
 item_name = "Metal Finger"
 price = 200
 metadata/_custom_type_script = "uid://dofydyjcnq5qu"
