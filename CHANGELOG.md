@@ -6,19 +6,45 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Planned for MVP v3
 
-### Planned for MVP v2
-- Timer and Quota System (US-014)
 - Basic HUD/UI (US-015)
 - Preparation Phase Flow (US-016)
 - Death Phase & Meta-Progression (US-017)
-- Basic Upgrade Selection (US-018)
-- Autoclicker Upgrade (US-019)
-- Click Multiplier Upgrade (US-020)
-- Visual Feedback for Clicks (US-022)
-- Shop Interaction (US-023)
+- Shop UI: Now includes separate sections for click upgrades, factory purchases, and special items (Overtime, Grace Period, Lucky Bonus).
+- Implement 3D models 
 
----
+## [0.2.0] - 2026-06-28
+
+### Added
+- **Timer and Quota System (US-14):** A 30-second countdown timer and a quota tracker. The clicking phase starts when the player clicks the button; if score ≥ quota at timer end – success (Preparation Phase), otherwise – failure (Death Phase).
+- **Shop Interaction (US-23):** Full shop interface accessible by walking up to the shop on the opposite wall. Players can buy items using surplus click-points.
+- **Shop Item – Grace Period (US-25):** Purchaseable item that reduces the current required quota.
+- **Lucky Bonus Upgrade (US-26):** A new upgrade type that gives a random chance to earn a large amount of click-points in a single click.
+- **Lose/Restart System (US-30):** When the player fails a quota (Death Phase), they can restart the run. All current run variables (score, timer, upgrades) are reset, but permanent meta-progression is retained. Restart returns the player to the Preparation Phase.
+- **Main Menu and Settings UI (US-32):** Full title screen with game logo, Start/Settings/Exit buttons. Settings screen with audio volume sliders and graphics toggles; settings are saved persistently.
+- **Audio (US-29):** Background music/ambient loop, sound effects for clicks, purchases, and game state transitions (e.g., Death Phase changes audio).
+- **Click Upgrade System (expanded):** In addition to additive, multiplicative, percent-based, and critical upgrades, now includes the "Lucky Bonus" upgrade as a separate purchasable option.
+- **Autoclicker Factories (US-19):** Players can buy factories that automatically generate click-points at a set interval. Each factory has HP, damage, and upgradable parameters (click power, HP, damage, interval, and restore per click).
+- **Factory Upgrades (US-18, US-20):** Each factory can be upgraded in five categories with linearly increasing costs.
+- **3D Model of the Player Room:** The basic main models for the room was created such as monitor, door, floor, сlothing rack, ventilation, table, and button for click
+
+### Changed
+- **GameManager:** Encapsulate main work with global 
+- **QuotaManager** Support timer, quota, meta-progression
+
+- **Interaction System:** The player can now walk to the shop and interact with it (raycast), opening the shop interface.
+- **Audio Integration:** Added audio bus and volume controls; sound effects triggered on relevant actions.
+
+### Fixed
+- Factory timers properly clean up on removal.
+- Score label updates smoothly with tween animations.
+- Not implemented 3D into the scenes
+
+### Known Issues
+- Meta-progression save system is not yet fully tested.
+- Some UI elements may not scale correctly at different resolutions.
+- No visual indicator for active timer/quota in the 3D scene yet.
 
 ## [0.1.0] - 2026-06-22
 
@@ -62,5 +88,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Roadmap (`docs/roadmap.md`).
 - User stories index (`docs/user-stories.md`).
 
+[0.2.0]: https://disk.yandex.ru/d/36-XD6MqxggnzQ
 [0.1.0]: https://disk.yandex.ru/d/36-XD6MqxggnzQ
 [0.0.0]: https://github.com/Team-33-GameDev/GameDevProject

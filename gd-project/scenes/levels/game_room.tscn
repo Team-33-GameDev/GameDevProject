@@ -25,11 +25,11 @@ points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.207
 script = ExtResource("1_wlvec")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=306939987]
-transform = Transform3D(-0.8660254, -0.5000001, -3.7252907e-09, 1.2904785e-08, -2.980232e-08, 1, -0.50000006, 0.8660254, 3.226196e-08, 1.7995763, 6.880452, -0.24326968)
-light_color = Color(0.8370549, 0.5116421, 0.14199764, 1)
-light_energy = 5.31
+transform = Transform3D(-0.8660254, -0.5000001, -3.7252907e-09, 1.2904785e-08, -2.980232e-08, 1, -0.50000006, 0.8660254, 3.226196e-08, -0.013326883, 6.880452, -0.24326968)
+light_color = Color(0.44228122, 0.5110329, 0.70244324, 1)
+light_energy = 15.61
 spot_range = 9.0
-spot_angle = 40.89167
+spot_angle = 51.509274
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=650722288]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 20.540073, 18.200731, 19.67006)
@@ -70,7 +70,7 @@ Cost: 100"
 font_size = 16
 
 [node name="ClickButton3" parent="Buttons/Table2" unique_id=1305423183 instance=ExtResource("2_wlvec")]
-transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, -1.1135483, 0.16242754, 1.7)
+transform = Transform3D(0.27642506, 0, 9.99618, 0, 0.32102728, 0, -1.6387186, 0, 0.04531557, -1.0877342, 0.16242754, 1.3359306)
 
 [node name="Label3D" type="Label3D" parent="Buttons/Table2/ClickButton3" unique_id=1804408179]
 transform = Transform3D(1, 0, 0, 0, 1.0000006, 0, 0, 0, 1.0000006, 0.010848284, 0.34541035, -0.25169683)
@@ -89,14 +89,24 @@ for Woodden Factory
 Cost: 10"
 font_size = 16
 
+[node name="ClickButton7" parent="Buttons/Table2" unique_id=1326755680 instance=ExtResource("2_wlvec")]
+transform = Transform3D(0.27642506, 0, 9.99618, 0, 0.32102728, 0, -1.6387186, 0, 0.04531557, 1.9424953, 0.16242754, 1.3035011)
+
+[node name="Label3D" type="Label3D" parent="Buttons/Table2/ClickButton7" unique_id=920726606]
+transform = Transform3D(1, 0, 0, 0, 1.0000011, 0, 0, 0, 1.0000011, 0.010848284, -0.25958264, 0.19385815)
+text = "Buy Click +1 per period
+for Metal Factory 
+Cost: 100"
+font_size = 16
+
 [node name="ClickButton5" parent="Buttons/Table2" unique_id=709557556 instance=ExtResource("2_wlvec")]
 transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, 0.6898651, 0.16242754, -1.0265203)
 
 [node name="Label3D" type="Label3D" parent="Buttons/Table2/ClickButton5" unique_id=625854122]
 transform = Transform3D(1, 0, 0, 0, 1.0000013, 0, 0, 0, 1.0000013, 0.010848284, 0.28967345, -0.21311724)
 text = "Buy Own Click 
-+1
-Cost: 10"
++5
+Cost: 50"
 font_size = 16
 
 [node name="ClickButton6" parent="Buttons/Table2" unique_id=1944538746 instance=ExtResource("2_wlvec")]
@@ -106,7 +116,9 @@ transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0
 transform = Transform3D(1, 0, 0, 0, 1.0000013, 0, 0, 0, 1.0000013, 0.010848284, 0.28967345, -0.21311724)
 text = "Buy Own Click 
 *2
-Cost: 20"
+Cost: 1000
+
+"
 font_size = 16
 
 [node name="Table" type="MeshInstance3D" parent="Buttons" unique_id=1233187369]
@@ -188,5 +200,6 @@ autoplay = true
 [connection signal="button_clicked" from="Buttons/Table2/ClickButton2" to="." method="_on_click_button_2_button_clicked"]
 [connection signal="button_clicked" from="Buttons/Table2/ClickButton3" to="." method="_on_click_button_3_button_clicked"]
 [connection signal="button_clicked" from="Buttons/Table2/ClickButton4" to="." method="_on_click_button_4_button_clicked"]
+[connection signal="button_clicked" from="Buttons/Table2/ClickButton7" to="." method="_on_click_button_7_button_clicked"]
 [connection signal="button_clicked" from="Buttons/Table2/ClickButton5" to="." method="_on_click_button_5_button_clicked"]
 [connection signal="button_clicked" from="Buttons/Table2/ClickButton6" to="." method="_on_click_button_6_button_clicked"]

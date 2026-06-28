@@ -4,4 +4,7 @@
 
 [resource]
 script = ExtResource("1_sf2hs")
+add_bonus_per_level = 5
+add_price_base = 50
+mult_price_base = 1000
 metadata/_custom_type_script = "uid://cgknoxjd71cqr"
