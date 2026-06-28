@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://d35xngtbfuubj"]
+
+[ext_resource type="Script" uid="uid://dsifc87o2m2cw" path="res://scripts/components/shop/shop_system.gd" id="1_arxiw"]
+[ext_resource type="Resource" uid="uid://bd15702xhyl7w" path="res://resources/shop_items/basic_click.tres" id="2_bai65"]
+[ext_resource type="Script" uid="uid://dofydyjcnq5qu" path="res://resources/shop_items/autoclicker_data.gd" id="2_guj2o"]
+[ext_resource type="Resource" uid="uid://c4ht5bctjrnew" path="res://resources/shop_items/wooden_autoclick_data.tres" id="2_j11pq"]
+[ext_resource type="Resource" uid="uid://c2ijhoo14fo43" path="res://resources/shop_items/metal_autoclick_data.tres" id="3_guj2o"]
+
+[node name="Shop" type="Node3D" unique_id=859627458]
+script = ExtResource("1_arxiw")
+click_upgrade_data = ExtResource("2_bai65")
+available_factories = Array[ExtResource("2_guj2o")]([ExtResource("2_j11pq"), ExtResource("3_guj2o")])

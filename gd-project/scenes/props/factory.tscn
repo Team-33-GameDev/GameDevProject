@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://0yuhfu03pqrh"]
+
+[ext_resource type="Script" uid="uid://c6jcl5o4t5imm" path="res://scripts/core/factories/click_factory.gd" id="1_de6rp"]
+[ext_resource type="Resource" uid="uid://c4ht5bctjrnew" path="res://resources/shop_items/wooden_autoclick_data.tres" id="2_n8tla"]
+
+[node name="Factor" type="Node3D" unique_id=1209149137]
+script = ExtResource("1_de6rp")
+data = ExtResource("2_n8tla")

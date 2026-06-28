@@ -68,10 +68,11 @@ func _physics_process(delta: float) -> void:
 		#print(aim_target)
 	if aim_target:
 		cam_sight.color = Color.GOLD
+		#cam_sight.scale = 0.1
 		if aim_target.is_in_group("interactable"):
 			#print(aim_target)
 			if Input.is_action_just_pressed("interact"):
-				print("player: BRAVE BOY")
+				print("player: interact")
 					#target.owner.interact.emit()
 		if aim_target.is_in_group("clickable"):
 			#print(aim_target)
@@ -85,7 +86,7 @@ func _physics_process(delta: float) -> void:
 					aim_target.owner.click()
 	else:
 		cam_sight.color = Color.WHITE
-
+		#cam_sight.scale = 0.08
 	move_and_slide()
 	
 	

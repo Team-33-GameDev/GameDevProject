@@ -25,14 +25,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.135, -0.1)
 fov = 90.0
 
 [node name="Cam_sight" type="ColorRect" parent="Head/Camera3D" unique_id=1659936223]
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 567.0
-offset_top = 315.0
-offset_right = -575.0
-offset_bottom = -323.0
+custom_minimum_size = Vector2(30, 30)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.08, 0.08)
 mouse_filter = 2
+color = Color(1, 1, 1, 0.4862745)
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D" unique_id=187224294]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.345)

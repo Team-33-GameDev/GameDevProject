@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AutoClickerData" format=3 uid="uid://c2ijhoo14fo43"]
+
+[ext_resource type="Script" uid="uid://dofydyjcnq5qu" path="res://resources/shop_items/autoclicker_data.gd" id="1_5jp7f"]
+
+[resource]
+script = ExtResource("1_5jp7f")
+item_name = "Metal Finger"
+price = 200
+metadata/_custom_type_script = "uid://dofydyjcnq5qu"

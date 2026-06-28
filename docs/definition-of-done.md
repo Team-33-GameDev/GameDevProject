@@ -14,3 +14,4 @@ The following criteria must be met for any Product Backlog Item (PBI) to be cons
 ## Documentation & Release
 - `CHANGELOG.md` is updated with a clear, user-visible description of the change for every user-facing feature, improvement, or bug fix.
 - Any necessary updates to the `README.md` or player documentation are made.
+.
