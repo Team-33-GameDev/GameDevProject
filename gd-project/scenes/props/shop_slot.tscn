@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://r1uwdio8khoc"]
+
+[ext_resource type="Script" uid="uid://dn68uc5y6kvmo" path="res://scripts/components/shop/shop_slot.gd" id="1_cdhjg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gegh6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nsrj6"]
+
+[node name="ShopSlot" type="Node3D" unique_id=696665696 groups=["interactable"]]
+script = ExtResource("1_cdhjg")
+
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=1959153378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5008467, 0)
+gizmo_extents = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=461528805]
+mesh = SubResource("BoxMesh_gegh6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=307412580]
+collision_layer = 17
+collision_mask = 17
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=292371138]
+shape = SubResource("BoxShape3D_nsrj6")
+debug_color = Color(3.4172833e-06, 0.6442291, 0.29101685, 0.41960785)
+
+[node name="UI_Container" type="Node3D" parent="." unique_id=1840719548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5008467, 0)
+
+[node name="Label3D" type="Label3D" parent="UI_Container" unique_id=1277352906]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10136819, 0.5042139)
+text = "Information"

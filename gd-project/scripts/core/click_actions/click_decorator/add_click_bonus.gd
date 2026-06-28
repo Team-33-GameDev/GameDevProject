@@ -1,7 +1,13 @@
-extends Node3D
+class_name AddClickBonus extends ClickDecorator
 
-signal button_clicked
-@onready var aniPlayer = $AnimationPlayer
+var _bonus: int
+func _init(wrappee: IClickAction, bonus: int) -> void:
+	super(wrappee)
+	_bonus = bonus
+
+func getValue() -> int:
+	return _wrappee.getValue() + _bonus
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -10,8 +16,3 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func click():
-	print("Click_button: has been clicked, click AGAIN!")
-	button_clicked.emit()
-	aniPlayer.play("Button_Clicked")

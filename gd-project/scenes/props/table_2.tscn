@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://b3pgwup7tn5u5"]
+
+[ext_resource type="PackedScene" uid="uid://csj1cxy74xjv7" path="res://scenes/props/click_botton.tscn" id="1_njfi7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_knoj5"]
+size = Vector3(7.255, 0.3, 7.12)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bmb82"]
+points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.20757934, -3.617579, -3.6850786, -0.20757934, 3.6374202, -3.6850786, 0.25305554, -3.617579, 3.6850567, -0.20757934, -3.617579, -3.6850786, 0.25305554, 3.6374202, 3.6850567, -0.20757934, 3.6374202, 3.6850567, 0.25305554, -3.617579)
+
+[node name="Table2" type="MeshInstance3D" unique_id=2026315792]
+transform = Transform3D(0.00276425, 0, -0.6097669, 0, 3.115, 0, 0.09996179, 0, 0.016861925, 0, 0, 0)
+mesh = SubResource("BoxMesh_knoj5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1262379133]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=956129933]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.64000005, 0, 0, 0, 1.0000001, 0, -0.011751384, 0)
+shape = SubResource("ConvexPolygonShape3D_bmb82")
+
+[node name="ClickButton2" parent="." unique_id=304157062 instance=ExtResource("1_njfi7")]
+transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, -1.3142986, 0.16242754, 2.8900962)
+
+[node name="Label3D" type="Label3D" parent="ClickButton2" unique_id=2014916813]
+transform = Transform3D(1, 0, 0, 0, 1.0000004, 0, 0, 0, 1.0000004, 0.010848284, 0.35345078, -0.25169683)
+text = "Buy Wooden 
+Finger Factory 
+Cost: 100"
+font_size = 16
+
+[node name="ClickButton3" parent="." unique_id=1305423183 instance=ExtResource("1_njfi7")]
+transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, -1.1135483, 0.16242754, 1.7)
+
+[node name="Label3D" type="Label3D" parent="ClickButton3" unique_id=1804408179]
+transform = Transform3D(1, 0, 0, 0, 1.0000006, 0, 0, 0, 1.0000006, 0.010848284, 0.34541035, -0.25169683)
+text = "Buy Metal 
+Finger Factory 
+Cost: 200"
+font_size = 16
+
+[node name="ClickButton4" parent="." unique_id=1330309683 instance=ExtResource("1_njfi7")]
+transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, 1.8295441, 0.16242754, 2.89646)
+
+[node name="Label3D" type="Label3D" parent="ClickButton4" unique_id=2002331866]
+transform = Transform3D(1, 0, 0, 0, 1.0000011, 0, 0, 0, 1.0000011, 0.010848284, -0.25958264, 0.19385815)
+text = "Buy Click +1 per period
+for Woodden Factory 
+Cost: 10"
+font_size = 16
+
+[node name="ClickButton5" parent="." unique_id=709557556 instance=ExtResource("1_njfi7")]
+transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, 0.6898651, 0.16242754, -1.0265203)
+
+[node name="Label3D" type="Label3D" parent="ClickButton5" unique_id=625854122]
+transform = Transform3D(1, 0, 0, 0, 1.0000013, 0, 0, 0, 1.0000013, 0.010848284, 0.28967345, -0.21311724)
+text = "Buy Own Click 
++1
+Cost: 10"
+font_size = 16
+
+[node name="ClickButton6" parent="." unique_id=1944538746 instance=ExtResource("1_njfi7")]
+transform = Transform3D(0.27642506, 0, 9.996179, 0, 0.32102728, 0, -1.6387185, 0, 0.04531557, 0.87189674, 0.16242754, -2.1056461)
+
+[node name="Label3D" type="Label3D" parent="ClickButton6" unique_id=682865774]
+transform = Transform3D(1, 0, 0, 0, 1.0000013, 0, 0, 0, 1.0000013, 0.010848284, 0.28967345, -0.21311724)
+text = "Buy Own Click 
+*2
+Cost: 20"
+font_size = 16

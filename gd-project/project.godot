@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GDProject"
-run/main_scene="uid://ch713q6p12xxm"
+run/main_scene="uid://d35xngtbfuubj"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,15 @@ config/icon="res://icon.svg"
 
 GameManager="*uid://b380fyqs7e7wx"
 QuotaManager="*uid://qs327fjpkeeu"
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "red",
+"res://resources/": "yellow",
+"res://scenes/": "green",
+"res://scripts/": "purple"
+}
 
 [filesystem]
 
