@@ -9,7 +9,10 @@ func _ready():
 	#GameManager.click(100000000)
 	pass
 	
-
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		get_tree().change_scene_to_file("res://scenes/ui/mainmenu.tscn")
 
 	
 func _on_click_button_button_clicked() -> void:
