@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://c58byv0gkwhyg"]
-
-[ext_resource type="PackedScene" uid="uid://7quriy6pnb5s" path="res://game_room_empty.glb" id="1_tex6e"]
-
-[node name="Node3D" type="Node3D" unique_id=423160314]
-
-[node name="комната_пустая" parent="." unique_id=1921299838 instance=ExtResource("1_tex6e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1117992, 0, -0.37419605)
