@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://6stmcgq62iml" path="res://scenes/characters/player.tscn" id="1_aamux"]
 [ext_resource type="Script" uid="uid://cvxpxqr8xmtlc" path="res://scripts/core/click_actions/game_room.gd" id="1_wlvec"]
-[ext_resource type="PackedScene" uid="uid://csj1cxy74xjv7" path="res://scenes/levels/click_botton.tscn" id="2_wlvec"]
-[ext_resource type="PackedScene" uid="uid://dl1rlysl588xw" path="res://scenes/levels/monitor_system.tscn" id="4_4pl3d"]
+[ext_resource type="PackedScene" uid="uid://csj1cxy74xjv7" path="res://scenes/props/click_botton.tscn" id="2_wlvec"]
+[ext_resource type="PackedScene" uid="uid://dl1rlysl588xw" path="res://scenes/props/monitor_system.tscn" id="4_4pl3d"]
 [ext_resource type="AudioStream" uid="uid://b1hwtl1wvj6db" path="res://assets/audio/музончик для игры.mp3" id="5_net07"]
 [ext_resource type="PackedScene" uid="uid://7quriy6pnb5s" path="res://game_room_empty.glb" id="6_knoj5"]
 [ext_resource type="PackedScene" uid="uid://dh54gjcdxa04o" path="res://lamp.glb" id="7_bmb82"]
