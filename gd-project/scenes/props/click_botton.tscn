@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://csj1cxy74xjv7"]
 
 [ext_resource type="Script" uid="uid://d0dl23fsqh0ho" path="res://scripts/entities/click_button.gd" id="1_td72y"]
+[ext_resource type="PackedScene" uid="uid://bs3j2pfui27a6" path="res://assets/models/button.tscn" id="2_r14o1"]
 
 [sub_resource type="Animation" id="Animation_td72y"]
 resource_name = "Button_Clicked"
@@ -49,7 +50,7 @@ script = ExtResource("1_td72y")
 libraries/ = SubResource("AnimationLibrary_8c5yo")
 
 [node name="Button_Model" type="MeshInstance3D" parent="." unique_id=1481257658]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.045, 0)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.045, 0)
 mesh = SubResource("CylinderMesh_td72y")
 
 [node name="Area3D" type="Area3D" parent="Button_Model" unique_id=1328944375]
@@ -59,3 +60,6 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Button_Model/Area3D" unique_id=265093947]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0024027377, 0)
 shape = SubResource("CylinderShape3D_ohs8h")
+
+[node name="кнопка" parent="." unique_id=724990969 instance=ExtResource("2_r14o1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5194883, 0)
