@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GDProject"
-run/main_scene="uid://d35xngtbfuubj"
+run/main_scene="uid://dc5qvyc1qv2t1"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
