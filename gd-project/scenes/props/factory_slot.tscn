@@ -28,6 +28,7 @@ shape = SubResource("BoxShape3D_tmskx")
 [node name="NameLable" type="Label3D" parent="." unique_id=417058833]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0016179085, 0.555434, 0.50286245)
 pixel_size = 0.015
+texture_filter = 0
 outline_modulate = Color(0.40784314, 0, 0.23529412, 1)
 text = "Factory Slot
 "
