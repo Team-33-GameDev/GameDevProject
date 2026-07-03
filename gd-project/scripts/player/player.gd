@@ -1,14 +1,11 @@
 extends CharacterBody3D
 
-
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.005
 
 @export var min_angle: float = deg_to_rad(-85)
 @export var max_angle: float = deg_to_rad(85)
-#@export var max_angle: float = deg_to_rad(85)
-
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
@@ -18,41 +15,40 @@ var aim_target
 
 signal interact
 
+# Звуки шагов
+var footstep_timer: float = 0.0
+var footstep_interval: float = 0.45
+var was_moving: bool = false
+
+# Пауза
+var is_paused: bool = false
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-	
+	# Чтобы ESC работал даже на паузе
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 func _unhandled_input(event: InputEvent) -> void:
+	# Пауза на ESC
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		if is_paused:
+			close_pause()
+		else:
+			open_pause()
+		return
+	
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
-		
-		#head.rotation.y = clamp(head.rotation.y, min_angle, max_angle)
 		camera.rotation.x = clamp(camera.rotation.x, min_angle, max_angle)
-		#camera.rotation.y = clamp(camera.rotation.x, min_angle, max_angle)
-		
-		#head.rotation.y = clamp(head.rotation.y, min_angle, max_angle)
-		#camera.rotation.y = clamp(camera.rotation.y, deg_to_rad(0), deg_to_rad(90))
-		
 
-				
-		
 func _input(event: InputEvent) -> void:
 	pass
-	
-		
+
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	#if Input.is_action_just_pressed("jump") and is_on_floor():
-		#velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
@@ -61,23 +57,39 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-		
+
+	# Звуки шагов
+	var is_moving = is_on_floor() and direction.length() > 0.1
+	
+	# Если начали двигаться — сразу играем звук
+	if is_moving and not was_moving:
+		play_footstep()
+		footstep_timer = 0.0
+	
+	# Если продолжаем двигаться — играем по таймеру
+	elif is_moving and was_moving:
+		footstep_timer += delta
+		if footstep_timer >= footstep_interval:
+			play_footstep()
+			footstep_timer = 0.0
+	else:
+		footstep_timer = 0.0
+	
+	was_moving = is_moving
+
 	aim_target = null 
 	if aim_ray.get_collider():
 		aim_target = aim_ray.get_collider().owner
-		#print(aim_target)
+
 	if aim_target:
 		cam_sight.color = Color.GOLD
-		#cam_sight.scale = 0.1
 		if aim_target.is_in_group("interactable"):
-			#print(aim_target)
 			if Input.is_action_just_pressed("interact"):
 				print("player: interact")
-					#target.owner.interact.emit()
 		if aim_target.is_in_group("clickable"):
-			#print(aim_target)
 			if Input.is_action_just_pressed("click"):
 				print("player: Click accept")
+				AudioManager.play_sfx("button_click")
 				if aim_target.has_method("click"):
 					print("player: Object can be clicked and found correct method")
 					aim_target.click()
@@ -86,7 +98,27 @@ func _physics_process(delta: float) -> void:
 					aim_target.owner.click()
 	else:
 		cam_sight.color = Color.WHITE
-		#cam_sight.scale = 0.08
+
 	move_and_slide()
-	
-	
+
+func play_footstep():
+	var pitch = randf_range(0.9, 1.1)
+	AudioManager.play_sfx("footstep", pitch)
+
+func open_pause():
+	is_paused = true
+	# Ищем PauseMenu по имени
+	var pause_menu = get_tree().root.find_child("PauseMenu", true, false)
+	if pause_menu == null:
+		# Если не нашли, ищем Control с pause_menu.gd
+		pause_menu = get_tree().root.find_child("Control", true, false)
+	if pause_menu and pause_menu.has_method("open_pause"):
+		pause_menu.open_pause()
+
+func close_pause():
+	is_paused = false
+	var pause_menu = get_tree().root.find_child("PauseMenu", true, false)
+	if pause_menu == null:
+		pause_menu = get_tree().root.find_child("Control", true, false)
+	if pause_menu and pause_menu.has_method("close_pause"):
+		pause_menu.close_pause()

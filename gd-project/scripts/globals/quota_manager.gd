@@ -12,7 +12,7 @@ var current_state: GameState = GameState.IDLE
 
 # Список квот: время в секундах, необходимое количество очков
 var quotas: Array = [
-	[30.0, 300],
+	[30.0, 30],
 	[30.0, 800],
 	[30.0, 2000],
 	[30.0, 5000],
@@ -29,7 +29,20 @@ var _last_printed_second: int = -1
 func _ready() -> void:
 	# Подписываемся на изменения очков, чтобы "услышать" первый клик игрока
 	GameManager.score_changed.connect(_on_score_changed)
+	
+	# Подписываемся на начало/конец фазы для управления музыкой
+	run_started.connect(_on_run_started)
+	run_ended.connect(_on_run_ended)
+	
 	print("=== QuotaManager initialized. Press the BIG BUTTON to start! ===")
+
+# Запуск музыки при начале фазы кликанья
+func _on_run_started():
+	AudioManager.play_music("game")
+
+# Остановка музыки при окончании фазы
+func _on_run_ended(success: bool):
+	AudioManager.stop_music()
 
 func _process(delta: float) -> void:
 	if current_state == GameState.RUNNING:
@@ -112,3 +125,13 @@ func pause_game() -> void:
 	GameManager.score = 0
 	
 	print("⏸️ Game paused and reset.")
+func reset_game() -> void:
+	# Полный сброс состояния игры
+	current_state = GameState.IDLE
+	current_quota_index = 0
+	time_left = 0.0
+	current_quota_target = 0
+	_last_printed_second = -1
+	GameManager.score = 0
+	
+	print("🔄 Game progress reset.")
