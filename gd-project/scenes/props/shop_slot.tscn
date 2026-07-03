@@ -14,6 +14,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5008467, 0)
 gizmo_extents = 0.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=461528805]
+transform = Transform3D(1, 0, 0, 0, 2.095, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_gegh6")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=307412580]
@@ -29,4 +30,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5008467, 0)
 
 [node name="Label3D" type="Label3D" parent="UI_Container" unique_id=1277352906]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10136819, 0.5042139)
-text = "Information"
+text = "Shop Slot
+"

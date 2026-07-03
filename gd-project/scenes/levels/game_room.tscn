@@ -3,17 +3,19 @@
 [ext_resource type="PackedScene" uid="uid://6stmcgq62iml" path="res://scenes/characters/player.tscn" id="1_aamux"]
 [ext_resource type="Script" uid="uid://cvxpxqr8xmtlc" path="res://scripts/core/click_actions/game_room.gd" id="1_wlvec"]
 [ext_resource type="PackedScene" uid="uid://csj1cxy74xjv7" path="res://scenes/props/click_botton.tscn" id="2_wlvec"]
-[ext_resource type="PackedScene" uid="uid://dl1rlysl588xw" path="res://scenes/props/monitor_system.tscn" id="4_4pl3d"]
+[ext_resource type="PackedScene" uid="uid://kgiivtejo50c" path="res://scenes/props/monitor_system.tscn" id="4_4pl3d"]
 [ext_resource type="AudioStream" uid="uid://b1hwtl1wvj6db" path="res://assets/audio/музончик для игры.mp3" id="5_net07"]
-[ext_resource type="PackedScene" uid="uid://7quriy6pnb5s" path="res://assets/models/game_room_empty.glb" id="6_knoj5"]
-[ext_resource type="PackedScene" uid="uid://dh54gjcdxa04o" path="res://assets/models/lamp.glb" id="7_bmb82"]
-[ext_resource type="PackedScene" uid="uid://bjowm8skapr2p" path="res://assets/models/vent.glb" id="8_xfipo"]
-[ext_resource type="PackedScene" uid="uid://ddwgi0vubdjcm" path="res://assets/models/shop.glb" id="10_rbtne"]
-[ext_resource type="PackedScene" uid="uid://crqp1wt4354" path="res://assets/models/electricity.glb" id="11_itmb2"]
-[ext_resource type="PackedScene" uid="uid://bttrt7p5sfjpg" path="res://assets/models/rack.glb" id="12_og8p1"]
-[ext_resource type="PackedScene" uid="uid://6pi0aks54mx8" path="res://assets/models/door.glb" id="13_wruq6"]
-[ext_resource type="PackedScene" uid="uid://cvitjgh46k8n3" path="res://assets/models/ventilation.glb" id="14_wruq6"]
+[ext_resource type="PackedScene" uid="uid://bc5bail6pwctx" path="res://assets/models/game_room_empty.glb" id="6_knoj5"]
+[ext_resource type="PackedScene" uid="uid://dofa43wuhxybx" path="res://assets/models/lamp.glb" id="7_bmb82"]
+[ext_resource type="PackedScene" uid="uid://bp2js71nyec7h" path="res://assets/models/vent.glb" id="8_xfipo"]
+[ext_resource type="PackedScene" uid="uid://cfer628tqsham" path="res://assets/models/shop.glb" id="10_rbtne"]
+[ext_resource type="PackedScene" uid="uid://dq5ryhgjqp1d7" path="res://assets/models/electricity.glb" id="11_itmb2"]
+[ext_resource type="PackedScene" uid="uid://btpaq7jjj48yb" path="res://assets/models/rack.glb" id="12_og8p1"]
+[ext_resource type="PackedScene" uid="uid://dbbjrcffx8ycm" path="res://assets/models/door.glb" id="13_wruq6"]
+[ext_resource type="PackedScene" uid="uid://d1wka00q8eltb" path="res://assets/models/ventilation.glb" id="14_wruq6"]
+[ext_resource type="Script" uid="uid://dn68uc5y6kvmo" path="res://scripts/components/shop/shop_slot.gd" id="15_gpf6e"]
 [ext_resource type="PackedScene" uid="uid://drysr83387cnd" path="res://scenes/props/shop_system.tscn" id="15_shop"]
+[ext_resource type="PackedScene" uid="uid://b1htddpscxdvm" path="res://scenes/props/factory_slot.tscn" id="16_gpf6e"]
 
 [sub_resource type="Environment" id="Environment_hjm0p"]
 
@@ -41,12 +43,12 @@ script = ExtResource("1_wlvec")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=306939987]
 transform = Transform3D(-0.8660254, -0.5000001, -3.7252907e-09, 1.2904785e-08, -2.980232e-08, 1, -0.50000006, 0.8660254, 3.226196e-08, 0.22649813, 5.880452, -0.24326968)
-light_color = Color(0.8370549, 0.5116421, 0.14199764, 1)
-light_energy = 13.548
+light_color = Color(0.25876287, 0.41137627, 0.58160615, 1)
+light_energy = 23.778
 light_indirect_energy = 6.54
 light_volumetric_fog_energy = 7.27
-spot_range = 9.0
-spot_angle = 40.89167
+spot_range = 17.070744
+spot_angle = 60.35992
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=717739327]
 environment = SubResource("Environment_hjm0p")
@@ -130,81 +132,89 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.46
 stream = ExtResource("5_net07")
 autoplay = true
 
-[node name="светильник" parent="." unique_id=216877771 instance=ExtResource("7_bmb82")]
+[node name="Room_objects" type="Node" parent="." unique_id=1797997808]
+
+[node name="светильник" parent="Room_objects" unique_id=216877771 instance=ExtResource("7_bmb82")]
 transform = Transform3D(-0.4, 6.039832e-08, 0, -6.039832e-08, -0.4, 0, 0, 0, 0.4, 0, 6.013, 0)
 
-[node name="LightmapGI" type="LightmapGI" parent="светильник" unique_id=1767706993]
+[node name="LightmapGI" type="LightmapGI" parent="Room_objects/светильник" unique_id=1767706993]
 camera_attributes = SubResource("CameraAttributesPhysical_bmb82")
 
-[node name="вентилятор" parent="." unique_id=607845212 instance=ExtResource("8_xfipo")]
+[node name="вентилятор" parent="Room_objects" unique_id=607845212 instance=ExtResource("8_xfipo")]
 transform = Transform3D(-0.09, -7.86805e-09, 3.439234e-16, 0, -3.934025e-09, -0.09, 7.86805e-09, -0.09, 3.934025e-09, 2.271, 2.7, -4.358)
 
-[node name="вентилятор" parent="вентилятор" unique_id=944199813 instance=ExtResource("8_xfipo")]
+[node name="вентилятор" parent="Room_objects/вентилятор" unique_id=944199813 instance=ExtResource("8_xfipo")]
 transform = Transform3D(-0.089999996, -7.86805e-09, 8.881784e-16, -8.881784e-16, -3.9340255e-09, -0.089999996, 7.86805e-09, -0.089999996, 3.934025e-09, -25.623438, 2.699997, -4.358)
 
-[node name="магазин" parent="." unique_id=2117977622 instance=ExtResource("10_rbtne")]
+[node name="магазин" parent="Room_objects" unique_id=2117977622 instance=ExtResource("10_rbtne")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -6.167054, 0.5319605, 1.6827083)
-[node name="Shop" parent="." instance=ExtResource("15_shop")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="магазин" unique_id=970665285]
+[node name="StaticBody3D" type="StaticBody3D" parent="Room_objects/магазин" unique_id=970665285]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="магазин/StaticBody3D" unique_id=596956074]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room_objects/магазин/StaticBody3D" unique_id=596956074]
 transform = Transform3D(3.6181486, 0, 0, 0, 7.669595, 0, 0, 0, 3.5349164, 0.88261604, 2.4460256, -0.76268363)
 shape = SubResource("BoxShape3D_p5jwx")
 
-[node name="щиток" parent="." unique_id=777848184 instance=ExtResource("11_itmb2")]
+[node name="щиток" parent="Room_objects" unique_id=777848184 instance=ExtResource("11_itmb2")]
 transform = Transform3D(-2.622683e-08, -2.6226836e-08, 0.6, -0.6, -2.6226834e-08, -2.6226832e-08, 2.6226836e-08, -0.6, -2.6226834e-08, 0.1437769, 2.296129, 4.37575)
 
-[node name="стеллаж" parent="." unique_id=476936738 instance=ExtResource("12_og8p1")]
+[node name="стеллаж" parent="Room_objects" unique_id=476936738 instance=ExtResource("12_og8p1")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 5.692563, -0.29135823, 3.5990982)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="стеллаж" unique_id=997757055]
+[node name="StaticBody3D" type="StaticBody3D" parent="Room_objects/стеллаж" unique_id=997757055]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="стеллаж/StaticBody3D" unique_id=717057011]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room_objects/стеллаж/StaticBody3D" unique_id=717057011]
 transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
 shape = SubResource("BoxShape3D_gpf6e")
 
-[node name="стеллаж2" parent="." unique_id=1299694770 instance=ExtResource("12_og8p1")]
+[node name="стеллаж2" parent="Room_objects" unique_id=1299694770 instance=ExtResource("12_og8p1")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -3.5874567, -0.291358, -4.1721215)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="стеллаж2" unique_id=463211046]
+[node name="StaticBody3D" type="StaticBody3D" parent="Room_objects/стеллаж2" unique_id=463211046]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="стеллаж2/StaticBody3D" unique_id=139259774]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room_objects/стеллаж2/StaticBody3D" unique_id=139259774]
 transform = Transform3D(7.6080203, 0, 0, 0, 10.131092, 0, 0, 0, 2.5728874, -3.824871, 5.0058413, 0.91200066)
 shape = SubResource("BoxShape3D_e8u5p")
 
-[node name="стеллаж3" parent="." unique_id=1948798767 instance=ExtResource("12_og8p1")]
+[node name="стеллаж3" parent="Room_objects" unique_id=1948798767 instance=ExtResource("12_og8p1")]
 transform = Transform3D(-1.7484556e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.7484556e-08, -6.1353703, -0.291358, -2.659605)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="стеллаж3" unique_id=1943310031]
+[node name="StaticBody3D" type="StaticBody3D" parent="Room_objects/стеллаж3" unique_id=1943310031]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="стеллаж3/StaticBody3D" unique_id=851660739]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room_objects/стеллаж3/StaticBody3D" unique_id=851660739]
 transform = Transform3D(7.214165, 0, 9.947598e-14, 0, 10.341654, 0, -8.526513e-14, 0, 3.0233347, -2.9592144, 4.908531, 0.5186739)
 shape = SubResource("BoxShape3D_3vm3l")
 
-[node name="дверь" parent="." unique_id=1010858894 instance=ExtResource("13_wruq6")]
+[node name="дверь" parent="Room_objects" unique_id=1010858894 instance=ExtResource("13_wruq6")]
 transform = Transform3D(-2.1855694e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.1855694e-08, -4.188221, 0.14666581, 4.4589653)
 
-[node name="вентилятор2" parent="." unique_id=1727411472 instance=ExtResource("8_xfipo")]
+[node name="вентилятор2" parent="Room_objects" unique_id=1727411472 instance=ExtResource("8_xfipo")]
 transform = Transform3D(0.09, 0, 0, 0, -3.934025e-09, -0.09, 0, 0.09, -3.934025e-09, -0.517, 2.7, -4.358)
 
-[node name="вентилятор3" parent="." unique_id=1202734777 instance=ExtResource("8_xfipo")]
+[node name="вентилятор3" parent="Room_objects" unique_id=1202734777 instance=ExtResource("8_xfipo")]
 transform = Transform3D(0.09, 0, 0, 0, -3.934025e-09, -0.09, 0, 0.09, -3.934025e-09, 4.815, 2.7, -4.358)
 
-[node name="вентиляция" parent="." unique_id=179084216 instance=ExtResource("14_wruq6")]
+[node name="вентиляция" parent="Room_objects" unique_id=179084216 instance=ExtResource("14_wruq6")]
 transform = Transform3D(-6.119594e-08, 5.2848534e-08, -0.7, -0.7, 5.284853e-08, 6.119594e-08, 5.2848534e-08, 0.7, 5.284853e-08, -3.8907413, 4.244901, 4.412526)
 
-[node name="вентиляция2" parent="." unique_id=1054531860 instance=ExtResource("14_wruq6")]
+[node name="вентиляция2" parent="Room_objects" unique_id=1054531860 instance=ExtResource("14_wruq6")]
 transform = Transform3D(1.3374798e-15, -3.059797e-08, -0.7, -0.7, -3.059797e-08, 0, -3.059797e-08, 0.7, -3.059797e-08, -2.032868, 4.245, 4.413)
 
-[node name="вентиляция3" parent="." unique_id=1763253198 instance=ExtResource("14_wruq6")]
+[node name="вентиляция3" parent="Room_objects" unique_id=1763253198 instance=ExtResource("14_wruq6")]
 transform = Transform3D(1.3374798e-15, -3.059797e-08, -0.7, -0.7, -3.059797e-08, 0, -3.059797e-08, 0.7, -3.059797e-08, -0.24542236, 4.245, 4.413)
 
-[node name="комната_пустая2" parent="." unique_id=2071442509 instance=ExtResource("6_knoj5")]
+[node name="комната_пустая2" parent="Room_objects" unique_id=2071442509 instance=ExtResource("6_knoj5")]
 transform = Transform3D(-2.8412401e-08, 0, -0.65, 0, 0.65, 0, 0.65, 0, -2.8412401e-08, 0.055, -0.903, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="комната_пустая2" unique_id=447619473]
+[node name="StaticBody3D" type="StaticBody3D" parent="Room_objects/комната_пустая2" unique_id=447619473]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="комната_пустая2/StaticBody3D" unique_id=872684488]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room_objects/комната_пустая2/StaticBody3D" unique_id=872684488]
 shape = SubResource("ConvexPolygonShape3D_knoj5")
+
+[node name="Shop" parent="." unique_id=624140076 instance=ExtResource("15_shop")]
+script = ExtResource("15_gpf6e")
+
+[node name="Factory_Slot" parent="." unique_id=687323493 instance=ExtResource("16_gpf6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3287296, 1.208642, -3.6302714)
+
 [connection signal="button_clicked" from="Buttons/ClickButton" to="." method="_on_click_button_button_clicked"]
