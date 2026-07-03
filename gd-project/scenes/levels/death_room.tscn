@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://s11a83xecfgc" path="res://scripts/core/death_room.gd" id="1_psf7u"]
 [ext_resource type="PackedScene" uid="uid://6stmcgq62iml" path="res://scenes/characters/player.tscn" id="2_q3e75"]
+[ext_resource type="AudioStream" uid="uid://hbd1oj5bjpqj" path="res://assets/audio/ambient.mp3.mp3" id="3_bck37"]
 
 [sub_resource type="Environment" id="Environment_b1s0r"]
 
@@ -98,3 +99,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_psf7u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Wall_left/StaticBody3D" unique_id=1639457668]
 shape = SubResource("ConvexPolygonShape3D_bck37")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1383118475]
+stream = ExtResource("3_bck37")
+autoplay = true
