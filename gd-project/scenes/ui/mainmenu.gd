@@ -3,6 +3,28 @@ extends Control
 var settings_scene = preload("res://scenes/ui/settings.tscn")
 
 func _ready():
+	# Загружаем настройки
+	var config = ConfigFile.new()
+	if config.load("user://settings.cfg") == OK:
+		var saved_fullscreen = config.get_value("display", "fullscreen", false)
+		var saved_resolution = config.get_value("display", "resolution_index", 1)
+		
+		if saved_fullscreen:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		
+		# Применяем разрешение
+		var resolutions = [
+			Vector2i(1280, 720),
+			Vector2i(1600, 900),
+			Vector2i(1920, 1080),
+			Vector2i(2560, 1440),
+			Vector2i(3840, 2160)
+		]
+		if saved_resolution >= 0 and saved_resolution < resolutions.size():
+			DisplayServer.window_set_size(resolutions[saved_resolution])
+	
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	# Регистрация звуков
@@ -35,11 +57,9 @@ func _on_play_button_pressed():
 
 func _on_settings_pressed():
 	AudioManager.play_sfx("menu_click")
-	# Вместо смены сцены, добавляем настройки поверх
 	var settings = settings_scene.instantiate()
 	settings.return_to_pause = false
 	add_child(settings)
-	# Когда настройки закроются, ничего особого не делаем
 	settings.tree_exited.connect(func(): pass)
 
 func _on_quit_pressed():
