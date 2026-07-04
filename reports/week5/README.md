@@ -123,7 +123,3 @@ Quality requirements such as **Performance (Time Behaviour)** are supported by t
 | Varvara | @Dorohina | #74-78, #99 | #73 | #81 |
 | Yaroslav | @Original-Show | | #85, #96, #97 | #69, #83, #91-95 |
 | David | @dxvlxp | | #71-72, #95, #98 | #85 |
-
-
-### Product Access Artifact
-![MVP v2 Gameplay Screenshot](images/mvp2-gameplay.png)
