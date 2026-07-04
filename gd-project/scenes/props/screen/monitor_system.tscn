@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://kgiivtejo50c"]
+[gd_scene format=3 uid="uid://dl1rlysl588xw"]
 
-[ext_resource type="PackedScene" uid="uid://bpj6kf78571xi" path="res://assets/models/screen.glb" id="1_b7i7s"]
-[ext_resource type="PackedScene" uid="uid://own7vjlgoa0i" path="res://scenes/props/display.tscn" id="2_b7i7s"]
+[ext_resource type="PackedScene" uid="uid://cjfsihv85n6ax" path="res://assets/models/screen.glb" id="1_b7i7s"]
+[ext_resource type="PackedScene" uid="uid://own7vjlgoa0i" path="res://scenes/props/screen/display.tscn" id="2_b7i7s"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_b7i7s"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_cja8w"]
 viewport_path = NodePath("SubViewport")
 
 [node name="monitor_system" type="Node3D" unique_id=1195916526]
@@ -13,4 +13,5 @@ transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-
 
 [node name="display" parent="экран" unique_id=1972858391 instance=ExtResource("2_b7i7s")]
 transform = Transform3D(-0.63648266, 0, -4.8956753e-08, 0, 0.56, 0, 5.5643078e-08, 0, -0.56, -1.8300342e-09, 0, -0.041866302)
-texture = SubResource("ViewportTexture_b7i7s")
+modulate = Color(0.3882353, 0.5921569, 1, 1)
+texture = SubResource("ViewportTexture_cja8w")

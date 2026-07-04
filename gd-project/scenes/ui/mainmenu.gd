@@ -10,6 +10,7 @@ func _ready():
 	AudioManager.register_sfx("menu_hover", load("res://assets/audio/menuselect.wav"))
 	AudioManager.register_sfx("button_click", load("res://assets/audio/buttonpressed.wav"))
 	AudioManager.register_sfx("footstep", load("res://assets/audio/footstep.wav"))
+	AudioManager.register_sfx("Evilai", load("res://assets/audio/Evilai.mp3"))
 	AudioManager.register_music("game", load("res://assets/audio/музончик для игры.mp3"))
 	AudioManager.register_music("death_room", load("res://assets/audio/ambient.mp3.mp3"))
 	
