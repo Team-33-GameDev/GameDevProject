@@ -1,0 +1,139 @@
+[gd_scene format=3 uid="uid://bnw8bet54hkp0"]
+
+[ext_resource type="FontFile" uid="uid://k4cpkpiau57r" path="res://assets/fonts/VT323-Regular.ttf" id="1_uhigh"]
+
+[node name="MainScreen" type="Control" unique_id=582021394]
+layout_mode = 3
+anchor_right = 1.667
+anchor_bottom = 1.667
+offset_right = -0.3840332
+offset_bottom = -0.21606445
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="Label" parent="." unique_id=959126999]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.504
+anchor_right = 0.5
+anchor_bottom = 0.504
+offset_left = -576.0
+offset_top = -384.32
+offset_right = -192.0
+offset_bottom = -191.32
+theme_override_fonts/font = ExtResource("1_uhigh")
+theme_override_font_sizes/font_size = 192
+text = "Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreValue" type="Label" parent="." unique_id=876623759]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.504
+anchor_right = 0.5
+anchor_bottom = 0.504
+offset_left = -424.0
+offset_top = -197.32
+offset_right = -347.0
+offset_bottom = -4.3200073
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_uhigh")
+theme_override_font_sizes/font_size = 192
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quota" type="Label" parent="." unique_id=147919942]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.504
+anchor_right = 0.5
+anchor_bottom = 0.504
+offset_left = 192.0
+offset_top = -384.32
+offset_right = 576.0
+offset_bottom = -191.32
+theme_override_fonts/font = ExtResource("1_uhigh")
+theme_override_font_sizes/font_size = 192
+text = "Quota"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuotaValue" type="Label" parent="." unique_id=1246680856]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.504
+anchor_right = 0.5
+anchor_bottom = 0.504
+offset_left = 264.0
+offset_top = -197.32
+offset_right = 494.0
+offset_bottom = -4.3200073
+theme_override_fonts/font = ExtResource("1_uhigh")
+theme_override_font_sizes/font_size = 192
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Label" parent="." unique_id=1522271765]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = 4.0
+offset_right = 192.0
+offset_bottom = 197.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_uhigh")
+theme_override_font_sizes/font_size = 192
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CPS" type="Label" parent="." unique_id=1623565854]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -536.0
+offset_top = 285.0
+offset_right = -229.0
+offset_bottom = 414.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_uhigh")
+theme_override_font_sizes/font_size = 128
+text = "CPS: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cost" type="Label" parent="." unique_id=1952219757]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 208.0
+offset_top = 285.0
+offset_right = 566.0
+offset_bottom = 414.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_uhigh")
+theme_override_font_sizes/font_size = 128
+text = "Cost: 1"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://6stmcgq62iml" path="res://scenes/characters/player.tscn" id="1_aamux"]
 [ext_resource type="Script" uid="uid://cvxpxqr8xmtlc" path="res://scripts/core/click_actions/game_room.gd" id="1_wlvec"]
 [ext_resource type="PackedScene" uid="uid://csj1cxy74xjv7" path="res://scenes/props/click_botton.tscn" id="2_wlvec"]
-[ext_resource type="PackedScene" uid="uid://kgiivtejo50c" path="res://scenes/props/monitor_system.tscn" id="4_4pl3d"]
+[ext_resource type="PackedScene" uid="uid://dl1rlysl588xw" path="res://scenes/props/screen/monitor_system.tscn" id="4_4pl3d"]
 [ext_resource type="PackedScene" uid="uid://bc5bail6pwctx" path="res://assets/models/game_room_empty.glb" id="6_knoj5"]
 [ext_resource type="PackedScene" uid="uid://dofa43wuhxybx" path="res://assets/models/lamp.glb" id="7_bmb82"]
 [ext_resource type="PackedScene" uid="uid://bp2js71nyec7h" path="res://assets/models/vent.glb" id="8_xfipo"]
@@ -16,6 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://drysr83387cnd" path="res://scenes/props/shop_system.tscn" id="15_shop"]
 
 [sub_resource type="Environment" id="Environment_hjm0p"]
+glow_intensity = 1.0
+glow_strength = 0.45
+glow_bloom = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3vm3l"]
 size = Vector3(0.87158203, 1, 1)
@@ -41,18 +44,19 @@ script = ExtResource("1_wlvec")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=306939987]
 transform = Transform3D(-0.8660254, -0.5000001, -3.7252907e-09, 1.2904785e-08, -2.980232e-08, 1, -0.50000006, 0.8660254, 3.226196e-08, 0.22649813, 5.880452, -0.24326968)
-light_color = Color(0.8370549, 0.5116421, 0.14199764, 1)
+light_color = Color(0.4037958, 0.7031228, 0.9999996, 1)
 light_energy = 13.548
 light_indirect_energy = 6.54
 light_volumetric_fog_energy = 7.27
 spot_range = 9.0
+spot_attenuation = 0.95
 spot_angle = 40.89167
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=717739327]
 environment = SubResource("Environment_hjm0p")
 
 [node name="Player" parent="." unique_id=1100387674 instance=ExtResource("1_aamux")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28564167, 1.5752821, -0.7745447)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28564167, 1.5752821, 0.44018495)
 
 [node name="Buttons" type="Node3D" parent="." unique_id=1675684213]
 transform = Transform3D(1.84, 0, 0, 0, 1.84, 0, 0, 0, 1.84, 3.1318579, 1.6693687, -0.10862672)
@@ -125,6 +129,13 @@ shape = SubResource("ConvexPolygonShape3D_0kvo2")
 
 [node name="monitor_system" parent="." unique_id=1195916526 instance=ExtResource("4_4pl3d")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6.4689183, 2.7751422, 0.07230377)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="monitor_system" unique_id=452131308]
+transform = Transform3D(1.1924882e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924882e-08, 0.03891802, 0, 2.2351742e-08)
+light_color = Color(0.3882353, 0.5921569, 1, 1)
+spot_range = 12.082257
+spot_attenuation = -0.1
+spot_angle = 75.69
 
 [node name="светильник" parent="." unique_id=216877771 instance=ExtResource("7_bmb82")]
 transform = Transform3D(-0.4, 6.039832e-08, 0, -6.039832e-08, -0.4, 0, 0, 0, 0.4, 0, 6.013, 0)
