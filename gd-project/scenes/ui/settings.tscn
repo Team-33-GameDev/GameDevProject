@@ -47,11 +47,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -200.0
-offset_top = -90.0
+offset_top = -183.0
 offset_right = 200.0
-offset_bottom = 90.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 0.8000012)
 
 [node name="volume_label" type="Label" parent="ColorRect" unique_id=1742716318]
 custom_minimum_size = Vector2(0, 100)
@@ -62,11 +63,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -100.0
-offset_top = -161.0
+offset_top = -221.0
 offset_right = 100.0
-offset_bottom = -61.0
+offset_bottom = -121.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 0.8000012)
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("2_7pacj")
 theme_override_font_sizes/font_size = 70
@@ -83,11 +85,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -200.0
-offset_top = 30.0
+offset_top = -86.0
 offset_right = 200.0
-offset_bottom = 210.0
+offset_bottom = 94.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 0.8000012)
 
 [node name="sfx_label" type="Label" parent="ColorRect" unique_id=1750487024]
 custom_minimum_size = Vector2(0, 100)
@@ -97,16 +100,153 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = 13.0
-offset_right = 100.0
-offset_bottom = 113.0
+offset_left = -95.0
+offset_top = -112.0
+offset_right = 105.0
+offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 0.8000012)
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("2_7pacj")
 theme_override_font_sizes/font_size = 70
 text = "sfx"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="master_slider" type="HSlider" parent="ColorRect" unique_id=863764276]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = 8.0
+offset_right = 200.0
+offset_bottom = 188.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.8000012)
+
+[node name="master_label" type="Label" parent="ColorRect" unique_id=1386785983]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -19.0
+offset_right = 100.0
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.8000012)
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_7pacj")
+theme_override_font_sizes/font_size = 70
+text = "General"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="fps_label" type="Label" parent="ColorRect" unique_id=1424423552]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -568.0
+offset_top = -63.0
+offset_right = -288.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.8000012)
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_7pacj")
+theme_override_font_sizes/font_size = 70
+text = "FPS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="fps_toggle" type="CheckButton" parent="ColorRect/fps_label" unique_id=1760760426]
+layout_mode = 0
+anchor_left = 0.113715276
+anchor_top = 0.5123457
+anchor_right = 0.15190972
+anchor_bottom = 0.5493827
+offset_left = 91.15972
+offset_top = 37.51528
+offset_right = 124.46528
+offset_bottom = 57.811577
+metadata/_edit_use_anchors_ = true
+
+[node name="resolution_label" type="Label" parent="ColorRect" unique_id=464520102]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -568.0
+offset_top = -191.0
+offset_right = -288.0
+offset_bottom = -91.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.8000012)
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_7pacj")
+theme_override_font_sizes/font_size = 70
+text = "Resolution"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="resolution_button" type="OptionButton" parent="ColorRect/resolution_label" unique_id=1223449213]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 48.749924
+offset_right = 312.0
+offset_bottom = 68.74992
+
+[node name="fullscreen_toggle" type="CheckButton" parent="ColorRect/resolution_label" unique_id=219739329]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.113715276
+anchor_top = 0.5123457
+anchor_right = 0.15190972
+anchor_bottom = 0.5493827
+offset_left = 91.15972
+offset_top = 37.51528
+offset_right = 124.46528
+offset_bottom = 57.811577
+metadata/_edit_use_anchors_ = true
+
+[node name="fullscreen_label" type="Label" parent="ColorRect/resolution_label" unique_id=422957878]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -147.0
+offset_top = 18.749893
+offset_right = 161.0
+offset_bottom = 118.74989
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.43402508, 0.6298326)
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_7pacj")
+theme_override_font_sizes/font_size = 70
+text = "full screen"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -133,5 +273,27 @@ theme_override_fonts/font = ExtResource("2_7pacj")
 theme_override_font_sizes/font_size = 64
 text = "back
 "
+
+[node name="FPS_Label" type="Label" parent="." unique_id=787835868]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -568.0
+offset_top = -63.0
+offset_right = -288.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.8000012)
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_7pacj")
+theme_override_font_sizes/font_size = 70
+text = "FPS"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="VBoxContainer/back" to="." method="_on_back_pressed"]

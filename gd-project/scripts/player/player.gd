@@ -20,21 +20,21 @@ var footstep_timer: float = 0.0
 var footstep_interval: float = 0.45
 var was_moving: bool = false
 
-# Пауза
-var is_paused: bool = false
-
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	# Чтобы ESC работал даже на паузе
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Пауза на ESC
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
-		if is_paused:
+		if get_tree().paused:
 			close_pause()
 		else:
 			open_pause()
+		return
+	
+	# Если на паузе — не обрабатываем движение мыши
+	if get_tree().paused:
 		return
 	
 	if event is InputEventMouseMotion:
@@ -46,6 +46,10 @@ func _input(event: InputEvent) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
+	# Если на паузе — не обрабатываем движение
+	if get_tree().paused:
+		return
+	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
@@ -61,12 +65,9 @@ func _physics_process(delta: float) -> void:
 	# Звуки шагов
 	var is_moving = is_on_floor() and direction.length() > 0.1
 	
-	# Если начали двигаться — сразу играем звук
 	if is_moving and not was_moving:
 		play_footstep()
 		footstep_timer = 0.0
-	
-	# Если продолжаем двигаться — играем по таймеру
 	elif is_moving and was_moving:
 		footstep_timer += delta
 		if footstep_timer >= footstep_interval:
@@ -106,17 +107,15 @@ func play_footstep():
 	AudioManager.play_sfx("footstep", pitch)
 
 func open_pause():
-	is_paused = true
-	# Ищем PauseMenu по имени
+	# Ищем PauseMenu по всему дереву сцен
 	var pause_menu = get_tree().root.find_child("PauseMenu", true, false)
 	if pause_menu == null:
-		# Если не нашли, ищем Control с pause_menu.gd
+		# Если не нашли по имени, ищем Control с pause_menu.gd
 		pause_menu = get_tree().root.find_child("Control", true, false)
 	if pause_menu and pause_menu.has_method("open_pause"):
 		pause_menu.open_pause()
 
 func close_pause():
-	is_paused = false
 	var pause_menu = get_tree().root.find_child("PauseMenu", true, false)
 	if pause_menu == null:
 		pause_menu = get_tree().root.find_child("Control", true, false)
