@@ -1,0 +1,141 @@
+[gd_scene format=3 uid="uid://4sebpbpjva8v"]
+
+[ext_resource type="PackedScene" uid="uid://bw2lrul8rrt46" path="res://assets/models/room_empty_with_roof.glb" id="1_jwwn2"]
+[ext_resource type="PackedScene" uid="uid://dofa43wuhxybx" path="res://assets/models/lamp.glb" id="1_l0wp4"]
+[ext_resource type="PackedScene" uid="uid://6stmcgq62iml" path="res://scenes/characters/player.tscn" id="2_f1n2c"]
+[ext_resource type="PackedScene" uid="uid://bmrlw875m32jc" path="res://assets/models/big_button.glb" id="3_xf5gg"]
+[ext_resource type="PackedScene" uid="uid://b0ktvijayof3k" path="res://scenes/ui/PauseMenu.tscn" id="5_nmjpf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_f1n2c"]
+size = Vector3(7.255, 0.3, 7.12)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_l0wp4"]
+points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.20757934, -3.617579, -3.6850786, -0.20757934, 3.6374202, -3.6850786, 0.25305554, -3.617579, 3.6850567, -0.20757934, -3.617579, -3.6850786, 0.25305554, 3.6374202, 3.6850567, -0.20757934, 3.6374202, 3.6850567, 0.25305554, -3.617579)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xf5gg"]
+
+[sub_resource type="Environment" id="Environment_l0wp4"]
+glow_enabled = true
+
+[node name="BigButtonRoom" type="Node3D" unique_id=2143751424]
+
+[node name="Box" type="Node3D" parent="." unique_id=1756749357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7109432, -1.276)
+
+[node name="lamp2" parent="Box" unique_id=2059276856 instance=ExtResource("1_l0wp4")]
+transform = Transform3D(-0.4, 6.039832e-08, 0, -6.039832e-08, -0.4, 0, 0, 0, 0.4, -3.2764747, 4.2453213, 1.2661027)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Box/lamp2" unique_id=1345210830]
+transform = Transform3D(2.5, 1.6940659e-21, 4.2632564e-14, 4.2632564e-14, -1.0927848e-07, -2.5, 0, 2.5, -1.0927848e-07, 0.58208084, -3.2292233, -0.15975341)
+layers = 31
+light_color = Color(1.09848, 0.82407165, 0.49392402, 1)
+light_energy = 16.0
+light_indirect_energy = 16.0
+light_volumetric_fog_energy = 4.593
+light_size = 1.0
+light_specular = 1.675
+distance_fade_enabled = true
+spot_range = 10.558
+spot_attenuation = 1.61
+spot_angle = 65.84
+spot_angle_attenuation = 1.6817954
+
+[node name="lamp" parent="Box" unique_id=360779056 instance=ExtResource("1_l0wp4")]
+transform = Transform3D(-0.4, 3.4969112e-08, 0, -3.4969112e-08, -0.4, 0, 0, 0, 0.4, 3.5398364, 4.2411895, 1.2653835)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Box/lamp" unique_id=1727828189]
+transform = Transform3D(2.5, 1.6940659e-21, 4.2632564e-14, 4.2632564e-14, -1.0927848e-07, -2.5, 0, 2.5, -1.0927848e-07, 0.58208084, -3.2292233, -0.15975341)
+layers = 31
+light_color = Color(1.09848, 0.82407165, 0.49392402, 1)
+light_energy = 16.0
+light_indirect_energy = 16.0
+light_volumetric_fog_energy = 4.593
+light_size = 1.0
+light_specular = 1.675
+distance_fade_enabled = true
+spot_range = 10.558
+spot_attenuation = 1.61
+spot_angle = 65.84
+spot_angle_attenuation = 1.6817954
+
+[node name="room_empty_with_roof" parent="Box" unique_id=528388569 instance=ExtResource("1_jwwn2")]
+transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.8412401e-08, 0, -2.2670448, 1.2803037)
+
+[node name="Floor" type="MeshInstance3D" parent="Box" unique_id=1228913860]
+transform = Transform3D(1.9530226, 0, 0, 0, 2, 0, 0, 0, 1.5, 0, -2.5084124, 1.1806631)
+mesh = SubResource("BoxMesh_f1n2c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box/Floor" unique_id=2057951552]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Floor/StaticBody3D" unique_id=820366375]
+shape = SubResource("ConvexPolygonShape3D_l0wp4")
+
+[node name="Wall_right" type="MeshInstance3D" parent="Box" unique_id=992341560]
+transform = Transform3D(1.9753892, 0, 0, 0, -8.742278e-08, -1.0351806, 0, 2, -4.5249173e-08, 0, 1.5217199, 6.217581)
+mesh = SubResource("BoxMesh_f1n2c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box/Wall_right" unique_id=1010675901]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Wall_right/StaticBody3D" unique_id=1687850220]
+shape = SubResource("ConvexPolygonShape3D_l0wp4")
+
+[node name="Roof" type="MeshInstance3D" parent="Box" unique_id=1503811382]
+transform = Transform3D(1.9939063, 0, 0, 0, 2, 0, 0, 0, 1.5001537, -0.023255348, 4.942732, 1.3341942)
+mesh = SubResource("BoxMesh_f1n2c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box/Roof" unique_id=1993591413]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Roof/StaticBody3D" unique_id=1178781021]
+shape = SubResource("ConvexPolygonShape3D_l0wp4")
+
+[node name="Wall_front" type="MeshInstance3D" parent="Box" unique_id=2079432557]
+transform = Transform3D(-5.7697495e-08, -2, 0, -5.7697495e-08, 3.821371e-15, -1.1261661, 1.3199649, -8.742278e-08, -4.922628e-08, 7.0411205, 1.199367, 1.4368358)
+mesh = SubResource("BoxMesh_f1n2c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box/Wall_front" unique_id=135550871]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Wall_front/StaticBody3D" unique_id=998372390]
+shape = SubResource("ConvexPolygonShape3D_l0wp4")
+
+[node name="Wall_back" type="MeshInstance3D" parent="Box" unique_id=2040562436]
+transform = Transform3D(-6.556708e-08, -2, 0, -6.556708e-08, 3.821371e-15, -0.97427434, 1.5, -8.742278e-08, -4.258688e-08, -6.945905, 1.3118596, 1.1996152)
+mesh = SubResource("BoxMesh_f1n2c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box/Wall_back" unique_id=1978818831]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Wall_back/StaticBody3D" unique_id=2060575623]
+shape = SubResource("ConvexPolygonShape3D_l0wp4")
+
+[node name="Wall_left" type="MeshInstance3D" parent="Box" unique_id=1685041178]
+transform = Transform3D(1.8655915, 0, 0, 0, -8.742278e-08, -1.0431861, 0, 2, -4.559911e-08, 0, 1.0322056, -3.7469587)
+mesh = SubResource("BoxMesh_f1n2c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box/Wall_left" unique_id=1369919391]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Wall_left/StaticBody3D" unique_id=385012383]
+shape = SubResource("ConvexPolygonShape3D_l0wp4")
+
+[node name="big_button" parent="Box" unique_id=1088991049 instance=ExtResource("3_xf5gg")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -1.88, 1.259168)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box/big_button" unique_id=1871136558]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/big_button/StaticBody3D" unique_id=1352336507]
+transform = Transform3D(2.678273, 0, 0, 0, 0.75499403, 0, 0, 0, 2.6097229, 0, 0, 0)
+shape = SubResource("CylinderShape3D_xf5gg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=772005051]
+transform = Transform3D(-0.99883914, 0.04171628, -0.024084868, 2.7805946e-08, 0.49999994, 0.86602545, 0.04816979, 0.86502016, -0.4994195, 27.579636, 16.074268, 5.3751807)
+light_color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+light_energy = 0.258
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=664565407]
+environment = SubResource("Environment_l0wp4")
+
+[node name="Player" parent="." unique_id=1100387674 instance=ExtResource("2_f1n2c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.007, 1, -0.548)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=471828221]
+
+[node name="Control" parent="CanvasLayer" unique_id=1361941140 instance=ExtResource("5_nmjpf")]
