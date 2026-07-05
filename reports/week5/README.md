@@ -14,7 +14,7 @@
 * **Sprint Goal:** Deliver MVP v2 by finalizing the core game loop (Death Phase, Shop, Autoclickers), upgrading the 3D environments, and documenting the Godot architecture to ensure long-term maintainability.
 * **Sprint Dates:** Monday, June 23, 2026 – Sunday, July 5, 2026.
 * **Short Scope Summary:** Implemented the Death Phase and meta-progression loop, integrated the Shop and Autoclicker mechanics, added visual feedback for clicks, introduced the Pause Menu, and established comprehensive architecture documentation (ADRs, Component/Sequence/Deployment diagrams).
-* **Total Sprint Size:** 42 Story Points.
+* **Total Sprint Size:** 38 Story Points.
 
 ---
 
