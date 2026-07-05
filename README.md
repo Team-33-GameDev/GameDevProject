@@ -27,7 +27,6 @@ ESC: Open the Pause Menu.
 This repository contains all maintained project documentation, architecture decisions, and weekly sprint reports. 
 
 ### Maintained Documentation
-* **[Hosted Documentation Site](https://team-33-gamedev.github.io/GameDevProject/)** - Browse all docs in a readable web format.
 * **[Development Process & Workflow](docs/development-process.md)** - Our Git workflow, CI/CD setup, and configuration management.
 * **[Product Roadmap](docs/roadmap.md)** - Past milestones, current sprint, and future plans.
 * **[Architecture & ADRs](docs/architecture/README.md)** - Static, dynamic, and deployment views, plus Architecture Decision Records.
