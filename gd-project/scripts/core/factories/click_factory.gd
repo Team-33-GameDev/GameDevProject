@@ -46,24 +46,41 @@ func _update_ui():
 	if not info_label or not data:
 		return
 	var status = "PURCHASED" if data.is_purchased else "LOCKED"
-	var text = "%s [%s]\nHP: %d/%d (lvl %d)\nClick: %d (lvl %d) \\
-	\nDmg: %d (lvl %d) \\\nDmg Period: %d ticks (lvl %d) \\
-	\nRestore: %d HP/tick (lvl %d)\nClick ticks: %d/%d\nDmg ticks: %d/%d" % [
+	var text = "%s [%s]
+	\nHP: %d/%d (lvl %d) LVL UP: price %d 
+	\nClick: %d (lvl %d) LVL UP: price %d
+	\nDmg: %d (lvl %d) LVL UP: price %d
+	\nDmg Period: %d ticks (lvl %d) LVL UP: %d
+	\nRestore: %d HP/tick (lvl %d) LVL UP: %d
+	\nClick ticks: %d/%d 
+	\nDmg ticks: %d/%d" % [
 			template_data.item_name,
 			status,
+			
 			data.cur_hp,
 			data.max_hp,
 			data.upg_lvl_hp,
+			data.cur_price_hp,
+
 			data.click_value,
 			data.upg_lvl_click,
+			data.cur_price_click,
+			
 			data.dmg,
 			data.upg_lvl_dmg,
+			data.cur_price_dmg,
+			
 			data.dmg_tick_period,
 			data.upg_lvl_dmg_period,
+			data.cur_price_dmg_period,
+			
 			data.rhpt,
 			data.upg_lvl_rhpt,
+			data.cur_price_rhpt,
+			
 			data.cur_click_ticks,
 			data.click_ticks_period,
+			
 			data.cur_tick_dmg,
 			data.dmg_tick_period
 		]
@@ -82,15 +99,15 @@ func process_tick() -> void:
 		return
 	data.cur_click_ticks += 1
 	data.cur_tick_dmg += 1
-
+	_update_ui()
 	if data.click():
 		click_performed.emit()
 		data_updated.emit()
-		_update_ui()
+		#_update_ui()
 
 	if data.apply_dmg():
 		data_updated.emit()
-		_update_ui()
+		#_update_ui()
 		
 
 
