@@ -52,7 +52,7 @@ func _process(delta: float) -> void:
 		var current_second = int(time_left)
 		if current_second != _last_printed_second and current_second >= 0:
 			_last_printed_second = current_second
-			print("⏳ Time: %ds | Score: %d / %d" % [current_second, GameManager.score, current_quota_target])
+			#print("⏳ Time: %ds | Score: %d / %d" % [current_second, GameManager.score, current_quota_target])
 		# Проверка окончания времени
 		if time_left <= 0.0:
 			_evaluate_quota()
@@ -78,8 +78,8 @@ func _start_run() -> void:
 	quota_updated.emit(current_quota_target)
 	timer_updated.emit(time_left)
 	
-	print("\n--- 🟢 RUN STARTED ---")
-	print("🎯 Target Quota: %d | ⏱️ Time: %.1fs" % [current_quota_target, time_left])
+	#print("\n--- 🟢 RUN STARTED ---")
+	#print("🎯 Target Quota: %d | ⏱️ Time: %.1fs" % [current_quota_target, time_left])
 
 func _evaluate_quota() -> void:
 	print("\n--- ⏰ TIME IS UP ---")

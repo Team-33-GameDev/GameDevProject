@@ -13,7 +13,7 @@ const SENSITIVITY = 0.005
 @onready var cam_sight = $Head/Camera3D/Cam_sight
 var aim_target
 
-signal interact
+
 
 # Звуки шагов
 var footstep_timer: float = 0.0

@@ -26,10 +26,6 @@ QuotaManager="*uid://qs327fjpkeeu"
 AudioManager="*uid://cqmhu2hodde02"
 FpsManager="*uid://cg28sh4pt63ak"
 
-[display]
-
-window/size/mode=3
-
 [file_customization]
 
 folder_colors={
