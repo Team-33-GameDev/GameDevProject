@@ -23,4 +23,4 @@ Cons: signal flow is harder to trace in the debugger, Autoload is accessible fro
 ## Related
 
 - Quality requirements: QR-01 (Performance Efficiency), QR-02 (Reliability), QR-03 (Usability)
-- Views: [Static View](../static-view/component-diagram.puml), [Dynamic View](../dynamic-view/core-gameplay-sequence.puml)
+- Views: [Static View](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/architecture/%20%20%20static-view/component-diagram.puml), [Dynamic View](../dynamic-view/core-gameplay-sequence.puml)
