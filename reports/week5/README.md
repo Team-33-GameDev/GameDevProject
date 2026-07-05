@@ -26,24 +26,6 @@
 
 ---
 
-## Product Access and Instructions
-* **Product Access Artifact:** [Download MVP v2 Build (Windows/Linux/macOS)](https://github.com/Team-33-GameDev/GameDevProject/releases/tag/v0.3.0)
-* **Run Instructions:** [Root README.md - Setup and Run](https://github.com/Team-33-GameDev/GameDevProject/blob/main/README.md)
-
----
-
-## Customer Feedback Response
-| Feedback point | Resulting PBI or issue | Status | Response |
-|---|---|---|---|
-| The clicking felt unresponsive without visual feedback. | [#55 US-022](https://github.com/Team-33-GameDev/GameDevProject/issues/55) | Done | Added particle effects and screen shake for click feedback. |
-| The shop interface was confusing to navigate. | [#62 US-039](https://github.com/Team-33-GameDev/GameDevProject/issues/62) | Done | Redesigned the Main Display and Shop UI for better clarity. |
-| Players wanted a way to pause the game during intense phases. | [#65 US-041](https://github.com/Team-33-GameDev/GameDevProject/issues/65) | Done | Implemented a fully functional Pause Menu. |
-
-**Explanation of feedback not addressed:**
-* **Request for local multiplayer:** Deferred to MVP v3. The current architecture is heavily single-player focused, and adding multiplayer would require a fundamental redesign of the state management system, which is out of scope for MVP v2. Tracked in [#70](https://github.com/Team-33-GameDev/GameDevProject/issues/70).
-
----
-
 ## Maintained Documentation
 * [docs/roadmap.md](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/roadmap.md)
 * [docs/definition-of-done.md](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/definition-of-done.md)
@@ -69,25 +51,8 @@ Quality requirements such as **Performance (Time Behaviour)** are supported by t
 
 ---
 
-## Testing and CI Status
-* **CI Pipeline:** [GitHub Actions Workflow](https://github.com/Team-33-GameDev/GameDevProject/actions/workflows/ci.yml)
-* **Latest CI Run:** [Passing CI Run on main](https://github.com/Team-33-GameDev/GameDevProject/actions/runs/987654321)
-* **Summary:** All GdUnit4 unit tests and integration tests pass. GDScript linting is clean. The automated QRT for Godot headless export build time (QR-001) passes within the 3-minute threshold. Critical module coverage for the `GameManager` and `ShopSystem` is at 45%.
-
----
-
-## Release and Changelog
-* **SemVer Release (MVP v2):** [v0.3.0 - MVP v2](https://github.com/Team-33-GameDev/GameDevProject/releases/tag/v0.3.0)
+## Changelog
 * **CHANGELOG.md:** [Root CHANGELOG](https://github.com/Team-33-GameDev/GameDevProject/blob/main/CHANGELOG.md)
-
----
-
-## Videos and UAT
-* **Public Sanitized Demo Video:** [Watch MVP v2 Demo (< 2 mins)](https://www.youtube.com/watch?v=example_mvp2_click_to_live)
-* **Public Sanitized UAT Results Summary:** 
-  * **Passed:** UAT-001 (Core Clicking), UAT-002 (Shop Purchase), UAT-003 (Death Phase Reset).
-  * **Failed/Needs Changes:** UAT-004 (Autoclicker Room transition) - minor visual glitch observed. Tracked in [#75](https://github.com/Team-33-GameDev/GameDevProject/issues/75).
-  * **Feedback:** Customer loved the tension-release cycle but requested better audio cues for the Death Phase.
 
 ---
 
@@ -110,16 +75,16 @@ Quality requirements such as **Performance (Time Behaviour)** are supported by t
 ---
 
 ## Current Status and Next Steps
-* **Current Status:** MVP v2 is fully playable, featuring the complete core loop (Preparation -> Clicking -> Death -> Shop). The architecture is documented, and CI/CD pipelines are stable.
-* **Next Steps:** Sprint 4 will focus on endgame content (AI Jailer boss), advanced quota variations, and polishing the dystopian atmosphere with final sound design and music integration.
+* **Current Status:** MVP v2 is playable, featuring the complete core loop (Preparation -> Clicking -> Death). The architecture is documented.
+* **Next Steps:** Sprint 4 will focus on more content.
 
 ---
 
 ## Contribution Traceability
 | Member | Username | Issues | PRs Created | PRs Reviewed |
 |--------|----------|--------|-------------|--------------|
-| Bogdan | @boopEvdakov | #56, #59, #60, #62, #65, #67 | #83, #86-93 | #82, #84 |
-| Rustam | @JohnRutman | | #79-82, #84, #94 | #72-73, #83, #86-90 |
-| Varvara | @Dorohina | #74-78, #99 | #73 | #81 |
-| Yaroslav | @Original-Show | | #85, #96, #97 | #69, #83, #91-95 |
-| David | @dxvlxp | | #71-72, #95, #98 | #85 |
+| Bogdan | @boopEvdakov |  | #162, #166, #169 | #114-120, #159 |
+| Rustam | @JohnRutman | | #165, #168 | #107-164, #167 |
+| Varvara | @Dorohina | #103-106, #109-113, #160-161 |  |  |
+| Yaroslav | @Original-Show | | #167 | #162, #166 |
+| David | @dxvlxp | | #107-164 | #165, #167 |
