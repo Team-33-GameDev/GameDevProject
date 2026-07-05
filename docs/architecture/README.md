@@ -1,5 +1,3 @@
-
-
 ## Table of Contents
 
 - [Static View — Component Diagram](#static-view--component-diagram)
@@ -25,36 +23,37 @@ The component diagram shows the main structural elements of MVP v2:
 
 **Scenes (Room-based architecture)**:
 - `MainMenu` — game entry point
-- `GameRoom` — clicking phase with 3D environment
-- `ShopRoom` — preparation phase with upgrade purchasing
-- `DeathRoom` — failure state with restart option
-- `PauseMenu` — game pause functionality
+- `GameRoom` — clicking phase with 3D environment, TV display with AI eyes
+- `ShopRoom` — preparation phase with upgrade purchasing system
+- `DeathRoom` — failure state (black room with respawn)
 
 **Player Interaction**:
 - `Player` (CharacterBody3D) — FPS controller with WASD + mouse look, RayCast3D
 - `ClickButton` (Node3D) — clickable object with AnimationPlayer
 
-**Shop System**:
+**Shop & Factory System**:
 - `ShopSystem` — manages shop UI and available upgrades
 - `ShopSlot` — individual upgrade slots
-- `ClickFactory` — creates click action decorators
+- `ClickFactory` — creates click action decorators for factories and manual clicks
+- Factory upgrades (5 types): HP, damage, click power, HP recovery, damage amount
 
-**Click Actions**:
+**Click Actions (Decorator Pattern)**:
 - `IClickAction` interface
 - `ClickBase`, `ClickDecorator`
 - `AddClickBonus` (+N), `MultiplyClickBonus` (xN)
+- Used for both factory automation and manual click upgrades
 
-**UI Components**:
-- `TVDisplay` (Main Display) — shows score, timer, quota
-- Autoclicker system components
+**UI & Audio**:
+- `TVDisplay` — main display showing score, timer, quota, AI eyes
+- `AudioSystem` — music and sound effects management
 
 ### Coupling and cohesion
 
-The architecture uses a **room-based design** where each game phase is encapsulated in its own scene. This provides:
+The architecture uses a **room-based design** where each game phase is encapsulated in its own scene:
 
 - **High cohesion** — each room contains its own mechanics, UI, and visuals
 - **Low coupling** — rooms communicate through Autoload singletons and signals
-- **Independent iteration** — ShopRoom can be modified without affecting GameRoom
+- **Independent iteration** — ShopRoom can be modified without affecting GameRoom logic
 
 **Related ADRs:**
 - [ADR-001: Signal-based decoupling](./adr/ADR-001-signal-decoupling.md)
@@ -72,12 +71,12 @@ The architecture uses a **room-based design** where each game phase is encapsula
 The sequence diagram captures the core gameplay loop implemented in MVP v2:
 
 1. **Initial State (IDLE)** — QuotaManager waits for first click
-2. **Player Clicks** — RayCast3D detects ClickButton, GameManager adds score
-3. **QuotaManager Starts Run** — transitions to RUNNING, loads quota [30s, 300], starts timer
-4. **Clicking Phase** — timer counts down, player clicks to reach quota
+2. **Player Clicks** — RayCast3D detects ClickButton, GameManager adds score based on `total_click_power`
+3. **QuotaManager Starts Run** — transitions to RUNNING state, loads quota [30s, 300], starts timer
+4. **Clicking Phase** — timer counts down, player clicks to reach quota, factories generate automatic clicks
 5. **Evaluation** — when timer expires:
-   - **Success** → preparation phase, access to ShopRoom
-   - **Failure** → DeathRoom, 0.5s delay, press R to restart
+   - **Success** → preparation phase, access to ShopRoom for upgrades
+   - **Failure** → DeathRoom (black room), respawn to GameRoom
 
 The diagram shows the tension-release cycle that forms the core of the game experience.
 
@@ -129,7 +128,7 @@ Architecture decisions are recorded in the [`adr/`](./adr/) directory.
 | ID | Title | Related Quality Requirements |
 |---|---|---|
 | [ADR-001](./adr/ADR-001-signal-decoupling.md) | Signal-based decoupling via Autoload singletons | QR-01, QR-02, QR-03 |
-| [ADR-002](./adr/ADR-002-ui-gamestate-decoupling.md) | UI-Game state separation | QR-03, Maintainability |
+| [ADR-002](./adr/ADR-002-ui-gamestate-decoupling.md) | UI-Game state separation via signals | QR-03, Maintainability |
 | [ADR-003](./adr/ADR-003-room-based-design.md) | Room-based SceneTree architecture | QR-01, QR-02 |
 | [ADR-004](./adr/ADR-004-local-deployment.md) | Local-only deployment model | QR-01, QR-02 |
 
