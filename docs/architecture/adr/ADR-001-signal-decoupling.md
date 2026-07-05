@@ -1,7 +1,4 @@
-# ADR-001: Signal-based decoupling via Autoload singletons
 
-**Status:** Accepted  
-**Date:** 2026-07-05
 
 ## Context
 
