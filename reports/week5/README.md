@@ -56,9 +56,6 @@ Quality requirements such as **Performance (Time Behaviour)** are supported by t
 
 ---
 
-## Hosted Documentation
-* **Hosted Docs Site:** [Click to Live Documentation](https://team-33-gamedev.github.io/GameDevProject/)
-
 ---
 
 ## Sprint Review Artifacts
