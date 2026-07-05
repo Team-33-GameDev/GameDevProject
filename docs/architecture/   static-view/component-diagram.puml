@@ -1,0 +1,105 @@
+@startuml component-diagram
+title Click to Live — Static View (Component Diagram)
+skinparam componentStyle rectangle
+skinparam packageStyle frame
+skinparam nodesep 150
+skinparam ranksep 200
+skinparam linetype ortho
+skinparam defaultFontSize 10
+
+actor "Player" as USER
+
+rectangle "Click to Live (Godot 4.6 / GDScript)" {
+  
+  rectangle "Player Interaction" {
+    rectangle "Player\n(CharacterBody3D)" as P
+    rectangle "ClickButton\n(Node3D)" as CB
+  }
+  
+  rectangle "Core Systems (Autoload)" {
+    rectangle "GameManager" as GM
+    rectangle "QuotaManager" as QM
+    rectangle "Events" as EV
+  }
+  
+  rectangle "Shop & Progression" {
+    rectangle "ShopSystem" as SHOP
+    rectangle "ShopSlot" as SLOT
+    rectangle "ClickFactory" as CF
+  }
+  
+  rectangle "Click Actions (Decorator)" as CA {
+    rectangle "IClickAction" as ICA
+    rectangle "ClickBase" as BASE
+    rectangle "ClickDecorator" as DEC
+    rectangle "AddClickBonus" as ADD
+    rectangle "MultiplyClickBonus" as MULT
+  }
+  
+  rectangle "Presentation" {
+    rectangle "TVDisplay" as TV
+  }
+  
+  rectangle "Scenes" {
+    rectangle "GameRoom" as GR
+    rectangle "DeathRoom" as DR
+  }
+}
+
+' === CONNECTIONS ===
+USER --> P : WASD + Mouse
+P --> CB : RayCast3D detects
+CB --> GM : click() -> add_score()
+
+GM --> QM : score_changed signal
+QM --> GM : reset score
+QM --> EV : reset_game()
+EV --> GM : reset tickets
+QM --> DR : change_scene() on failure
+
+USER --> SHOP : interact
+SHOP --> SLOT : manage slots
+SLOT --> GM : spend_score()
+SLOT --> CF : request upgrade
+CF --> BASE : creates
+CF --> ADD : creates (+N)
+CF --> MULT : creates (xN)
+
+ICA <|-- BASE
+ICA <|-- DEC
+DEC <|-- ADD
+DEC <|-- MULT
+
+GM --> TV : update display
+
+' === LEGENDS ===
+note right of GM
+  **GameManager**
+  - score, tickets
+  - base_click_power
+  - additive_bonuses[]
+  - multiplicative_bonuses[]
+  - total_click_power
+  Signals: score_changed,
+           click_power_changed
+end note
+
+note right of QM
+  **QuotaManager**
+  - state: IDLE/RUNNING/GAME_OVER
+  - quotas: [[30s, 300], [30s, 800], ...]
+  - time_left
+  - current_quota_target
+  Signals: run_started,
+           run_ended,
+           timer_updated
+end note
+
+note right of CA
+  **Decorator Pattern**
+  Click power = (base + additive) * multiplicative
+  Allows stacking bonuses
+  without modifying core code
+end note
+
+@enduml

@@ -3,7 +3,7 @@
 Deliver a rogue-lite incremental game with a dystopian setting where the player must fulfill quotas by clicking under time pressure, with meta-progression through permanent upgrades.
 
 ## Sprint 1 — Core Loop Foundation (MVP v1 - PARTIALLY COMPLETED)
-**Status:** Partially Completed  
+**Status:** Completed  
 **Goal:** Implement the core clicking mechanic and 3D environment.
 
 **Completed Scope:**
@@ -22,6 +22,7 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 ---
 
 ## Sprint 2 — Core Loop Completion (MVP v2)
+**Status:** Completed  
 **Goal:** Complete all remaining Must Have stories to establish a fully playable core loop, then begin implementing Should Have features.
 
 **Scope (Priority 1 - Deferred Must Haves):**
@@ -38,7 +39,7 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 - US-023: Shop Interaction
 - US-027: Save/Load System
 
-**Scope (Priority 2 - Could Haves):**
+**Scope (Priority 3 - Could Haves):**
 - US-024: Shop Item - Overtime
 - US-025: Shop Item - Grace Period
 - US-026: Lucky Bonus Upgrade
@@ -52,31 +53,26 @@ Deliver a rogue-lite incremental game with a dystopian setting where the player 
 
 ---
 
-## Sprint 3 — Progression Depth (MVP v3)
-**Goal:** Expand the meta-progression system with additional upgrades, shop items, and save/load functionality.
+## Sprint 3: Progression Depth & MVP v2 (Assignment 5 Increment)
+**Status:** Completed  
+**Goal:** Deliver MVP v2 by expanding the meta-progression system, finalizing the death/upgrade loop, and hardening the software architecture.
 
-**Scope:**
+**Key Deliverables (MVP v2 Scope):**
 
-- US-028: AI Jailer (Boss) Presence
-
-**Deliverable:** MVP v3 — Extended build with deeper progression systems, diverse upgrade paths, and enhanced atmosphere.
+* **Core Loop Finalization:** US-017 (Death Phase & Meta-Progression), US-022 (Visual Feedback for Clicks), US-033 (Big Button).
+* **Shop & Upgrades:** US-024 (Overtime), US-025 (Grace Period), and the newly expanded Autoclicker suite (US-036 to US-043, including Autoclicker Manipulators, Shop Displays, and Autoclicker Rooms).
+* **UX/UI Improvements:** Main Menu integration (PR #162), Pause Menu (US-041), and Better Main Display (US-039).
+* **Architecture & Process:** Finalizing Godot component/sequence diagrams, creating Architecture Decision Records (ADRs) for Godot scene-tree structures, and hosting the documentation site.
 
 ---
 
-## Future Development (Post-MVP v3)
-**Potential Features:**
-- Additional upgrade variety and build diversity
-- Challenge modes and endgame content
-- Final quota and boss ending mechanics
-- Additional room environments and visual variety
-- Sound design and music integration
+## 4. Next Expected Increment: Future Development (MVP v3 / Post-MVP v2)
 
-**Customer Feedback Integration:**
-During the Sprint Review on June 22, 2026, the customer approved the "Click to Live" concept and provided the following guidance:
-- Study **Berry Bury Berry** for inspiration on engaging incremental mechanics and progression pacing
-- Study **CloverPit** for atmospheric design and tension-release cycle implementation
-- Focus on creating meaningful variety in upgrades to support different player builds
-- Ensure the dystopian atmosphere is consistently reinforced through visual and audio design
+**Status:** Planned / Backlog  
+**Goal:** Expand endgame content, introduce adversarial elements, and polish the dystopian atmosphere.  
+**Key Deliverables:**  
+* **US-028:** AI Jailer (Boss) Presence – introducing an adversarial element that disrupts the player's clicking rhythm.
+* **Atmosphere:** Final sound design, music integration, and visual variety for new room environments.
 
 ---
 

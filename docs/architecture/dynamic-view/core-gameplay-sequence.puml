@@ -1,0 +1,78 @@
+@startuml core-gameplay-sequence
+title Dynamic View — Core Gameplay Loop (Click → Quota → Phase Transition)
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor "Player" as P
+participant "Player\n(CharacterBody3D)" as PL
+participant "ClickButton\n(Node3D)" as CB
+participant "GameManager\n(Autoload)" as GM
+participant "QuotaManager\n(Autoload)" as QM
+participant "TVDisplay" as TV
+participant "DeathRoom" as DR
+
+== Initial State (IDLE) ==
+QM -> QM : current_state = IDLE
+QM -> GM : connect(score_changed)
+note right: QuotaManager listens\nfor first click
+
+== Player Clicks Button ==
+P -> PL : WASD movement + mouse look
+PL -> PL : RayCast3D detects ClickButton
+PL -> CB : aim_target.click()
+CB -> CB : emit button_clicked signal
+CB -> CB : play "Button_Clicked" animation
+CB -> GM : click(total_click_power)
+GM -> GM : score += total_click_power
+GM -> GM : emit score_changed(score)
+
+== QuotaManager Reacts ==
+GM -> QM : _on_score_changed(new_score)
+alt current_state == IDLE and new_score > 0
+  QM -> QM : _start_run()
+  QM -> QM : current_state = RUNNING
+  QM -> QM : load quota[0] = [30s, 300]
+  QM -> QM : time_left = 30.0
+  QM -> QM : current_quota_target = 300
+  QM -> QM : emit run_started()
+  QM -> QM : emit quota_updated(300)
+end
+
+== Running Phase (Timer Countdown) ==
+loop every frame
+  QM -> QM : _process(delta)
+  QM -> QM : time_left -= delta
+  QM -> QM : emit timer_updated(time_left)
+  QM -> TV : update display
+end
+
+== Player Continues Clicking ==
+P -> CB : click()
+CB -> GM : add_score()
+GM -> GM : score += total_click_power
+GM -> QM : score_changed signal
+note right: QuotaManager\nmonitors score
+
+== Time Expires ==
+QM -> QM : time_left <= 0.0
+QM -> QM : _evaluate_quota()
+QM -> GM : check GameManager.score
+
+alt score >= current_quota_target (SUCCESS)
+  QM -> QM : emit run_ended(success=true)
+  QM -> GM : score = 0 (reset)
+  QM -> QM : current_quota_index++
+  QM -> QM : current_state = IDLE
+  QM -> QM : emit preparation_phase_started()
+  note right: Player can buy\nupgrades in shop
+else score < current_quota_target (FAILURE)
+  QM -> QM : emit run_ended(success=false)
+  QM -> QM : current_state = GAME_OVER
+  QM -> QM : _trigger_game_over()
+  QM -> GM : score = 0 (reset)
+  QM -> GM : add_tickets(current_quota_index)
+  QM -> DR : change_scene_to_file("death_room.tscn")
+  note over DR: 0.5s delay →\npress R key → restart
+end
+
+@enduml
