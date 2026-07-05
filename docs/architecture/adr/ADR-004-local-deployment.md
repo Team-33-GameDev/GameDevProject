@@ -1,7 +1,3 @@
-# ADR-004: Local-only deployment model
-
-**Status:** Accepted  
-**Date:** 2026-07-05
 
 ## Context
 
