@@ -1,11 +1,5 @@
 # Sprint Review Notes
 
-**Date:** July 5, 2026  
-**Duration:** ~27 minutes  
-**Participants:** Development Lead, Game Designer, Developer 1, Developer 2, Developer 3  
-
----
-
 ## Scope Reviewed
 
 ### 1. Multi-Room Game Concept
