@@ -1,59 +1,187 @@
-extends Node
+extends Node3D
 class_name Factory
+signal request_buy_factory(index: int)
+signal request_upgrade_click(index: int)
+signal request_upgrade_hp(index: int)
+signal request_upgrade_damage(index: int)
+signal request_upgrade_damage_period(index: int)
+signal request_upgrade_rhpt(index: int)
 
-@export var data: AutoClickerData
+@export var template_data: AutoClickerData
 
-var current_hp: int = 0
+@export var label_color: Color
+@export var label_text: String
+@onready var name_label = $NameLable
+var manager: FactoryManager
+var index = 0
+var data: AutoClickerData
 
-func _ready():
-	if data == null:
-		push_error("Factory: data is not set!")
+var timer: Timer
+signal click_performed()
+signal data_updated()
+
+func _ready() -> void:
+	name_label.outline_modulate = label_color
+	name_label.text = label_text
+	if template_data == null:
+		push_error("Factory: template_data is null!")
 		return
-	current_hp = data.max_hp
+	data = template_data.duplicate_data()
+	data.init()
+	data.is_purchased = false 
 	
+	var parent = get_parent()
+	if parent is FactoryManager:
+		manager = parent
+	else:
+		push_error("Factory: parent is not FactoryManager!")
 	
-	# !!!!IMPORTANT NOTE, Timer is using CPU, in the future timer should be single for 
-	# one type of Factory!!!!
-	var timer_click = Timer.new()
-	timer_click.wait_time = data.click_period
-	timer_click.autostart = true
-	timer_click.one_shot = false
-	timer_click.timeout.connect(_on_click_tick)
-	add_child(timer_click)
-	
-	var timer_damage = Timer.new()
-	timer_damage.wait_time = data.damage_period
-	timer_damage.autostart = true
-	timer_damage.one_shot = false
-	timer_damage.timeout.connect(_on_damage_tick)
-	add_child(timer_damage)
 
-func _on_click_tick():
-	if data == null or current_hp <= 0:
-		return
-	GameManager.click(data.click_value)
-	var efficiency = float(current_hp) / float(data.max_hp)
-	#var produced = int(data.output_per_second_full * efficiency)
-
-func _on_damage_tick():
-	if data == null or current_hp <= 0:
-		return
-	current_hp = max(0, current_hp - data.damage)
-	if current_hp == 0:
-		return
+	return
 
 
-func click_restore():
-	if data == null:
-		return
-	if current_hp >= data.max_hp:
-		return
-	current_hp = min(data.max_hp, current_hp + data.restore_per_click)
+@onready var info_label = $NameLable
 
-func get_hp_percent() -> float:
-	if data == null:
-		return 0.0
-	return float(current_hp) / float(data.max_hp) * 100.0
+func _update_ui():
+	if not info_label or not data:
+		return
+	var status = "PURCHASED" if data.is_purchased else "LOCKED"
+	var text = "%s [%s]\nHP: %d/%d (lvl %d)\nClick: %d (lvl %d) \\
+	\nDmg: %d (lvl %d) \\\nDmg Period: %d ticks (lvl %d) \\
+	\nRestore: %d HP/tick (lvl %d)\nClick ticks: %d/%d\nDmg ticks: %d/%d" % [
+			template_data.item_name,
+			status,
+			data.cur_hp,
+			data.max_hp,
+			data.upg_lvl_hp,
+			data.click_value,
+			data.upg_lvl_click,
+			data.dmg,
+			data.upg_lvl_dmg,
+			data.dmg_tick_period,
+			data.upg_lvl_dmg_period,
+			data.rhpt,
+			data.upg_lvl_rhpt,
+			data.cur_click_ticks,
+			data.click_ticks_period,
+			data.cur_tick_dmg,
+			data.dmg_tick_period
+		]
+	info_label.text = text
+#func create_local_data() -> void:
+	#data = template_data.duplicate_data()
+	#data.init()
+	#data.is_purchased = false
+
 
 func is_active() -> bool:
-	return data != null and current_hp > 0
+	return data != null and data.is_purchased and data.is_alive()
+
+func process_tick() -> void:
+	if not data or not data.is_purchased:
+		return
+	data.cur_click_ticks += 1
+	data.cur_tick_dmg += 1
+
+	if data.click():
+		click_performed.emit()
+		data_updated.emit()
+		_update_ui()
+
+	if data.apply_dmg():
+		data_updated.emit()
+		_update_ui()
+		
+
+
+
+
+
+func restore_hp() -> void:
+	if not data or not data.is_purchased:
+		return
+	if data.restore_hp():
+		data_updated.emit()
+		_update_ui()
+		
+
+
+
+# Upgrades 
+func upgrade_click() -> bool:
+	if not data or not data.is_purchased:
+		return false
+	if data.upg_click_value():
+		#data_updated.emit()
+		_update_ui()
+		return true
+	return false
+
+func upgrade_hp() -> bool:
+	if not data or not data.is_purchased:
+		return false
+	if data.upg_max_hp():
+		#data_updated.emit()
+		_update_ui()
+		return true
+	return false
+
+func upgrade_damage() -> bool:
+	if not data or not data.is_purchased:
+		return false
+	if data.upg_dmg():
+		#data_updated.emit()
+		_update_ui()
+		return true
+	return false
+
+func upgrade_damage_period() -> bool:
+	if not data or not data.is_purchased:
+		return false
+	if data.upg_dmg_period():
+		_update_ui()
+		#data_updated.emit()
+		return true
+	return false
+
+func upgrade_rhpt() -> bool:
+	if not data or not data.is_purchased:
+		return false
+	if data.upg_rhpt():
+		_update_ui()
+		#data_updated.emit()
+		return true
+	return false
+
+
+func get_data_copy() -> AutoClickerData:
+	return data.duplicate_data() if data else null
+
+func restore_from_data(saved_data: AutoClickerData) -> void:
+	if saved_data == null:
+		return
+	data = saved_data.duplicate_data()
+	data.cur_hp = min(data.cur_hp, data.max_hp)
+	#data_updated.emit()
+
+	
+func _on_click_button_button_clicked() -> void:
+	request_buy_factory.emit(index)
+
+func _on_click_button_2_button_clicked() -> void:
+	request_upgrade_click.emit(index)
+
+func _on_click_button_3_button_clicked() -> void:
+	request_upgrade_hp.emit(index)
+
+func _on_click_button_4_button_clicked() -> void:
+	request_upgrade_damage.emit(index)
+
+func _on_click_button_5_button_clicked() -> void:
+	request_upgrade_damage_period.emit(index)
+
+func _on_click_button_6_button_clicked() -> void:
+	request_upgrade_rhpt.emit(index)
+
+func _on_click_button_7_button_clicked() -> void:
+	restore_hp()

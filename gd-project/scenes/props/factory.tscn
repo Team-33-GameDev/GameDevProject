@@ -1,8 +1,79 @@
-[gd_scene format=3 uid="uid://0yuhfu03pqrh"]
+[gd_scene format=3 uid="uid://b1htddpscxdvm"]
 
-[ext_resource type="Script" uid="uid://c6jcl5o4t5imm" path="res://scripts/core/factories/click_factory.gd" id="1_de6rp"]
-[ext_resource type="Resource" uid="uid://c4ht5bctjrnew" path="res://resources/shop_items/wooden_autoclick_data.tres" id="2_n8tla"]
+[ext_resource type="Script" uid="uid://c6jcl5o4t5imm" path="res://scripts/core/factories/click_factory.gd" id="1_tmskx"]
+[ext_resource type="Resource" uid="uid://c2ijhoo14fo43" path="res://resources/shop_items/autoclicker/metal_autoclick_data.tres" id="2_au0hw"]
+[ext_resource type="PackedScene" uid="uid://5lfe6esf0d5d" path="res://scenes/props/click_button.tscn" id="3_t1u22"]
 
-[node name="Factory" type="Node3D" unique_id=1209149137]
-script = ExtResource("1_de6rp")
-data = ExtResource("2_n8tla")
+[sub_resource type="BoxMesh" id="BoxMesh_6i0id"]
+size = Vector3(2, 3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tmskx"]
+size = Vector3(2, 3, 1)
+
+[node name="Factory" type="Node3D" unique_id=687323493]
+script = ExtResource("1_tmskx")
+template_data = ExtResource("2_au0hw")
+label_color = Color(0.40784314, 0, 0.23529412, 1)
+label_text = "Factory"
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=1205238016]
+
+[node name="3D Model2" type="Node3D" parent="." unique_id=1914102423]
+
+[node name="FactoryMeshInstance3D" type="MeshInstance3D" parent="3D Model2" unique_id=1442511776]
+mesh = SubResource("BoxMesh_6i0id")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="3D Model2/FactoryMeshInstance3D" unique_id=1937458199]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3D Model2/FactoryMeshInstance3D/StaticBody3D" unique_id=1277478981]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0029296875, 6.1035156e-05, 0)
+shape = SubResource("BoxShape3D_tmskx")
+
+[node name="ClickButton" parent="3D Model2" unique_id=304157062 instance=ExtResource("3_t1u22")]
+transform = Transform3D(0.6000001, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.7646432, 0.82160133, 1.2631276)
+
+[node name="ClickButton2" parent="3D Model2" unique_id=969371832 instance=ExtResource("3_t1u22")]
+transform = Transform3D(0.36740503, 0, 0, 0, 0.36708003, 0, 0, 0, 0.367, 0.3427725, 0.82160133, 1.2631276)
+
+[node name="ClickButton3" parent="3D Model2" unique_id=905122368 instance=ExtResource("3_t1u22")]
+transform = Transform3D(0.36740506, 0, 0, 0, 0.36708006, 0, 0, 0, 0.367, 0.045241058, 0.82160133, 1.2631276)
+
+[node name="ClickButton4" parent="3D Model2" unique_id=1907582903 instance=ExtResource("3_t1u22")]
+transform = Transform3D(0.3674051, 0, 0, 0, 0.3670801, 0, 0, 0, 0.367, -0.24170423, 0.82160133, 1.2631276)
+
+[node name="ClickButton5" parent="3D Model2" unique_id=1045923540 instance=ExtResource("3_t1u22")]
+transform = Transform3D(0.36740512, 0, 0, 0, 0.3670801, 0, 0, 0, 0.367, -0.5283903, 0.82160133, 1.2631276)
+
+[node name="ClickButton6" parent="3D Model2" unique_id=1484194691 instance=ExtResource("3_t1u22")]
+transform = Transform3D(0.36740515, 0, 0, 0, 0.3670801, 0, 0, 0, 0.367, -0.8075905, 0.82160133, 1.2631276)
+
+[node name="ClickButton7" parent="3D Model2" unique_id=236348920 instance=ExtResource("3_t1u22")]
+transform = Transform3D(0.805, 0, 0, 0, 0.805, 0, 0, 0, 0.805, -0.71104795, 0.82160133, 0.83024204)
+
+[node name="FactoryMeshInstance3D2" type="MeshInstance3D" parent="3D Model2" unique_id=264482088]
+transform = Transform3D(1, 0, 0, 0, 0.14, 0, 0, 0, 1, 0, 0.560007, 0.991)
+mesh = SubResource("BoxMesh_6i0id")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="3D Model2/FactoryMeshInstance3D2" unique_id=1165606620]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3D Model2/FactoryMeshInstance3D2/StaticBody3D" unique_id=1754111418]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0029296875, 6.1035156e-05, 0)
+shape = SubResource("BoxShape3D_tmskx")
+
+[node name="NameLable" type="Label3D" parent="." unique_id=417058833]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0016179085, 2.572725, 0.50286245)
+pixel_size = 0.015
+texture_filter = 0
+outline_modulate = Color(0.40784314, 0, 0.23529412, 1)
+text = "Factory Slot
+"
+font_size = 16
+outline_size = 33
+
+[connection signal="button_clicked" from="3D Model2/ClickButton" to="." method="_on_click_button_button_clicked"]
+[connection signal="button_clicked" from="3D Model2/ClickButton2" to="." method="_on_click_button_2_button_clicked"]
+[connection signal="button_clicked" from="3D Model2/ClickButton3" to="." method="_on_click_button_3_button_clicked"]
+[connection signal="button_clicked" from="3D Model2/ClickButton4" to="." method="_on_click_button_4_button_clicked"]
+[connection signal="button_clicked" from="3D Model2/ClickButton5" to="." method="_on_click_button_5_button_clicked"]
+[connection signal="button_clicked" from="3D Model2/ClickButton6" to="." method="_on_click_button_6_button_clicked"]
+[connection signal="button_clicked" from="3D Model2/ClickButton7" to="." method="_on_click_button_7_button_clicked"]

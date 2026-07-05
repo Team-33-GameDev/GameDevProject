@@ -16,7 +16,7 @@ const SENSITIVITY = 0.005
 @onready var cam_sight = $Head/Camera3D/Cam_sight
 var aim_target
 
-signal interact
+
 
 
 func _ready() -> void:

@@ -1,9 +1,9 @@
 extends Node3D
 
 class_name ShopSlot3D
-
-@onready var spawn_point: Marker3D = $SpawnPoint
-@onready var price_label: Label3D = $PriceLabel
+#
+#@onready var spawn_point: Marker3D = $SpawnPoint
+#@onready var price_label: Label3D = $PriceLabel
 
 #var current_item_data: ItemData
 #var spawned_mesh: Node3D

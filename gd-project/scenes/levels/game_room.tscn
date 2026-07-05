@@ -13,9 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://btpaq7jjj48yb" path="res://assets/models/rack.glb" id="12_og8p1"]
 [ext_resource type="PackedScene" uid="uid://dbbjrcffx8ycm" path="res://assets/models/door.glb" id="13_wruq6"]
 [ext_resource type="PackedScene" uid="uid://d1wka00q8eltb" path="res://assets/models/ventilation.glb" id="14_wruq6"]
-[ext_resource type="Script" uid="uid://dn68uc5y6kvmo" path="res://scripts/components/shop/shop_slot.gd" id="15_gpf6e"]
+[ext_resource type="PackedScene" uid="uid://ctm7s8l0xptky" path="res://scenes/props/factory_manager.tscn" id="15_p5jwx"]
 [ext_resource type="PackedScene" uid="uid://drysr83387cnd" path="res://scenes/props/shop_system.tscn" id="15_shop"]
-[ext_resource type="PackedScene" uid="uid://b1htddpscxdvm" path="res://scenes/props/factory_slot.tscn" id="16_gpf6e"]
 
 [sub_resource type="Environment" id="Environment_hjm0p"]
 
@@ -211,10 +210,9 @@ transform = Transform3D(-2.8412401e-08, 0, -0.65, 0, 0.65, 0, 0.65, 0, -2.841240
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Room_objects/комната_пустая2/StaticBody3D" unique_id=872684488]
 shape = SubResource("ConvexPolygonShape3D_knoj5")
 
-[node name="Shop" parent="." unique_id=624140076 instance=ExtResource("15_shop")]
-script = ExtResource("15_gpf6e")
+[node name="ShopSystem" parent="." unique_id=49439873 instance=ExtResource("15_shop")]
 
-[node name="Factory_Slot" parent="." unique_id=687323493 instance=ExtResource("16_gpf6e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3287296, 1.208642, -3.6302714)
+[node name="FactoryManager" parent="." unique_id=1074804808 instance=ExtResource("15_p5jwx")]
+transform = Transform3D(-3.2564984e-08, 0, -0.745, 0, 0.745, 0, 0.745, 0, -3.2564984e-08, 2.928533, 0.73001647, -0.11234391)
 
 [connection signal="button_clicked" from="Buttons/ClickButton" to="." method="_on_click_button_button_clicked"]

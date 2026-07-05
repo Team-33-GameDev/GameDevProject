@@ -12,6 +12,6 @@ func _process(delta: float) -> void:
 	pass
 
 func click():
-	print("Click_button: has been clicked, click AGAIN!")
+	#print("Click_button: has been clicked, click AGAIN!")
 	button_clicked.emit()
 	aniPlayer.play("Button_Clicked")

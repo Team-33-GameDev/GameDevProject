@@ -88,8 +88,7 @@ func duplicate_data() -> ClickUpgradeData:
 	var new = ClickUpgradeData.new()
 	new.item_name = item_name
 	new.description = description
-	new.price = price
-	# Копируем собственные поля
+	new.item_price = item_price
 	new.base_click_power = base_click_power
 	new.total_clicks = total_clicks
 	new.add_bonus_per_level = add_bonus_per_level

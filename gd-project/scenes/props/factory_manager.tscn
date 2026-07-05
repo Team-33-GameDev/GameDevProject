@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ctm7s8l0xptky"]
+
+[ext_resource type="Script" uid="uid://cfe0k87r1hxis" path="res://scripts/globals/factory_manager.gd" id="1_us5cr"]
+[ext_resource type="PackedScene" uid="uid://b1htddpscxdvm" path="res://scenes/props/factory.tscn" id="2_xpgwd"]
+[ext_resource type="Resource" uid="uid://c4ht5bctjrnew" path="res://resources/shop_items/autoclicker/wooden_autoclick_data.tres" id="3_xpgwd"]
+
+[node name="FactoryManager" type="Node3D" unique_id=1074804808]
+script = ExtResource("1_us5cr")
+
+[node name="Factory" parent="." unique_id=687323493 groups=["factory"] instance=ExtResource("2_xpgwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.044162, 0, 0)
+template_data = ExtResource("3_xpgwd")
+label_color = Color(0, 0, 0, 1)
+label_text = "Factory 0"
+
+[node name="Factory2" parent="." unique_id=1824591140 groups=["factory"] instance=ExtResource("2_xpgwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02687502, 0, 0)
+template_data = ExtResource("3_xpgwd")
+label_color = Color(0, 0, 0, 1)
+label_text = "Factory 1"
+
+[node name="Factory3" parent="." unique_id=1102059553 groups=["factory"] instance=ExtResource("2_xpgwd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8417144, 0, 0)
+label_color = Color(0, 0, 0, 1)
+label_text = "Factory 2"
