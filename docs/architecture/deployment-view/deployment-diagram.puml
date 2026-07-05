@@ -1,1 +1,45 @@
+@startuml deployment-diagram
+title Deployment View — Click to Live Distribution Model
+skinparam nodeStyle rectangle
+skinparam nodesep 60
+skinparam ranksep 80
 
+node "Development Environment" as DEV {
+  node "Developer Workstation" as WS {
+    artifact "Godot Editor 4.6+\n(Forward Plus Renderer)" as GODOT
+    artifact "GDScript Source Code\n(scripts/)" as SRC
+    artifact "Blender Assets\n(.blend files)" as BLEND
+    artifact "Git Repository" as GIT
+  }
+}
+
+node "Player Environment" as PE {
+  node "Player Machine (Windows)" as PM {
+    artifact "Click to Live Executable\n(D3D12 Rendering Driver)" as EXE
+    artifact "Godot Runtime (embedded)" as RT
+    artifact "Jolt Physics Engine" as JOLT
+    artifact "Local Save Data\n(user://)" as SAVE
+  }
+}
+
+SRC --> EXE : export via Godot\n(Windows preset)
+BLEND --> EXE : imported as meshes
+EXE --> SAVE : read/write\n(save games, settings)
+
+note right of DEV
+  **Development Stack**
+  - Godot 4.6.1
+  - GDScript
+  - Blender for 3D assets
+  - Git for version control
+end note
+
+note right of PE
+  **Runtime Stack**
+  - D3D12 rendering driver
+  - Jolt Physics for 3D physics
+  - Local save data in user://
+  - No server required
+end note
+
+@enduml
