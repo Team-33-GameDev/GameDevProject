@@ -4,6 +4,8 @@ signal click
 
 func _ready() -> void:
 	click.connect(_on_click)
+	if click_upgrade_data:
+		SaveManager.register_click_upgrade_data(click_upgrade_data)
 
 
 # CLICK
@@ -24,6 +26,7 @@ func upgrade_click_add() -> bool:
 	click_upgrade_data.upgrade_add()
 	GameManager.spend_score(price)
 	click_upgraded.emit("add")
+	SaveManager.save_game()
 	return true
 
 func get_click_add_level() -> int:
@@ -39,6 +42,7 @@ func upgrade_click_mult() -> bool:
 	click_upgrade_data.upgrade_mult()
 	GameManager.spend_score(price)
 	click_upgraded.emit("mult")
+	SaveManager.save_game()
 	return true
 
 func get_click_mult_level() -> int:
@@ -54,6 +58,7 @@ func upgrade_click_percent() -> bool:
 	click_upgrade_data.upgrade_percent()
 	GameManager.spend_score(price)
 	click_upgraded.emit("percent")
+	SaveManager.save_game()
 	return true
 
 func get_click_percent_level() -> int:
@@ -69,6 +74,7 @@ func upgrade_click_crit() -> bool:
 	click_upgrade_data.upgrade_crit()
 	GameManager.spend_score(price)
 	click_upgraded.emit("crit")
+	SaveManager.save_game()
 	return true
 
 func get_click_crit_level() -> int:
