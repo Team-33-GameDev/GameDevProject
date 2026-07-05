@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://s11a83xecfgc" path="res://scripts/core/death_room.gd" id="1_psf7u"]
 [ext_resource type="PackedScene" uid="uid://6stmcgq62iml" path="res://scenes/characters/player.tscn" id="2_q3e75"]
+[ext_resource type="AudioStream" uid="uid://hbd1oj5bjpqj" path="res://assets/audio/ambient.mp3.mp3" id="3_bck37"]
+[ext_resource type="Texture2D" uid="uid://d2e4d7glu2fcr" path="res://assets/display/eyes/red_eyes_points.png" id="4_48i6g"]
 
 [sub_resource type="Environment" id="Environment_b1s0r"]
 
@@ -9,7 +11,7 @@
 size = Vector3(7.255, 0.29367676, 7.12)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psf7u"]
-albedo_color = Color(0.34407577, 0.34407574, 0.34407574, 1)
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bck37"]
 points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.20757934, -3.617579, -3.6850786, -0.20757934, 3.6374202, -3.6850786, 0.25305554, -3.617579, 3.6850567, -0.20757934, -3.617579, -3.6850786, 0.25305554, 3.6374202, 3.6850567, -0.20757934, 3.6374202, 3.6850567, 0.25305554, -3.617579)
@@ -20,9 +22,11 @@ script = ExtResource("1_psf7u")
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1738217548]
 transform = Transform3D(-0.8660254, -0.5000001, -3.7252907e-09, 1.2904785e-08, -2.980232e-08, 1, -0.50000006, 0.8660254, 3.226196e-08, 0.34915864, 9.140188, -0.3493477)
 light_color = Color(1.0984948, 0.29736498, 0, 1)
-light_energy = 5.31
-spot_range = 8.955302
-spot_angle = 40.89167
+light_energy = 8.121
+shadow_bias = 1.807
+spot_range = 9.341
+spot_attenuation = 0.0
+spot_angle = 26.39
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2100417659]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 20.540073, 18.200731, 19.67006)
@@ -34,7 +38,7 @@ shadow_enabled = true
 environment = SubResource("Environment_b1s0r")
 
 [node name="Player" parent="." unique_id=1100387674 instance=ExtResource("2_q3e75")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29444146, 3.474465, -0.7806158)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4660325, 3.057031, -0.35807222)
 
 [node name="Box" type="Node3D" parent="." unique_id=1867311302]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29444146, 3.474465, -0.7806158)
@@ -98,3 +102,51 @@ surface_material_override/0 = SubResource("StandardMaterial3D_psf7u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Wall_left/StaticBody3D" unique_id=1639457668]
 shape = SubResource("ConvexPolygonShape3D_bck37")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1383118475]
+stream = ExtResource("3_bck37")
+autoplay = true
+
+[node name="Eyes" type="Sprite3D" parent="." unique_id=1452655947]
+process_mode = 3
+physics_interpolation_mode = 1
+auto_translate_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26419306, 4.724969, -5.271218)
+gi_mode = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("4_48i6g")
+
+[node name="Eyes2" type="Sprite3D" parent="." unique_id=1064706068]
+process_mode = 3
+physics_interpolation_mode = 1
+auto_translate_mode = 1
+transform = Transform3D(-4.371139e-08, 0, 0.99999994, 0, 0.99999994, 0, -1, 0, -4.3711385e-08, -4.9552765, 4.6107845, -0.6376004)
+gi_mode = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("4_48i6g")
+
+[node name="Eyes3" type="Sprite3D" parent="." unique_id=1644996403]
+process_mode = 3
+physics_interpolation_mode = 1
+auto_translate_mode = 1
+transform = Transform3D(-0.99999994, 0, -8.742276e-08, 0, 0.9999999, 0, 8.742278e-08, 0, -0.99999994, -0.16496849, 4.5587587, 3.795413)
+gi_mode = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("4_48i6g")
+
+[node name="Eyes4" type="Sprite3D" parent="." unique_id=220068561]
+process_mode = 3
+physics_interpolation_mode = 1
+auto_translate_mode = 1
+transform = Transform3D(-4.3711385e-08, 0, 0.9999999, 0, 0.99999976, 0, -0.9999999, 0, -4.3711385e-08, 4.7765465, 4.6806965, -0.45722246)
+gi_mode = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("4_48i6g")

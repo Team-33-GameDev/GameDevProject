@@ -12,13 +12,19 @@ config_version=5
 
 config/name="GDProject"
 run/main_scene="uid://ch713q6p12xxm"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://b877ut16aj6oe"
 
 [autoload]
 
 GameManager="*uid://b380fyqs7e7wx"
 QuotaManager="*uid://qs327fjpkeeu"
+AudioManager="*uid://cqmhu2hodde02"
+FpsManager="*uid://cg28sh4pt63ak"
 
 [file_customization]
 

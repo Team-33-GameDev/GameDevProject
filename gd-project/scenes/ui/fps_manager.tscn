@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cg28sh4pt63ak"]
+
+[ext_resource type="Script" uid="uid://couyea6xbe0e4" path="res://scenes/ui/fps_manager.gd" id="1_fstoh"]
+
+[node name="FpsManager_tscn" type="CanvasLayer" unique_id=871629251]
+script = ExtResource("1_fstoh")
