@@ -50,10 +50,21 @@ func _ready():
 		settings_btn.mouse_entered.connect(_on_settings_mouse_entered)
 	if quit_btn:
 		quit_btn.mouse_entered.connect(_on_quit_mouse_entered)
+	%ContinueButton.disabled = not SaveManager.has_save()
+	%ContinueButton.mouse_entered.connect(_on_play_button_mouse_entered)
+
+func _on_continue_button_pressed():
+	AudioManager.play_sfx("menu_click")
+	AudioManager.stop_music()
+	SaveManager.load_game()
+	get_tree().change_scene_to_file("res://scenes/levels/game_room.tscn")
 
 func _on_play_button_pressed():
 	AudioManager.play_sfx("menu_click")
 	AudioManager.stop_music()
+	SaveManager.reset_progress()
+	GameManager.reset_game()
+	QuotaManager.reset_game()
 	get_tree().change_scene_to_file("res://scenes/levels/game_room.tscn")
 
 func _on_settings_pressed():
@@ -65,11 +76,12 @@ func _on_settings_pressed():
 
 func _on_quit_pressed():
 	AudioManager.play_sfx("menu_click")
+	SaveManager.save_game()
 	get_tree().quit()
 
 func _on_play_button_mouse_entered():
 	AudioManager.play_sfx("menu_hover")
-
+	
 func _on_settings_mouse_entered():
 	AudioManager.play_sfx("menu_hover")
 
