@@ -39,8 +39,6 @@
 
 ## Architecture and ADRs
 * **Architecture Index:** [docs/architecture/README.md](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/architecture/README.md)
-* **Static View:** [Component Diagram Source](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/architecture/static-view/component-diagram.puml)
-* **Dynamic View:** [Sequence Diagram - Shop Purchase Flow](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/architecture/dynamic-view/sequence-diagram.puml)
 * **Deployment View:** [Deployment Diagram Source](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/architecture/deployment-view/deployment-diagram.puml)
 * **ADR Index:** [docs/architecture/adr/](https://github.com/Team-33-GameDev/GameDevProject/tree/main/docs/architecture/adr)
 
