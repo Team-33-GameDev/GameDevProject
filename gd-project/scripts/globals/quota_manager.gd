@@ -105,14 +105,14 @@ func _evaluate_quota() -> void:
 func _trigger_game_over() -> void:
 	print("💀 GAME OVER. Restarting simulation...")
 	
-	# Сбрасываем прогресс квот для новой игры
+	GameManager.add_tickets(current_quota_index)
+	
+	SaveManager.reset_progress()
+	
 	current_quota_index = 0 
 	
-	# Сбрасываем очки (Важно! Autoload живет между сценами, поэтому обнуляем вручную)
 	GameManager.score = 0 
-	GameManager.add_tickets(current_quota_index)
 	current_state = GameState.IDLE 
-	# Перезагружаем текущую сцену (комнату)
 	get_tree().change_scene_to_file("res://scenes/levels/death_room.tscn")
 
 func pause_game() -> void:
