@@ -9,8 +9,8 @@
 
 ## Static View — Component Diagram
 
-**Source:** [`static-view/component-diagram.puml`](./static-view/component-diagram.puml)  
-**Rendered:** [`static-view/component-diagram.svg`](./static-view/component-diagram.svg)
+**Source:** [`static-view/component-diagram.puml`](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/architecture/%20%20%20static-view/component-diagram.puml)  
+**Rendered:** [`static-view/component-diagram.svg`](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/architecture/%20%20%20static-view/component-diagram.svg)
 
 ### What the diagram shows
 
