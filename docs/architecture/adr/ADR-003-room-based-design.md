@@ -1,8 +1,3 @@
-# ADR-003: Room-based SceneTree architecture
-
-**Status:** Accepted  
-**Date:** 2026-07-05
-
 ## Context
 
 The game has distinct phases with different mechanics, UI, and rules:
