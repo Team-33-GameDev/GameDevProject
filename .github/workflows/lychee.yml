@@ -24,5 +24,6 @@ jobs:
             --exclude "^file://"
             --exclude "https://github.com/orgs/Team-33-GameDev/projects/.*"
             --exclude "https://gitlab.pg.innopolis.university/.*"
+            --max-redirects 5
             '**/*.md'
           fail: true
