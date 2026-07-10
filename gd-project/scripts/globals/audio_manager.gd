@@ -78,3 +78,61 @@ func stop_music():
 
 func play_button_click():
 	play_sfx("click")
+# Для 3D звуков с позиционированием
+func play_sfx_3d(sfx_name: String, position: Vector3, parent: Node, pitch: float = 1.0):
+	if not sfx_sounds.has(sfx_name):
+		print(" SFX не найден: ", sfx_name)
+		return
+	
+	var player = AudioStreamPlayer3D.new()
+	player.stream = sfx_sounds[sfx_name]
+	player.pitch_scale = pitch
+	
+	# СНАЧАЛА добавляем в сцену
+	parent.add_child(player)
+	
+	# ПОТОМ устанавливаем позицию
+	player.global_position = position
+	
+	# Настройки затухания (Godot 4)
+	player.max_distance = 20.0
+	player.attenuation_model = AudioStreamPlayer3D.ATTENUATION_INVERSE_DISTANCE
+	player.unit_size = 1.0
+	
+	player.play()
+	
+	# Автоудаление после воспроизведения
+	player.finished.connect(func(): 
+		if player:
+			player.queue_free()
+	)
+
+# Для звуков которые играют постоянно (эмбиент)
+func play_sfx_3d_loop(sfx_name: String, position: Vector3, parent: Node):
+	if not sfx_sounds.has(sfx_name):
+		print("🔊 SFX не найден: ", sfx_name)
+		return null
+	
+	var player = AudioStreamPlayer3D.new()
+	player.stream = sfx_sounds[sfx_name]
+	
+	# СНАЧАЛА добавляем в сцену
+	parent.add_child(player)
+	
+	# ПОТОМ устанавливаем позицию
+	player.global_position = position
+	
+	# Настройки затухания (Godot 4)
+	player.max_distance = 30.0
+	player.attenuation_model = AudioStreamPlayer3D.ATTENUATION_INVERSE_DISTANCE
+	player.unit_size = 1.0
+	player.bus = "SFX"
+	
+	player.play()
+	
+	return player
+
+func stop_sfx_3d(player: AudioStreamPlayer3D):
+	if player:
+		player.stop()
+		player.queue_free()
