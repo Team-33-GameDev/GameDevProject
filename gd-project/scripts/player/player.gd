@@ -23,6 +23,10 @@ var was_moving: bool = false
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	# Добавляем AudioListener для 3D звука
+	var listener = AudioListener3D.new()
+	$Head/Camera3D.add_child(listener)
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Пауза на ESC
