@@ -46,6 +46,7 @@ import/blender/enabled.web=true
 selectable="The group of object that can be selected on the scene when player aim on them "
 interactable=""
 clickable="Object that can be clicked by mouse botton and will do something after that "
+can_click_big_button=""
 
 [input]
 

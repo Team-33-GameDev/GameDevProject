@@ -135,3 +135,18 @@ func reset_game() -> void:
 	GameManager.score = 0
 	
 	print("🔄 Game progress reset.")
+
+
+#Some logic of qouta decreasing 
+func decrease_quota(decrease_percent : float) -> bool:
+	print("QuotaManager: 
+	Target quota %d, 
+	Decrease percent %.2f, 
+	Total Decrease %d" % [current_quota_target, decrease_percent, int(float(current_quota_target) * decrease_percent)])
+
+	current_quota_target -= int(float(current_quota_target) * decrease_percent)
+	if (current_quota_target < 0): 
+		current_quota_target = 0
+		return false
+	quota_updated.emit(current_quota_target)
+	return true
