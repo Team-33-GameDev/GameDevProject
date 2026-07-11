@@ -1,0 +1,198 @@
+[gd_scene format=3 uid="uid://dxqeif5uariag"]
+
+[ext_resource type="FontFile" uid="uid://cybqoovqfq46b" path="res://assets/ui/VT323-Regular.ttf" id="1_1xs3t"]
+[ext_resource type="Script" uid="uid://byg5w8eghmijp" path="res://scripts/components/fabric_manager/factory_manager_screens.gd" id="1_yntq7"]
+[ext_resource type="PackedScene" uid="uid://nhddtxqotrkv" path="res://scenes/props/factory_manager_display/factory_slot.tscn" id="2_y71be"]
+[ext_resource type="StyleBox" uid="uid://kgjiio38pavx" path="res://assets/style/next_normal.tres" id="3_y71be"]
+[ext_resource type="StyleBox" uid="uid://cuawsbkh3bglf" path="res://assets/style/next_pressed.tres" id="4_r8ig8"]
+[ext_resource type="StyleBox" uid="uid://2eam7w4yc86q" path="res://assets/style/next_hover.tres" id="5_yntq7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tp7h8"]
+
+[node name="FactoryManagerScreen" type="Control" unique_id=267126241]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yntq7")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1598642458]
+material = SubResource("ShaderMaterial_tp7h8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11372549, 0.2627451, 0.8509804, 1)
+
+[node name="Title" type="Label" parent="." unique_id=1565265518]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -240.0
+offset_top = 16.0
+offset_right = 240.0
+offset_bottom = 96.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_1xs3t")
+theme_override_font_sizes/font_size = 80
+text = "Factory Manager"
+horizontal_alignment = 1
+
+[node name="PagesController" type="Control" parent="." unique_id=1353941563]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = 352.0
+offset_right = -8.0
+offset_bottom = 352.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Page1" type="Control" parent="PagesController" unique_id=2142831072]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -352.0
+offset_right = 8.0
+offset_bottom = -352.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FactoriesRow" type="HBoxContainer" parent="PagesController/Page1" unique_id=1438976166]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -455.0
+offset_top = -196.0
+offset_right = 455.0
+offset_bottom = 276.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 80
+
+[node name="WoodenFactory" parent="PagesController/Page1/FactoriesRow" unique_id=1155258319 instance=ExtResource("2_y71be")]
+layout_mode = 2
+
+[node name="Label" parent="PagesController/Page1/FactoriesRow/WoodenFactory/FactorySlot" parent_id_path=PackedInt32Array(1155258319, 1155258319) index="0" unique_id=234858261]
+text = "WOODEN
+FACTORY"
+
+[node name="StoneFactory" parent="PagesController/Page1/FactoriesRow" unique_id=227500957 instance=ExtResource("2_y71be")]
+layout_mode = 2
+
+[node name="Label" parent="PagesController/Page1/FactoriesRow/StoneFactory/FactorySlot" parent_id_path=PackedInt32Array(227500957, 1155258319) index="0" unique_id=234858261]
+text = "STONE
+FACTORY"
+
+[node name="CooperFactory" parent="PagesController/Page1/FactoriesRow" unique_id=1985582984 instance=ExtResource("2_y71be")]
+layout_mode = 2
+
+[node name="Label" parent="PagesController/Page1/FactoriesRow/CooperFactory/FactorySlot" parent_id_path=PackedInt32Array(1985582984, 1155258319) index="0" unique_id=234858261]
+text = "COPPER
+FACTORY"
+
+[node name="NextPageButton" type="Button" parent="PagesController/Page1" unique_id=1270218471]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.55600005
+anchor_right = 1.0
+anchor_bottom = 0.55600005
+offset_left = -48.0
+offset_top = -26.788025
+offset_bottom = 26.211975
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_1xs3t")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = ExtResource("3_y71be")
+theme_override_styles/pressed = ExtResource("4_r8ig8")
+theme_override_styles/hover = ExtResource("5_yntq7")
+text = ">"
+
+[node name="Page2" type="Control" parent="PagesController" unique_id=1754038003]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -352.0
+offset_right = 8.0
+offset_bottom = -352.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FactoriesRow" type="HBoxContainer" parent="PagesController/Page2" unique_id=1114311352]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -455.0
+offset_top = -196.0
+offset_right = 455.0
+offset_bottom = 276.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 80
+
+[node name="IronFactory" parent="PagesController/Page2/FactoriesRow" unique_id=557038834 instance=ExtResource("2_y71be")]
+layout_mode = 2
+
+[node name="Label" parent="PagesController/Page2/FactoriesRow/IronFactory/FactorySlot" parent_id_path=PackedInt32Array(557038834, 1155258319) index="0" unique_id=234858261]
+text = "IRON
+FACTORY"
+
+[node name="GoldenFactory" parent="PagesController/Page2/FactoriesRow" unique_id=432058528 instance=ExtResource("2_y71be")]
+layout_mode = 2
+
+[node name="Label" parent="PagesController/Page2/FactoriesRow/GoldenFactory/FactorySlot" parent_id_path=PackedInt32Array(432058528, 1155258319) index="0" unique_id=234858261]
+text = "GOLDEN
+FACTORY"
+
+[node name="DiamondFactory" parent="PagesController/Page2/FactoriesRow" unique_id=534415981 instance=ExtResource("2_y71be")]
+layout_mode = 2
+
+[node name="Label" parent="PagesController/Page2/FactoriesRow/DiamondFactory/FactorySlot" parent_id_path=PackedInt32Array(534415981, 1155258319) index="0" unique_id=234858261]
+text = "DIAMOND
+FACTORY"
+
+[node name="PrevPageButton" type="Button" parent="PagesController/Page2" unique_id=1979954990]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.55600005
+anchor_right = 1.0
+anchor_bottom = 0.55600005
+offset_left = -1152.0
+offset_top = -34.288025
+offset_right = -1104.0
+offset_bottom = 33.711975
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_1xs3t")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = ExtResource("3_y71be")
+theme_override_styles/pressed = ExtResource("4_r8ig8")
+theme_override_styles/hover = ExtResource("5_yntq7")
+text = "<"
+
+[editable path="PagesController/Page1/FactoriesRow/WoodenFactory"]
+[editable path="PagesController/Page1/FactoriesRow/StoneFactory"]
+[editable path="PagesController/Page1/FactoriesRow/CooperFactory"]
+[editable path="PagesController/Page2/FactoriesRow/IronFactory"]
+[editable path="PagesController/Page2/FactoriesRow/GoldenFactory"]
+[editable path="PagesController/Page2/FactoriesRow/DiamondFactory"]

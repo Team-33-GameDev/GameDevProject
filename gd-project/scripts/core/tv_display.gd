@@ -11,7 +11,6 @@ var lbl_timer: Label
 var lbl_cps: Label
 var lbl_cost: Label
 
-
 func _ready() -> void:
 	_find_labels()
 	_setup_labels()
@@ -23,6 +22,9 @@ func _ready() -> void:
 		QuotaManager.run_started.connect(_on_run_started)
 		QuotaManager.run_ended.connect(_on_run_ended)
 		QuotaManager.preparation_phase_started.connect(_on_preparation_phase_started)
+		# Подключаемся к сигналу обновления квоты (если есть)
+		if QuotaManager.has_signal("quota_updated"):
+			QuotaManager.quota_updated.connect(_on_quota_updated)
 	
 	_show_eyes("PRESS THE BUTTON TO BEGIN")
 	AudioManager.play_sfx("Evilai", 1.0)
@@ -64,7 +66,8 @@ func show_eyes_temporarily(duration: float = 3.0, message: String = "") -> void:
 	_show_main_screen()
 
 func _on_score_changed(new_score: int) -> void:
-	if lbl_score_val: lbl_score_val.text = str(new_score)
+	if lbl_score_val:
+		lbl_score_val.text = str(new_score)
 
 func _on_timer_updated(time_left: float) -> void:
 	if not lbl_timer: return
@@ -73,27 +76,52 @@ func _on_timer_updated(time_left: float) -> void:
 	lbl_timer.text = "%02d:%02d" % [m, s]
 	lbl_timer.modulate = Color.RED if time_left <= 5.0 else Color.WHITE
 
+func _on_quota_updated(target: int) -> void:
+	if lbl_quota_val:
+		lbl_quota_val.text = str(target)
+
 func _on_run_started() -> void:
 	_show_main_screen()
+	if lbl_quota_title:
+		lbl_quota_title.text = "QUOTA"
+	# Обновляем квоту при старте раунда
+	_update_quota_display()
+	# Сбрасываем таймер на белый цвет
+	if lbl_timer:
+		lbl_timer.modulate = Color.WHITE
 
 func _on_run_ended(success: bool) -> void:
 	if lbl_timer:
 		lbl_timer.text = "SUCCESS" if success else "FAILED"
 		lbl_timer.modulate = Color.GREEN if success else Color.RED
+	
+	# Ждём 2 секунды и обновляем дисплей
+	await get_tree().create_timer(2.0).timeout
+	_update_display()
 
 func _on_preparation_phase_started() -> void:
-	if lbl_quota_title: lbl_quota_title.text = "Quota"
-	if lbl_score_val: lbl_score_val.text = str(GameManager.score)
-	if lbl_quota_val and QuotaManager:
-		var idx = QuotaManager.current_quota_index
-		if idx < QuotaManager.quotas.size():
-			lbl_quota_val.text = str(QuotaManager.quotas[idx][1])
+	if lbl_quota_title:
+		lbl_quota_title.text = "QUOTA"
+	_update_display()
 
 func _update_display() -> void:
-	if lbl_score_val: lbl_score_val.text = str(GameManager.score)
-	if lbl_quota_val and QuotaManager:
-		var idx = QuotaManager.current_quota_index
-		if idx < QuotaManager.quotas.size():
-			lbl_quota_val.text = str(QuotaManager.quotas[idx][1])
+	# Обновляем счёт
+	if lbl_score_val:
+		lbl_score_val.text = str(GameManager.score)
+	
+	# Обновляем квоту
+	_update_quota_display()
+	
+	# Заглушки
 	if lbl_cps: lbl_cps.text = "CPS: 0"
 	if lbl_cost: lbl_cost.text = "COST: 1"
+
+func _update_quota_display() -> void:
+	if not lbl_quota_val or not QuotaManager:
+		return
+	
+	var idx = QuotaManager.current_quota_index
+	if idx < QuotaManager.quotas.size():
+		lbl_quota_val.text = str(QuotaManager.quotas[idx][1])
+	else:
+		lbl_quota_val.text = "ALL DONE"
