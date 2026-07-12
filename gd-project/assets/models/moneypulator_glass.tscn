@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bp0bmwnu4anh"]
+
+[ext_resource type="PackedScene" uid="uid://cmw1x0v4kmslb" path="res://assets/models/moneypulator_glass.glb" id="1_3waw8"]
+
+[node name="moneypulator_glass" unique_id=148636408 instance=ExtResource("1_3waw8")]
