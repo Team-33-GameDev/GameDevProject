@@ -42,6 +42,8 @@ points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.207
 [node name="GameRoom" type="Node3D" unique_id=1207060130]
 script = ExtResource("1_wlvec")
 
+[node name="ShopSystem" parent="." unique_id=49439873 instance=ExtResource("15_shop")]
+
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=306939987]
 transform = Transform3D(-0.8660254, -0.5000001, -3.7252907e-09, 1.2904785e-08, -2.980232e-08, 1, -0.50000006, 0.8660254, 3.226196e-08, 0.22649813, 5.880452, -0.24326968)
 light_color = Color(0.4037958, 0.7031228, 0.9999996, 1)

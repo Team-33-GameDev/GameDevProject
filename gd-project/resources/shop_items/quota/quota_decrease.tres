@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="QuotaData" format=3 uid="uid://dck5lrmqexyw1"]
+
+[ext_resource type="Script" uid="uid://ccaecqdl6cve2" path="res://resources/shop_items/quota_data.gd" id="1_hsgkc"]
+
+[resource]
+script = ExtResource("1_hsgkc")
+condition_click = 3
+metadata/_custom_type_script = "uid://ccaecqdl6cve2"
