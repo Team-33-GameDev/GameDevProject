@@ -2,15 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://dofa43wuhxybx" path="res://assets/models/lamp.glb" id="1_l0wp4"]
 [ext_resource type="PackedScene" uid="uid://bhhhng2em6bwo" path="res://assets/models/room_empty_big_button.glb" id="1_nmjpf"]
-[ext_resource type="PackedScene" uid="uid://bmrlw875m32jc" path="res://assets/models/big_button.glb" id="3_xf5gg"]
+[ext_resource type="PackedScene" uid="uid://6qjvhtlc0prv" path="res://scenes/props/quota_value_decrease.tscn" id="3_bv6ui"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_f1n2c"]
 size = Vector3(7.255, 0.3, 7.12)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_l0wp4"]
 points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.20757934, -3.617579, -3.6850786, -0.20757934, 3.6374202, -3.6850786, 0.25305554, -3.617579, 3.6850567, -0.20757934, -3.617579, -3.6850786, 0.25305554, 3.6374202, 3.6850567, -0.20757934, 3.6374202, 3.6850567, 0.25305554, -3.617579)
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_xf5gg"]
 
 [node name="BigButtonRoom" type="Node3D" unique_id=2143751424]
 
@@ -101,17 +99,11 @@ mesh = SubResource("BoxMesh_f1n2c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Wall_left/StaticBody3D" unique_id=385012383]
 shape = SubResource("ConvexPolygonShape3D_l0wp4")
 
-[node name="big_button" parent="Box" unique_id=1088991049 instance=ExtResource("3_xf5gg")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -1.88, 1.259168)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Box/big_button" unique_id=1871136558]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/big_button/StaticBody3D" unique_id=1352336507]
-transform = Transform3D(2.678273, 0, 0, 0, 0.75499403, 0, 0, 0, 2.6097229, 0, 0, 0)
-shape = SubResource("CylinderShape3D_xf5gg")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=772005051]
 transform = Transform3D(-0.99883914, 0.04171628, -0.024084868, 2.7805946e-08, 0.49999994, 0.86602545, 0.04816979, 0.86502016, -0.4994195, 27.579636, 16.074268, 5.3751807)
 light_color = Color(0.16924527, 0.1692453, 0.16924527, 1)
 light_energy = 0.258
 shadow_enabled = true
+
+[node name="QuotaValueDecrease" parent="." unique_id=2115439831 instance=ExtResource("3_bv6ui")]
+transform = Transform3D(2.25, 0, 0, 0, 2.25, 0, 0, 0, 2.25, -0.06286895, -0.056441247, -0.2769413)

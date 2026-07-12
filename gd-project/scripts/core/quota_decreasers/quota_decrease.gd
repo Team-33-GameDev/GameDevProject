@@ -1,7 +1,7 @@
 extends Node3D
 @export var template_data: QuotaData
 var data: QuotaData
-
+@onready var quota_inf = $QuotaInf
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	data = template_data.duplicate_data()
@@ -11,8 +11,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
-
+	var text = "Quota: %d/%d" % [GameManager.score, QuotaManager.current_quota_target]
+	quota_inf.text = text
 
 
 
