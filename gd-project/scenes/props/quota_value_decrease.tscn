@@ -8,6 +8,16 @@
 script = ExtResource("1_shmvg")
 template_data = ExtResource("2_8js3x")
 
+[node name="QuotaInf" type="Label3D" parent="." unique_id=408507878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0346065, -0.9377353)
+text = "INF"
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1899908627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7198343, -0.98408324)
+text = "Decrease target quota on 5 %
+from current target quota 
+JUMP 3 times "
+
 [node name="Big Button" parent="." unique_id=548379183 instance=ExtResource("2_shmvg")]
 
 [connection signal="button_clicked" from="Big Button" to="." method="_on_big_button_button_clicked"]

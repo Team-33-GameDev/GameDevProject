@@ -52,7 +52,7 @@ func _update_ui():
 	\nDmg: %d (lvl %d) LVL UP: price %d
 	\nDmg Period: %d ticks (lvl %d) LVL UP: %d
 	\nRestore: %d HP/tick (lvl %d) LVL UP: %d
-	\nClick ticks: %d/%d 
+	\nClick ticks: %d/%d 	
 	\nDmg ticks: %d/%d" % [
 			template_data.item_name,
 			status,
