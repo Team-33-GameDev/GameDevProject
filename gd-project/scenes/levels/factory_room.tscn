@@ -167,7 +167,7 @@ transform = Transform3D(4.7699524e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.7699524e-09
 
 [node name="Control" parent="CanvasLayer" unique_id=1361941140 instance=ExtResource("7_e04ft")]
 
-[node name="factory_manager_entity" parent="." unique_id=789695469 instance=ExtResource("8_ehan2")]
+[node name="factory_manager_entity" parent="." unique_id=789695469 groups=["clickable"] instance=ExtResource("8_ehan2")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -6.0213804, -0.23855674, 2.7250373)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="factory_manager_entity" unique_id=1249592838]
