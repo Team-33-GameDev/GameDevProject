@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://6qjvhtlc0prv"]
+
+[ext_resource type="Script" uid="uid://dwgbgvrrf4qop" path="res://scripts/core/quota_decreasers/quota_decrease.gd" id="1_shmvg"]
+[ext_resource type="Resource" uid="uid://dck5lrmqexyw1" path="res://resources/shop_items/quota/quota_decrease.tres" id="2_8js3x"]
+[ext_resource type="PackedScene" uid="uid://cvk6c8r63vau" path="res://scenes/props/big_button.tscn" id="2_shmvg"]
+
+[node name="QuotaValueDecrease" type="Node3D" unique_id=2115439831]
+script = ExtResource("1_shmvg")
+template_data = ExtResource("2_8js3x")
+
+[node name="Big Button" parent="." unique_id=548379183 instance=ExtResource("2_shmvg")]
+
+[connection signal="button_clicked" from="Big Button" to="." method="_on_big_button_button_clicked"]
