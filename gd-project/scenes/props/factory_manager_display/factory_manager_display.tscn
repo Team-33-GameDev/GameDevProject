@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bb3ofjuxs3ljt"]
+
+[ext_resource type="PackedScene" uid="uid://dxqeif5uariag" path="res://scenes/props/factory_manager_display/factory_manager_screens.tscn" id="1_qt13t"]
+[ext_resource type="Shader" uid="uid://df3hms7og5df3" path="res://scripts/shaders/display.gdshader" id="1_uotgh"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yf5fn"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1na1"]
+shader = ExtResource("1_uotgh")
+shader_parameter/intensity = 1.0
+shader_parameter/glitch_frequency = 0.10000000149012
+shader_parameter/glitch_duration = 0.00999999977648
+shader_parameter/red_displacement = 0.0190000009025
+shader_parameter/green_displacement = 0.02
+shader_parameter/blue_displacement = 0.10000000149012
+shader_parameter/scanline_intensity = 0.050000002375
+shader_parameter/noise_intensity = 0.366000017385
+shader_parameter/slice_intensity = 0.56400002679
+shader_parameter/ghost_intensity = 0.5
+shader_parameter/negative_intensity = 0.9150000434625
+
+[node name="FactoryManagerDisplay" type="Sprite3D" unique_id=1537646579]
+texture = SubResource("ViewportTexture_yf5fn")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1223538558]
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport" unique_id=319372979]
+visible = false
+material = SubResource("ShaderMaterial_m1na1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11372549, 0.2627451, 0.8509804, 1)
+
+[node name="FactoryManagerScreen" parent="SubViewport" unique_id=267126241 instance=ExtResource("1_qt13t")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
