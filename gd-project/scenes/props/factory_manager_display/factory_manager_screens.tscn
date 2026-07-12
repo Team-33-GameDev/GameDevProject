@@ -17,6 +17,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yntq7")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1964020794]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.001
+anchor_bottom = 1.0
+offset_right = -0.15209961
+color = Color(0.11372549, 0.2627451, 0.8509804, 1)
+
 [node name="Title" type="Label" parent="." unique_id=1565265518]
 layout_mode = 1
 anchors_preset = 5
@@ -178,6 +186,8 @@ theme_override_styles/normal = ExtResource("3_y71be")
 theme_override_styles/pressed = ExtResource("4_r8ig8")
 theme_override_styles/hover = ExtResource("5_yntq7")
 text = "<"
+
+[connection signal="pressed" from="PagesController/Page1/FactoriesRow/WoodenFactory/FactorySlot/BuyButton" to="PagesController/Page1/FactoriesRow/WoodenFactory" method="_on_buy_button_pressed"]
 
 [editable path="PagesController/Page1/FactoriesRow/WoodenFactory"]
 [editable path="PagesController/Page1/FactoriesRow/StoneFactory"]

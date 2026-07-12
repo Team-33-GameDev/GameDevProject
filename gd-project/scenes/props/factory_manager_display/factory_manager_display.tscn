@@ -28,6 +28,7 @@ size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="ColorRect" type="ColorRect" parent="SubViewport" unique_id=319372979]
+visible = false
 material = SubResource("ShaderMaterial_m1na1")
 anchors_preset = 15
 anchor_right = 1.0
