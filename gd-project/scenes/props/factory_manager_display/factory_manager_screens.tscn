@@ -7,26 +7,15 @@
 [ext_resource type="StyleBox" uid="uid://cuawsbkh3bglf" path="res://assets/style/next_pressed.tres" id="4_r8ig8"]
 [ext_resource type="StyleBox" uid="uid://2eam7w4yc86q" path="res://assets/style/next_hover.tres" id="5_yntq7"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tp7h8"]
-
 [node name="FactoryManagerScreen" type="Control" unique_id=267126241]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_right = 1.9930001
+anchor_bottom = 1.988
+offset_right = -1143.9363
+offset_bottom = -640.224
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yntq7")
-
-[node name="Background" type="ColorRect" parent="." unique_id=1598642458]
-material = SubResource("ShaderMaterial_tp7h8")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.11372549, 0.2627451, 0.8509804, 1)
 
 [node name="Title" type="Label" parent="." unique_id=1565265518]
 layout_mode = 1

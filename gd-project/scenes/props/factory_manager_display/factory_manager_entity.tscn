@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://nfgc2jcjj7h7"]
+
+[ext_resource type="PackedScene" uid="uid://cfer628tqsham" path="res://assets/models/shop.glb" id="1_oy0hp"]
+[ext_resource type="Script" uid="uid://yawyam0cfwaa" path="res://scenes/props/factory_manager_display/factory_manager_entity.gd" id="2_acoxy"]
+[ext_resource type="PackedScene" uid="uid://bb3ofjuxs3ljt" path="res://scenes/props/factory_manager_display/factory_manager_display.tscn" id="2_msw45"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_msw45"]
+viewport_path = NodePath("SubViewport")
+
+[node name="fabric_manager_entity" unique_id=789695469 instance=ExtResource("1_oy0hp")]
+script = ExtResource("2_acoxy")
+
+[node name="Cube_001" parent="." index="0" unique_id=878127818]
+transform = Transform3D(-4.279345e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -0.979, 4.371139e-08, 1.9106855e-15, 1.1081634, 0.81772965, -0.7347209)
+
+[node name="Cube_003" parent="." index="1" unique_id=1979593959]
+transform = Transform3D(0.08, 0, 0, 0, 0.915, 0, 0, 0, 1.589, 0.8684163, 4.5290084, -0.7684374)
+
+[node name="Node3D" type="Node3D" parent="Cube_003" index="0" unique_id=1349344206]
+transform = Transform3D(12.500001, 0, 0, 0, 1.0928962, 0, 0, 0, 0.6293267, -11.280705, -4.7061715, 0.4726649)
+
+[node name="FactoryManagerDisplay" parent="Cube_003/Node3D" index="0" unique_id=1537646579 instance=ExtResource("2_msw45")]
+transform = Transform3D(-1.0490733e-08, 0, 0.24, 0, 0.25, 0, -0.24, 0, -1.0490733e-08, 0.91971064, 4.3051243, -0.73961633)
+modulate = Color(0.3882353, 0.5921569, 1, 1)
+texture = SubResource("ViewportTexture_msw45")
