@@ -1,10 +1,8 @@
 [gd_scene format=3 uid="uid://4sebpbpjva8v"]
 
-[ext_resource type="PackedScene" uid="uid://bw2lrul8rrt46" path="res://assets/models/room_empty_with_roof.glb" id="1_jwwn2"]
 [ext_resource type="PackedScene" uid="uid://dofa43wuhxybx" path="res://assets/models/lamp.glb" id="1_l0wp4"]
-[ext_resource type="PackedScene" uid="uid://6stmcgq62iml" path="res://scenes/characters/player.tscn" id="2_f1n2c"]
+[ext_resource type="PackedScene" uid="uid://bhhhng2em6bwo" path="res://assets/models/room_empty_big_button.glb" id="1_nmjpf"]
 [ext_resource type="PackedScene" uid="uid://bmrlw875m32jc" path="res://assets/models/big_button.glb" id="3_xf5gg"]
-[ext_resource type="PackedScene" uid="uid://b0ktvijayof3k" path="res://scenes/ui/PauseMenu.tscn" id="5_nmjpf"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_f1n2c"]
 size = Vector3(7.255, 0.3, 7.12)
@@ -14,13 +12,13 @@ points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.207
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_xf5gg"]
 
-[sub_resource type="Environment" id="Environment_l0wp4"]
-glow_enabled = true
-
 [node name="BigButtonRoom" type="Node3D" unique_id=2143751424]
 
 [node name="Box" type="Node3D" parent="." unique_id=1756749357]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7109432, -1.276)
+
+[node name="room_empty_big_button" parent="Box" unique_id=1673375158 instance=ExtResource("1_nmjpf")]
+transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.8412401e-08, 0, -2.26, 1.28)
 
 [node name="lamp2" parent="Box" unique_id=2059276856 instance=ExtResource("1_l0wp4")]
 transform = Transform3D(-0.4, 6.039832e-08, 0, -6.039832e-08, -0.4, 0, 0, 0, 0.4, -3.2764747, 4.2453213, 1.2661027)
@@ -58,9 +56,6 @@ spot_attenuation = 1.61
 spot_angle = 65.84
 spot_angle_attenuation = 1.6817954
 
-[node name="room_empty_with_roof" parent="Box" unique_id=528388569 instance=ExtResource("1_jwwn2")]
-transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.8412401e-08, 0, -2.2670448, 1.2803037)
-
 [node name="Floor" type="MeshInstance3D" parent="Box" unique_id=1228913860]
 transform = Transform3D(1.9530226, 0, 0, 0, 2, 0, 0, 0, 1.5, 0, -2.5084124, 1.1806631)
 mesh = SubResource("BoxMesh_f1n2c")
@@ -68,15 +63,6 @@ mesh = SubResource("BoxMesh_f1n2c")
 [node name="StaticBody3D" type="StaticBody3D" parent="Box/Floor" unique_id=2057951552]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Floor/StaticBody3D" unique_id=820366375]
-shape = SubResource("ConvexPolygonShape3D_l0wp4")
-
-[node name="Wall_right" type="MeshInstance3D" parent="Box" unique_id=992341560]
-transform = Transform3D(1.9753892, 0, 0, 0, -8.742278e-08, -1.0351806, 0, 2, -4.5249173e-08, 0, 1.5217199, 6.217581)
-mesh = SubResource("BoxMesh_f1n2c")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Box/Wall_right" unique_id=1010675901]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Wall_right/StaticBody3D" unique_id=1687850220]
 shape = SubResource("ConvexPolygonShape3D_l0wp4")
 
 [node name="Roof" type="MeshInstance3D" parent="Box" unique_id=1503811382]
@@ -129,13 +115,3 @@ transform = Transform3D(-0.99883914, 0.04171628, -0.024084868, 2.7805946e-08, 0.
 light_color = Color(0.16924527, 0.1692453, 0.16924527, 1)
 light_energy = 0.258
 shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=664565407]
-environment = SubResource("Environment_l0wp4")
-
-[node name="Player" parent="." unique_id=1100387674 instance=ExtResource("2_f1n2c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.007, 1, -0.548)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=471828221]
-
-[node name="Control" parent="CanvasLayer" unique_id=1361941140 instance=ExtResource("5_nmjpf")]
