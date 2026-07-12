@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var mc_button = $Buttons/ClickButton
-@onready var shop = $ShopSystem
+@onready var shop = $Shop
 var factory_scene = preload("res://scenes/props/factory.tscn")
 signal click
 

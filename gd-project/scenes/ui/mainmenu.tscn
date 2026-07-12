@@ -2,6 +2,21 @@
 
 [ext_resource type="Script" uid="uid://csbfemvh15fcn" path="res://scenes/ui/mainmenu.gd" id="1_c040g"]
 [ext_resource type="FontFile" uid="uid://cybqoovqfq46b" path="res://assets/ui/VT323-Regular.ttf" id="2_nudk7"]
+[ext_resource type="Shader" uid="uid://df3hms7og5df3" path="res://scripts/shaders/display.gdshader" id="2_wxwbn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wruq6"]
+shader = ExtResource("2_wxwbn")
+shader_parameter/intensity = 1.0
+shader_parameter/glitch_frequency = 2.0
+shader_parameter/glitch_duration = 0.1
+shader_parameter/red_displacement = 0.02
+shader_parameter/green_displacement = 0.02
+shader_parameter/blue_displacement = 0.02
+shader_parameter/scanline_intensity = 0.3
+shader_parameter/noise_intensity = 0.2
+shader_parameter/slice_intensity = 0.4
+shader_parameter/ghost_intensity = 0.1
+shader_parameter/negative_intensity = 1.0
 
 [node name="Control" type="Control" unique_id=1361941140]
 layout_mode = 3
@@ -13,6 +28,7 @@ grow_vertical = 2
 script = ExtResource("1_c040g")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1954250144]
+material = SubResource("ShaderMaterial_wruq6")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
