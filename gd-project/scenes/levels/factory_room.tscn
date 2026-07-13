@@ -209,5 +209,6 @@ transform = Transform3D(3.6181486, 0, 0, 0, 7.669595, 0, 0, 0, 3.5349164, 0.3896
 shape = SubResource("BoxShape3D_k1bj6")
 
 [node name="FactoryManagerOverlay" type="CanvasLayer" parent="." unique_id=1137721011]
+process_mode = 2
 
 [node name="FactoryManagerScreen" parent="FactoryManagerOverlay" unique_id=267126241 instance=ExtResource("8_1qede")]
