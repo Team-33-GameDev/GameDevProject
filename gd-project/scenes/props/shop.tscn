@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://bd15702xhyl7w" path="res://resources/shop_items/basic_click.tres" id="2_bai65"]
 [ext_resource type="Script" uid="uid://dofydyjcnq5qu" path="res://resources/shop_items/autoclicker_data.gd" id="2_guj2o"]
 [ext_resource type="Resource" uid="uid://c4ht5bctjrnew" path="res://resources/shop_items/autoclicker/wooden_autoclick_data.tres" id="2_j11pq"]
-[ext_resource type="Resource" uid="uid://c2ijhoo14fo43" path="res://resources/shop_items/autoclicker/metal_autoclick_data.tres" id="3_guj2o"]
+[ext_resource type="Resource" uid="uid://c2ijhoo14fo43" path="res://resources/shop_items/autoclicker/copper_autoclick_data.tres" id="3_guj2o"]
 
 [node name="Shop" type="Node3D" unique_id=859627458]
 script = ExtResource("1_arxiw")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b1htddpscxdvm"]
 
 [ext_resource type="Script" uid="uid://c6jcl5o4t5imm" path="res://scripts/core/factories/click_factory.gd" id="1_tmskx"]
-[ext_resource type="Resource" uid="uid://c2ijhoo14fo43" path="res://resources/shop_items/autoclicker/metal_autoclick_data.tres" id="2_au0hw"]
+[ext_resource type="Resource" uid="uid://c2ijhoo14fo43" path="res://resources/shop_items/autoclicker/copper_autoclick_data.tres" id="2_au0hw"]
 [ext_resource type="PackedScene" uid="uid://5lfe6esf0d5d" path="res://scenes/props/click_button.tscn" id="3_t1u22"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6i0id"]

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="AutoClickerData" format=3 uid="uid://c2ijhoo14fo43"]
+
+[ext_resource type="Script" uid="uid://dofydyjcnq5qu" path="res://resources/shop_items/autoclicker_data.gd" id="1_drw6e"]
+
+[resource]
+script = ExtResource("1_drw6e")
+click_value = 15
+max_hp = 200
+rhpt = 8
+dmg = 3
+bonus_max_hp = 20
+ubp_max_hp = 750
+bonus_click_value = 5
+ubp_click_value = 750
+ubp_dmg = 750
+ubp_dmg_period = 750
+bonus_rhpt = 3
+ubp_rhpt = 750
+item_name = "Copper Factory"
+item_price = 1500
+can_buy = true
+metadata/_custom_type_script = "uid://dofydyjcnq5qu"

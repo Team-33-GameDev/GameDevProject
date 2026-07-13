@@ -39,16 +39,25 @@ func _discover_factories() -> void:
 	all_factories.clear()
 	active_factories.clear()
 
-	var nodes = get_tree().get_nodes_in_group("factory")
-	var i: int = 0
-	for node in nodes:
-		if node is Factory:
-			node.index = i
-			all_factories.append(node)
-			if node.data and node.data.is_purchased:
-				active_factories.append(node)
-			i += 1
-	print("FactoryManager: Discovered %d factories." % all_factories.size())
+	for child in get_children():
+		if child is not Factory:
+			continue
+
+		var factory := child as Factory
+
+		factory.index = all_factories.size()
+		all_factories.append(factory)
+
+		if (
+			factory.data != null
+			and factory.data.is_purchased
+		):
+			active_factories.append(factory)
+
+	print(
+		"FactoryManager: Discovered %d factories."
+		% all_factories.size()
+	)
 
 func _create_timer() -> void:
 	timer = Timer.new()

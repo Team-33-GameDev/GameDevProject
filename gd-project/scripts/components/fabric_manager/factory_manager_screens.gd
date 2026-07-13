@@ -65,27 +65,14 @@ func setup(manager) -> void:
 	for index in range(factory_slots.size()):
 		var slot = factory_slots[index]
 
-		if not slot.has_method("setup"):
-			push_error(
-				"FactoryManagerScreen: slot %s has no setup() method."
-				% slot.name
-			)
-			continue
-
 		if index < factory_count:
 			slot.setup(factory_manager, index)
 		else:
-			if slot.has_method("show_unavailable"):
-				slot.show_unavailable("COMING SOON")
+			slot.show_unavailable()
 
 	print(
 		"FactoryManagerScreen connected %d backend factories."
 		% factory_count
-	)
-
-	print(
-		"FactoryManagerScreen: Wooden Factory connected "
-		+ "to backend index 0."
 	)
 
 

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="AutoClickerData" format=3 uid="uid://bjhiwvsk7wuyt"]
+
+[ext_resource type="Script" uid="uid://dofydyjcnq5qu" path="res://resources/shop_items/autoclicker_data.gd" id="1_46o21"]
+
+[resource]
+script = ExtResource("1_46o21")
+click_value = 5
+max_hp = 150
+rhpt = 6
+dmg = 2
+bonus_max_hp = 15
+ubp_max_hp = 250
+bonus_click_value = 2
+ubp_click_value = 250
+ubp_dmg = 250
+ubp_rhpt = 250
+item_name = "Stone Finger"
+description = "Click click click"
+item_price = 500
+can_buy = true
+metadata/_custom_type_script = "uid://dofydyjcnq5qu"
