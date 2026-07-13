@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://nfgc2jcjj7h7" path="res://scenes/props/factory_manager_display/factory_manager_entity.tscn" id="8_ehan2"]
 [ext_resource type="PackedScene" uid="uid://dq7833himt7oi" path="res://assets/models/moneypulator_gold.glb" id="9_ehan2"]
 [ext_resource type="PackedScene" uid="uid://b00dx1jidv7d3" path="res://assets/models/moneypulator_glass.glb" id="10_i3cy2"]
+[ext_resource type="PackedScene" uid="uid://ctm7s8l0xptky" path="res://scenes/props/factory_manager.tscn" id="13_krh7k"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_id0bx"]
 size = Vector3(7.255, 0.3, 7.12)
@@ -212,3 +213,8 @@ shape = SubResource("BoxShape3D_k1bj6")
 process_mode = 2
 
 [node name="FactoryManagerScreen" parent="FactoryManagerOverlay" unique_id=267126241 instance=ExtResource("8_1qede")]
+
+[node name="FactoryBackend" parent="." unique_id=1074804808 instance=ExtResource("13_krh7k")]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1000, 0)
+visible = false

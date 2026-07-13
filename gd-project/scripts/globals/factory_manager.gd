@@ -19,7 +19,6 @@ var active_factories: Array[Factory] = []
 
 
 func _ready() -> void:
-	GameManager.add_score(100000000000)
 	_discover_factories()
 	_connect_factory_signals() 
 	_create_timer()
@@ -37,6 +36,9 @@ func _ready() -> void:
 	#buy_factory(2)
 
 func _discover_factories() -> void:
+	all_factories.clear()
+	active_factories.clear()
+
 	var nodes = get_tree().get_nodes_in_group("factory")
 	var i: int = 0
 	for node in nodes:

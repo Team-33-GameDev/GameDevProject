@@ -16,8 +16,19 @@ signal close_requested
 @onready var prev_page_button: Button = \
 	$PagesController/Page2/PrevPageButton
 
+@onready var factory_slots = [
+	$PagesController/Page1/FactoriesRow/WoodenFactory,
+	$PagesController/Page1/FactoriesRow/StoneFactory,
+	$PagesController/Page1/FactoriesRow/CooperFactory,
+	$PagesController/Page2/FactoriesRow/IronFactory,
+	$PagesController/Page2/FactoriesRow/GoldenFactory,
+	$PagesController/Page2/FactoriesRow/DiamondFactory
+]
 
+
+var factory_manager = null
 var current_page: int = 0
+
 const TOTAL_PAGES: int = 2
 
 
@@ -39,15 +50,51 @@ func _ready() -> void:
 		)
 
 
+func setup(manager) -> void:
+	factory_manager = manager
+
+	if factory_manager == null:
+		push_error(
+			"FactoryManagerScreen: manager is null."
+		)
+		return
+
+	var factories = factory_manager.get_all_factories()
+	var factory_count: int = factories.size()
+
+	for index in range(factory_slots.size()):
+		var slot = factory_slots[index]
+
+		if not slot.has_method("setup"):
+			push_error(
+				"FactoryManagerScreen: slot %s has no setup() method."
+				% slot.name
+			)
+			continue
+
+		if index < factory_count:
+			slot.setup(factory_manager, index)
+		else:
+			if slot.has_method("show_unavailable"):
+				slot.show_unavailable("COMING SOON")
+
+	print(
+		"FactoryManagerScreen connected %d backend factories."
+		% factory_count
+	)
+
+	print(
+		"FactoryManagerScreen: Wooden Factory connected "
+		+ "to backend index 0."
+	)
+
+
 func _input(event: InputEvent) -> void:
 	if not is_visible_in_tree():
 		return
 
 	if event.is_action_pressed("ui_cancel"):
 		close_requested.emit()
-
-		# Не даём тому же Escape открыть обычное PauseMenu
-		# через player.gd.
 		get_viewport().set_input_as_handled()
 
 
