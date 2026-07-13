@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://btpaq7jjj48yb" path="res://assets/models/rack.glb" id="12_og8p1"]
 [ext_resource type="PackedScene" uid="uid://b0ktvijayof3k" path="res://scenes/ui/PauseMenu.tscn" id="14_p5jwx"]
 [ext_resource type="PackedScene" uid="uid://d1wka00q8eltb" path="res://assets/models/ventilation.glb" id="14_wruq6"]
+[ext_resource type="PackedScene" uid="uid://clhj5s54yba67" path="res://assets/models/green_button.glb" id="15_e8u5p"]
 [ext_resource type="PackedScene" uid="uid://dhyjthbxihqrk" path="res://scenes/levels/factory_room.tscn" id="15_gpf6e"]
 [ext_resource type="PackedScene" uid="uid://drysr83387cnd" path="res://scenes/props/shop_system.tscn" id="15_shop"]
 [ext_resource type="PackedScene" uid="uid://4sebpbpjva8v" path="res://scenes/levels/big_button_room.tscn" id="16_e8u5p"]
@@ -251,10 +252,28 @@ transform = Transform3D(-2.622683e-08, -2.6226836e-08, 0.6, -0.6, -2.6226834e-08
 [node name="FactoryRoom" parent="." unique_id=900522601 instance=ExtResource("15_gpf6e")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8.501455, -3.8146973e-06, 10.278127)
 
-[node name="room_empty_without_door" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="0" unique_id=630867899]
+[node name="green_button" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="0" unique_id=362850112 instance=ExtResource("15_e8u5p")]
+transform = Transform3D(-0.7, 6.119594e-08, 2.6749597e-15, 0, -3.059797e-08, 0.7, 6.119594e-08, 0.7, 3.059797e-08, -6.0498056, 0.26622272, -3.1100016)
+
+[node name="green_button2" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="1" unique_id=780177953 instance=ExtResource("15_e8u5p")]
+transform = Transform3D(-0.7, 6.119594e-08, 2.67496e-15, 0, -3.059797e-08, 0.7, 6.119594e-08, 0.7, 3.059797e-08, -3.9968057, 0.26622272, -3.1100016)
+
+[node name="green_button3" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="2" unique_id=2048200155 instance=ExtResource("15_e8u5p")]
+transform = Transform3D(-0.7, 6.119594e-08, 2.67496e-15, 0, -3.059797e-08, 0.7, 6.119594e-08, 0.7, 3.059797e-08, -2.01095, 0.26622272, -3.1100016)
+
+[node name="green_button4" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="3" unique_id=552453297 instance=ExtResource("15_e8u5p")]
+transform = Transform3D(-0.7, 6.119594e-08, 2.67496e-15, 0, -3.059797e-08, 0.7, 6.119594e-08, 0.7, 3.059797e-08, -0.0017910004, 0.26622272, -3.1100016)
+
+[node name="green_button5" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="4" unique_id=494442473 instance=ExtResource("15_e8u5p")]
+transform = Transform3D(-0.7, 6.119594e-08, 2.67496e-15, 0, -3.059797e-08, 0.7, 6.119594e-08, 0.7, 3.059797e-08, 2.0041895, 0.26622272, -3.1100016)
+
+[node name="green_button6" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="5" unique_id=1436820865 instance=ExtResource("15_e8u5p")]
+transform = Transform3D(-0.7, 6.119594e-08, 2.67496e-15, 0, -3.059797e-08, 0.7, 6.119594e-08, 0.7, 3.059797e-08, 4.0046053, 0.26622272, -3.1100016)
+
+[node name="room_empty_without_door" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="6" unique_id=630867899]
 transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.8412401e-08, 0, -2.27, 1.278)
 
-[node name="Wall_front4" type="MeshInstance3D" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="9" unique_id=866347304]
+[node name="Wall_front4" type="MeshInstance3D" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="15" unique_id=866347304]
 transform = Transform3D(-8.047853e-09, -2, 0, -8.047853e-09, 3.821371e-15, -0.953127, 0.18411344, -8.742278e-08, -4.1662503e-08, 6.8264923, 1.199367, -4.5871553)
 mesh = SubResource("BoxMesh_id0bx")
 
@@ -263,7 +282,7 @@ mesh = SubResource("BoxMesh_id0bx")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FactoryRoom/Box/Wall_front4/StaticBody3D" unique_id=970316759]
 shape = SubResource("ConvexPolygonShape3D_002rk")
 
-[node name="Wall_front5" type="MeshInstance3D" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="10" unique_id=287970488]
+[node name="Wall_front5" type="MeshInstance3D" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="16" unique_id=287970488]
 transform = Transform3D(-8.951201e-09, -2, 0, -8.951201e-09, 3.821371e-15, -0.953127, 0.20477962, -8.742278e-08, -4.1662503e-08, 6.8264914, 1.199367, 7.1982613)
 mesh = SubResource("BoxMesh_id0bx")
 
@@ -271,6 +290,24 @@ mesh = SubResource("BoxMesh_id0bx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FactoryRoom/Box/Wall_front5/StaticBody3D" unique_id=479916229]
 shape = SubResource("ConvexPolygonShape3D_002rk")
+
+[node name="shop_screen" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="21" unique_id=1201688013]
+transform = Transform3D(-1.7484556e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.7484556e-08, -1, -0.5, -3.117)
+
+[node name="shop_screen2" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="22" unique_id=1252037959]
+transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, -3, -0.5, -3.117)
+
+[node name="shop_screen3" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="23" unique_id=801434707]
+transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, 1, -0.5, -3.117)
+
+[node name="shop_screen4" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="24" unique_id=1849898784]
+transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, -5, -0.5, -3.117)
+
+[node name="shop_screen5" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="25" unique_id=1780234531]
+transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, 3, -0.5, -3.117)
+
+[node name="shop_screen6" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="26" unique_id=6682142]
+transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, 5, -0.5, -3.117)
 
 [node name="BigButtonRoom" parent="." unique_id=2143751424 instance=ExtResource("16_e8u5p")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -20.375832, 0, 10.276939)
