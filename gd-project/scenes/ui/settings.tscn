@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://di8mwb0k0doeo" path="res://scenes/ui/settings.gd" id="1_8wfqe"]
 [ext_resource type="FontFile" uid="uid://cybqoovqfq46b" path="res://assets/ui/VT323-Regular.ttf" id="2_7pacj"]
+[ext_resource type="Theme" uid="uid://by0txkhaxan0u" path="res://assets/ui/new_theme.tres" id="3_h175o"]
 
 [node name="Control" type="Control" unique_id=1361941140]
 layout_mode = 3
@@ -72,7 +73,7 @@ scale = Vector2(1, 0.8000012)
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("2_7pacj")
 theme_override_font_sizes/font_size = 70
-text = "music"
+text = "Music"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -110,7 +111,7 @@ scale = Vector2(1, 0.8000012)
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("2_7pacj")
 theme_override_font_sizes/font_size = 70
-text = "sfx"
+text = "SFX"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -246,7 +247,7 @@ scale = Vector2(0.43402508, 0.6298326)
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("2_7pacj")
 theme_override_font_sizes/font_size = 70
-text = "full screen"
+text = "Full Screen"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -269,6 +270,8 @@ custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme = ExtResource("3_h175o")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_7pacj")
 theme_override_font_sizes/font_size = 64
 text = "back

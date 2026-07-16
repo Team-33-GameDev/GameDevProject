@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://csbfemvh15fcn" path="res://scenes/ui/mainmenu.gd" id="1_c040g"]
 [ext_resource type="FontFile" uid="uid://cybqoovqfq46b" path="res://assets/ui/VT323-Regular.ttf" id="2_nudk7"]
 [ext_resource type="Shader" uid="uid://df3hms7og5df3" path="res://scripts/shaders/display.gdshader" id="2_wxwbn"]
+[ext_resource type="Theme" uid="uid://by0txkhaxan0u" path="res://assets/ui/new_theme.tres" id="4_cix78"]
+[ext_resource type="Texture2D" uid="uid://dvse8fqguovsy" path="res://assets/ui/buttons.png" id="5_v8ire"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wruq6"]
 shader = ExtResource("2_wxwbn")
@@ -17,6 +19,14 @@ shader_parameter/noise_intensity = 0.2
 shader_parameter/slice_intensity = 0.4
 shader_parameter/ghost_intensity = 0.1
 shader_parameter/negative_intensity = 1.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bl2cu"]
+texture = ExtResource("5_v8ire")
+region_rect = Rect2(1238, 86, 528, 298)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_61o3f"]
+texture = ExtResource("5_v8ire")
+region_rect = Rect2(1238, 86, 528, 298)
 
 [node name="Control" type="Control" unique_id=1361941140]
 layout_mode = 3
@@ -74,34 +84,44 @@ custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_stretch_ratio = 9.0
+theme = ExtResource("4_cix78")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_nudk7")
 theme_override_font_sizes/font_size = 64
-text = "new game"
+text = "New Game"
 
 [node name="ContinueButton" type="Button" parent="VBoxContainer" unique_id=1000005172]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("4_cix78")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_nudk7")
 theme_override_font_sizes/font_size = 64
-text = "prev game"
+theme_override_styles/disabled = SubResource("StyleBoxTexture_bl2cu")
+text = "Prev Game"
 
 [node name="settings" type="Button" parent="VBoxContainer" unique_id=306392039]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("4_cix78")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_nudk7")
 theme_override_font_sizes/font_size = 64
-text = "settings"
+text = "Settings"
 
 [node name="quit" type="Button" parent="VBoxContainer" unique_id=1218226148]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("4_cix78")
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_nudk7")
 theme_override_font_sizes/font_size = 64
-text = "quit
+theme_override_styles/disabled = SubResource("StyleBoxTexture_61o3f")
+text = "Quit
 "
 
 [connection signal="pressed" from="VBoxContainer/play button" to="." method="_on_play_button_pressed"]
