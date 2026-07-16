@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="AutoClickerData" format=3 uid="uid://bth7nk6gjlecx"]
+
+[ext_resource type="Script" uid="uid://dofydyjcnq5qu" path="res://resources/shop_items/autoclicker_data.gd" id="1_4jl0c"]
+
+[resource]
+script = ExtResource("1_4jl0c")
+click_value = 1000
+max_hp = 1000
+rhpt = 25
+dmg = 10
+bonus_max_hp = 100
+ubp_max_hp = 50000
+bonus_click_value = 200
+ubp_click_value = 50000
+bonus_dmg = -2
+ubp_dmg = 50000
+ubp_dmg_period = 50000
+bonus_rhpt = 10
+ubp_rhpt = 50000
+item_name = "Diamond Factory"
+description = "Automated diamond factory"
+item_price = 100000
+can_buy = true
+metadata/_custom_type_script = "uid://dofydyjcnq5qu"

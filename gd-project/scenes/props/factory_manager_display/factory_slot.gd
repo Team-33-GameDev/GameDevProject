@@ -1,53 +1,166 @@
 extends PanelContainer
+class_name FactorySlotUI
 
-var factory_slot: VBoxContainer
-var factory_name: Label
-var upgrades_container: VBoxContainer
-var buy_button: Button
 
-# Состояние: куплена ли фабрика
-var is_purchased: bool = false
+@onready var factory_name: Label = \
+	$FactorySlot/Label
+
+@onready var upgrades_container: VBoxContainer = \
+	$FactorySlot/UpgradesContainer
+
+@onready var buy_button: Button = \
+	$FactorySlot/BuyButton
+
+
+var factory_manager: FactoryManager
+var factory: Factory
+var factory_index: int = -1
+
 
 func _ready() -> void:
-	# Ищем узлы с учётом вложенности
-	factory_slot = get_node_or_null("FactorySlot")
-	
-	if factory_slot:
-		upgrades_container = factory_slot.get_node_or_null("UpgradesContainer")
-		buy_button = factory_slot.get_node_or_null("BuyButton")
-		factory_name = factory_slot.get_node_or_null("Label")
-	else:
-		push_warning(name + ": FactorySlot NOT FOUND!")
-	
-	# Диагностика
-	if not upgrades_container:
-		push_warning(name + ": UpgradesContainer NOT FOUND!")
-	if not buy_button:
-		push_warning(name + ": BuyButton NOT FOUND!")
-	
-	# Начальное состояние
-	_update_visibility()
-	
-	# Подключаем сигнал клика
-	if buy_button:
-		buy_button.pressed.connect(_on_buy_pressed)
+	# Слот ещё не получил backend.
+	buy_button.show()
+	buy_button.disabled = true
+	buy_button.text = ""
+
+	upgrades_container.hide()
+
+	if not buy_button.pressed.is_connected(
+		_on_buy_pressed
+	):
+		buy_button.pressed.connect(
+			_on_buy_pressed
+		)
+
+
+func setup(
+	manager: FactoryManager,
+	index: int
+) -> void:
+	factory_manager = manager
+	factory_index = index
+
+	if factory_manager == null:
+		_set_unavailable("NO MANAGER")
+		push_error(
+			"FactorySlotUI: FactoryManager is null."
+		)
+		return
+
+	factory = factory_manager.get_factory(factory_index)
+
+	if factory == null:
+		_set_unavailable("NO FACTORY")
+		push_error(
+			"FactorySlotUI: factory %d was not found."
+			% factory_index
+		)
+		return
+
+	if not factory_manager.factory_updated.is_connected(
+		_on_factory_updated
+	):
+		factory_manager.factory_updated.connect(
+			_on_factory_updated
+		)
+
+	if not GameManager.score_changed.is_connected(
+		_on_score_changed
+	):
+		GameManager.score_changed.connect(
+			_on_score_changed
+		)
+
+	_refresh()
+
 
 func _on_buy_pressed() -> void:
-	is_purchased = true
-	_update_visibility()
-	print("✅ Factory purchased: ", name)
+	if factory_manager == null or factory == null:
+		return
 
-func _update_visibility() -> void:
-	if buy_button:
-		buy_button.visible = not is_purchased
-	if upgrades_container:
-		upgrades_container.visible = is_purchased
+	print(
+		"Factory UI: trying to buy factory %d."
+		% factory_index
+	)
 
-func set_purchased(purchased: bool) -> void:
-	is_purchased = purchased
-	_update_visibility()
+	var success: bool = factory_manager.buy_factory(
+		factory_index
+	)
 
-# Метод для установки названия фабрики извне
+	if not success:
+		print(
+			"Factory UI: purchase failed for factory %d."
+			% factory_index
+		)
+
+	_refresh()
+
+
+func _on_factory_updated(
+	_updated_factory: Factory
+) -> void:
+	# Обновляемся при любом изменении менеджера.
+	# Позже это автоматически разблокирует следующий слот.
+	_refresh()
+
+
+func _on_score_changed(
+	_new_score: int
+) -> void:
+	# Кнопка становится доступной сразу после того,
+	# как игрок накопил достаточно средств.
+	_refresh()
+
+
+func _refresh() -> void:
+	if factory_manager == null or factory == null:
+		_set_unavailable("NO FACTORY")
+		return
+
+	if factory.data == null:
+		_set_unavailable("NO DATA")
+		return
+
+	if factory.template_data == null:
+		_set_unavailable("NO TEMPLATE")
+		return
+
+	var purchased: bool = factory.data.is_purchased
+
+	buy_button.visible = not purchased
+	upgrades_container.visible = purchased
+
+	if purchased:
+		return
+
+	var unlocked: bool = \
+		factory_manager.is_factory_unlocked(
+			factory_index
+		)
+
+	if not unlocked:
+		buy_button.text = "LOCKED"
+		buy_button.disabled = true
+		return
+
+	if not factory.template_data.can_buy:
+		buy_button.text = "UNAVAILABLE"
+		buy_button.disabled = true
+		return
+
+	var price: int = factory.template_data.item_price
+
+	buy_button.text = "BUY\n%d" % price
+	buy_button.disabled = not GameManager.has_score(price)
+
+
+func _set_unavailable(message: String) -> void:
+	buy_button.show()
+	buy_button.disabled = true
+	buy_button.text = message
+
+	upgrades_container.hide()
+
+
 func set_factory_name(new_name: String) -> void:
-	if factory_name:
-		factory_name.text = new_name
+	factory_name.text = new_name

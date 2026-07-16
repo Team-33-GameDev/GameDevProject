@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="AutoClickerData" format=3 uid="uid://sbox2wvyuheu"]
+
+[ext_resource type="Script" uid="uid://dofydyjcnq5qu" path="res://resources/shop_items/autoclicker_data.gd" id="1_f4mlp"]
+
+[resource]
+script = ExtResource("1_f4mlp")
+click_value = 250
+max_hp = 500
+rhpt = 15
+dmg = 6
+bonus_max_hp = 50
+ubp_max_hp = 10000
+bonus_click_value = 50
+ubp_click_value = 10000
+ubp_dmg = 10000
+ubp_dmg_period = 10000
+bonus_rhpt = 6
+ubp_rhpt = 10000
+item_name = "Golden Factory"
+description = "Automated golden factory"
+item_price = 25000
+can_buy = true
+metadata/_custom_type_script = "uid://dofydyjcnq5qu"

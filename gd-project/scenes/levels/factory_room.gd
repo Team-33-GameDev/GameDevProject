@@ -1,58 +1,109 @@
 extends Node3D
 
-var factory_manager_entity: Node3D
-var factory_manager_overlay: CanvasLayer
+
+@onready var factory_manager_entity: Node3D = \
+	$factory_manager_entity
+
+@onready var factory_manager_overlay: CanvasLayer = \
+	$FactoryManagerOverlay
+
+@onready var factory_manager_screen: Control = \
+	$FactoryManagerOverlay/FactoryManagerScreen
+
+@onready var factory_manager_preview_screen: Control = \
+	get_node_or_null(
+		"factory_manager_entity/"
+		+ "Cube_003/Node3D/"
+		+ "FactoryManagerDisplay/"
+		+ "SubViewport/"
+		+ "FactoryManagerScreen"
+	)
+
+@onready var factory_backend: FactoryManager = \
+	$FactoryBackend
 
 func _ready() -> void:
-	# Ищем factory_manager_entity
-	factory_manager_entity = get_node_or_null("factory_manager_entity")
-	if not factory_manager_entity:
-		# Пробуем найти по имени
-		for child in get_children():
-			if child.name.to_lower().contains("factory") and child.name.to_lower().contains("manager"):
-				factory_manager_entity = child
-				print("✅ Нашёл entity: ", child.name)
-				break
-	
-	# Ищем CanvasLayer
-	factory_manager_overlay = get_node_or_null("FactoryManagerOverlay")
-	if not factory_manager_overlay:
-		# Пробуем найти любой CanvasLayer
-		for child in get_children():
-			if child is CanvasLayer:
-				factory_manager_overlay = child
-				print("✅ Нашёл CanvasLayer: ", child.name)
-				break
-	
-	# Подключаем сигнал
-	if factory_manager_entity:
-		if factory_manager_entity.has_signal("factory_manager_opened"):
-			factory_manager_entity.factory_manager_opened.connect(_on_factory_manager_opened)
-			print("✅ Сигнал подключён!")
-		else:
-			push_error(" У factory_manager_entity нет сигнала factory_manager_opened!")
-	else:
-		push_error(" factory_manager_entity не найден!")
-	
-	# Скрываем оверлей
-	if factory_manager_overlay:
-		factory_manager_overlay.visible = false
-		print("✅ CanvasLayer готов, visible = false")
-	else:
-		push_error("❌ CanvasLayer не найден!")
+	# Полноэкранный интерфейс должен продолжать получать ввод,
+	# когда SceneTree поставлен на паузу.
+	factory_manager_overlay.process_mode = \
+		Node.PROCESS_MODE_WHEN_PAUSED
 
-func _on_factory_manager_opened() -> void:
-	print("📺 Открываем меню!")
-	if factory_manager_overlay:
-		factory_manager_overlay.visible = true
-		print("   Overlay visible = ", factory_manager_overlay.visible)
-		get_tree().paused = true
-	else:
-		push_error("❌ factory_manager_overlay is null!")
+	factory_manager_overlay.visible = false
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
-		if factory_manager_overlay and factory_manager_overlay.visible:
-			factory_manager_overlay.visible = false
-			get_tree().paused = false
-			print("❌ Закрыли меню")
+	if factory_manager_entity.has_signal(
+		"factory_manager_opened"
+	):
+		if not factory_manager_entity.factory_manager_opened.is_connected(
+			_open_factory_manager
+		):
+			factory_manager_entity.factory_manager_opened.connect(
+				_open_factory_manager
+			)
+	else:
+		push_error(
+			"FactoryRoom: factory_manager_entity has no "
+			+ "factory_manager_opened signal."
+		)
+
+	if factory_manager_screen.has_signal("close_requested"):
+		if not factory_manager_screen.close_requested.is_connected(
+			_close_factory_manager
+		):
+			factory_manager_screen.close_requested.connect(
+				_close_factory_manager
+			)
+	else:
+		push_error(
+			"FactoryRoom: FactoryManagerScreen has no "
+			+ "close_requested signal."
+		)
+	call_deferred("_setup_factory_backend")
+
+func _setup_factory_backend() -> void:
+	if factory_backend == null:
+		push_error(
+			"FactoryRoom: FactoryBackend was not found."
+		)
+		return
+
+	var factories = factory_backend.get_all_factories()
+
+	if factories.is_empty():
+		push_error(
+			"FactoryRoom: FactoryBackend found no factories."
+		)
+		return
+
+	# Полноэкранный интерактивный UI.
+	factory_manager_screen.setup(factory_backend)
+
+	# UI, который отображается на физическом терминале.
+	if factory_manager_preview_screen == null:
+		push_warning(
+			"FactoryRoom: preview FactoryManagerScreen "
+			+ "was not found."
+		)
+	elif not factory_manager_preview_screen.has_method("setup"):
+		push_warning(
+			"FactoryRoom: preview screen has no setup() method."
+		)
+	else:
+		factory_manager_preview_screen.setup(
+			factory_backend
+		)
+
+	print(
+		"Factory backend connected. Factories: %d"
+		% factories.size()
+	)
+
+func _open_factory_manager() -> void:
+	factory_manager_overlay.visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	get_tree().paused = true
+
+
+func _close_factory_manager() -> void:
+	factory_manager_overlay.visible = false
+	get_tree().paused = false
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

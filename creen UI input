@@ -1,0 +1,262 @@
+[1mdiff --git a/gd-project/scenes/levels/factory_room.gd b/gd-project/scenes/levels/factory_room.gd[m
+[1mindex 5b2980c..5fca325 100644[m
+[1m--- a/gd-project/scenes/levels/factory_room.gd[m
+[1m+++ b/gd-project/scenes/levels/factory_room.gd[m
+[36m@@ -1,58 +1,60 @@[m
+ extends Node3D[m
+ [m
+[31m-var factory_manager_entity: Node3D[m
+[31m-var factory_manager_overlay: CanvasLayer[m
+[32m+[m
+[32m+[m[32m@onready var factory_manager_entity: Node3D = \[m
+[32m+[m	[32m$factory_manager_entity[m
+[32m+[m
+[32m+[m[32m@onready var factory_manager_overlay: CanvasLayer = \[m
+[32m+[m	[32m$FactoryManagerOverlay[m
+[32m+[m
+[32m+[m[32m@onready var factory_manager_screen: Control = \[m
+[32m+[m	[32m$FactoryManagerOverlay/FactoryManagerScreen[m
+[32m+[m
+ [m
+ func _ready() -> void:[m
+[31m-	# Ищем factory_manager_entity[m
+[31m-	factory_manager_entity = get_node_or_null("factory_manager_entity")[m
+[31m-	if not factory_manager_entity:[m
+[31m-		# Пробуем найти по имени[m
+[31m-		for child in get_children():[m
+[31m-			if child.name.to_lower().contains("factory") and child.name.to_lower().contains("manager"):[m
+[31m-				factory_manager_entity = child[m
+[31m-				print("✅ Нашёл entity: ", child.name)[m
+[31m-				break[m
+[31m-	[m
+[31m-	# Ищем CanvasLayer[m
+[31m-	factory_manager_overlay = get_node_or_null("FactoryManagerOverlay")[m
+[31m-	if not factory_manager_overlay:[m
+[31m-		# Пробуем найти любой CanvasLayer[m
+[31m-		for child in get_children():[m
+[31m-			if child is CanvasLayer:[m
+[31m-				factory_manager_overlay = child[m
+[31m-				print("✅ Нашёл CanvasLayer: ", child.name)[m
+[31m-				break[m
+[31m-	[m
+[31m-	# Подключаем сигнал[m
+[31m-	if factory_manager_entity:[m
+[31m-		if factory_manager_entity.has_signal("factory_manager_opened"):[m
+[31m-			factory_manager_entity.factory_manager_opened.connect(_on_factory_manager_opened)[m
+[31m-			print("✅ Сигнал подключён!")[m
+[31m-		else:[m
+[31m-			push_error(" У factory_manager_entity нет сигнала factory_manager_opened!")[m
+[31m-	else:[m
+[31m-		push_error(" factory_manager_entity не найден!")[m
+[31m-	[m
+[31m-	# Скрываем оверлей[m
+[31m-	if factory_manager_overlay:[m
+[31m-		factory_manager_overlay.visible = false[m
+[31m-		print("✅ CanvasLayer готов, visible = false")[m
+[32m+[m	[32m# Полноэкранный интерфейс должен продолжать получать ввод,[m
+[32m+[m	[32m# когда SceneTree поставлен на паузу.[m
+[32m+[m	[32mfactory_manager_overlay.process_mode = \[m
+[32m+[m		[32mNode.PROCESS_MODE_WHEN_PAUSED[m
+[32m+[m
+[32m+[m	[32mfactory_manager_overlay.visible = false[m
+[32m+[m
+[32m+[m	[32mif factory_manager_entity.has_signal([m
+[32m+[m		[32m"factory_manager_opened"[m
+[32m+[m	[32m):[m
+[32m+[m		[32mif not factory_manager_entity.factory_manager_opened.is_connected([m
+[32m+[m			[32m_open_factory_manager[m
+[32m+[m		[32m):[m
+[32m+[m			[32mfactory_manager_entity.factory_manager_opened.connect([m
+[32m+[m				[32m_open_factory_manager[m
+[32m+[m			[32m)[m
+ 	else:[m
+[31m-		push_error("❌ CanvasLayer не найден!")[m
+[31m-[m
+[31m-func _on_factory_manager_opened() -> void:[m
+[31m-	print("📺 Открываем меню!")[m
+[31m-	if factory_manager_overlay:[m
+[31m-		factory_manager_overlay.visible = true[m
+[31m-		print("   Overlay visible = ", factory_manager_overlay.visible)[m
+[31m-		get_tree().paused = true[m
+[32m+[m		[32mpush_error([m
+[32m+[m			[32m"FactoryRoom: factory_manager_entity has no "[m
+[32m+[m			[32m+ "factory_manager_opened signal."[m
+[32m+[m		[32m)[m
+[32m+[m
+[32m+[m	[32mif factory_manager_screen.has_signal("close_requested"):[m
+[32m+[m		[32mif not factory_manager_screen.close_requested.is_connected([m
+[32m+[m			[32m_close_factory_manager[m
+[32m+[m		[32m):[m
+[32m+[m			[32mfactory_manager_screen.close_requested.connect([m
+[32m+[m				[32m_close_factory_manager[m
+[32m+[m			[32m)[m
+ 	else:[m
+[31m-		push_error("❌ factory_manager_overlay is null!")[m
+[31m-[m
+[31m-func _unhandled_input(event: InputEvent) -> void:[m
+[31m-	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:[m
+[31m-		if factory_manager_overlay and factory_manager_overlay.visible:[m
+[31m-			factory_manager_overlay.visible = false[m
+[31m-			get_tree().paused = false[m
+[31m-			print("❌ Закрыли меню")[m
+[32m+[m		[32mpush_error([m
+[32m+[m			[32m"FactoryRoom: FactoryManagerScreen has no "[m
+[32m+[m			[32m+ "close_requested signal."[m
+[32m+[m		[32m)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mfunc _open_factory_manager() -> void:[m
+[32m+[m	[32mfactory_manager_overlay.visible = true[m
+[32m+[m	[32mInput.mouse_mode = Input.MOUSE_MODE_VISIBLE[m
+[32m+[m	[32mget_tree().paused = true[m
+[32m+[m
+[32m+[m
+[32m+[m[32mfunc _close_factory_manager() -> void:[m
+[32m+[m	[32mfactory_manager_overlay.visible = false[m
+[32m+[m	[32mget_tree().paused = false[m
+[32m+[m	[32mInput.mouse_mode = Input.MOUSE_MODE_CAPTURED[m
+[1mdiff --git a/gd-project/scenes/levels/factory_room.tscn b/gd-project/scenes/levels/factory_room.tscn[m
+[1mindex 28ca152..226151b 100644[m
+[1m--- a/gd-project/scenes/levels/factory_room.tscn[m
+[1m+++ b/gd-project/scenes/levels/factory_room.tscn[m
+[36m@@ -209,5 +209,6 @@[m [mtransform = Transform3D(3.6181486, 0, 0, 0, 7.669595, 0, 0, 0, 3.5349164, 0.3896[m
+ shape = SubResource("BoxShape3D_k1bj6")[m
+ [m
+ [node name="FactoryManagerOverlay" type="CanvasLayer" parent="." unique_id=1137721011][m
+[32m+[m[32mprocess_mode = 2[m
+ [m
+ [node name="FactoryManagerScreen" parent="FactoryManagerOverlay" unique_id=267126241 instance=ExtResource("8_1qede")][m
+[1mdiff --git a/gd-project/scenes/props/factory_manager_display/factory_manager_screens.tscn b/gd-project/scenes/props/factory_manager_display/factory_manager_screens.tscn[m
+[1mindex aca5ecf..1d6e4b0 100644[m
+[1m--- a/gd-project/scenes/props/factory_manager_display/factory_manager_screens.tscn[m
+[1m+++ b/gd-project/scenes/props/factory_manager_display/factory_manager_screens.tscn[m
+[36m@@ -23,6 +23,7 @@[m [manchors_preset = -1[m
+ anchor_right = 1.001[m
+ anchor_bottom = 1.0[m
+ offset_right = -0.15209961[m
+[32m+[m[32mmouse_filter = 2[m
+ color = Color(0.11372549, 0.2627451, 0.8509804, 1)[m
+ [m
+ [node name="Title" type="Label" parent="." unique_id=1565265518][m
+[36m@@ -187,8 +188,6 @@[m [mtheme_override_styles/pressed = ExtResource("4_r8ig8")[m
+ theme_override_styles/hover = ExtResource("5_yntq7")[m
+ text = "<"[m
+ [m
+[31m-[connection signal="pressed" from="PagesController/Page1/FactoriesRow/WoodenFactory/FactorySlot/BuyButton" to="PagesController/Page1/FactoriesRow/WoodenFactory" method="_on_buy_button_pressed"][m
+[31m-[m
+ [editable path="PagesController/Page1/FactoriesRow/WoodenFactory"][m
+ [editable path="PagesController/Page1/FactoriesRow/StoneFactory"][m
+ [editable path="PagesController/Page1/FactoriesRow/CooperFactory"][m
+[1mdiff --git a/gd-project/scripts/components/fabric_manager/factory_manager_screens.gd b/gd-project/scripts/components/fabric_manager/factory_manager_screens.gd[m
+[1mindex 21571f5..ef9e358 100644[m
+[1m--- a/gd-project/scripts/components/fabric_manager/factory_manager_screens.gd[m
+[1m+++ b/gd-project/scripts/components/fabric_manager/factory_manager_screens.gd[m
+[36m@@ -1,44 +1,78 @@[m
+ extends Control[m
+ [m
+[31m-@onready var page1: Control = $PagesController/Page1[m
+[31m-@onready var page2: Control = $PagesController/Page2[m
+[31m-@onready var next_page_button: Button = $PagesController/Page1/NextPageButton[m
+[31m-@onready var prev_page_button: Button = $PagesController/Page2/PrevPageButton[m
+ [m
+[31m-# Текущая страница (0 = Page1, 1 = Page2)[m
+[32m+[m[32msignal close_requested[m
+[32m+[m
+[32m+[m
+[32m+[m[32m@onready var page1: Control = \[m
+[32m+[m	[32m$PagesController/Page1[m
+[32m+[m
+[32m+[m[32m@onready var page2: Control = \[m
+[32m+[m	[32m$PagesController/Page2[m
+[32m+[m
+[32m+[m[32m@onready var next_page_button: Button = \[m
+[32m+[m	[32m$PagesController/Page1/NextPageButton[m
+[32m+[m
+[32m+[m[32m@onready var prev_page_button: Button = \[m
+[32m+[m	[32m$PagesController/Page2/PrevPageButton[m
+[32m+[m
+[32m+[m
+ var current_page: int = 0[m
+[31m-var total_pages: int = 2[m
+[32m+[m[32mconst TOTAL_PAGES: int = 2[m
+[32m+[m
+ [m
+ func _ready() -> void:[m
+[31m-	# Инициализация: показываем только первую страницу[m
+ 	_show_page(0)[m
+[31m-	[m
+[31m-	# Подключаем кнопки навигации[m
+[31m-	if next_page_button:[m
+[31m-		next_page_button.pressed.connect(_on_next_page_pressed)[m
+[31m-	[m
+[31m-	if prev_page_button:[m
+[31m-		prev_page_button.pressed.connect(_on_prev_page_pressed)[m
+[32m+[m
+[32m+[m	[32mif not next_page_button.pressed.is_connected([m
+[32m+[m		[32m_on_next_page_pressed[m
+[32m+[m	[32m):[m
+[32m+[m		[32mnext_page_button.pressed.connect([m
+[32m+[m			[32m_on_next_page_pressed[m
+[32m+[m		[32m)[m
+[32m+[m
+[32m+[m	[32mif not prev_page_button.pressed.is_connected([m
+[32m+[m		[32m_on_prev_page_pressed[m
+[32m+[m	[32m):[m
+[32m+[m		[32mprev_page_button.pressed.connect([m
+[32m+[m			[32m_on_prev_page_pressed[m
+[32m+[m		[32m)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mfunc _input(event: InputEvent) -> void:[m
+[32m+[m	[32mif not is_visible_in_tree():[m
+[32m+[m		[32mreturn[m
+[32m+[m
+[32m+[m	[32mif event.is_action_pressed("ui_cancel"):[m
+[32m+[m		[32mclose_requested.emit()[m
+[32m+[m
+[32m+[m		[32m# Не даём тому же Escape открыть обычное PauseMenu[m
+[32m+[m		[32m# через player.gd.[m
+[32m+[m		[32mget_viewport().set_input_as_handled()[m
+ [m
+ [m
+ func _on_next_page_pressed() -> void:[m
+[31m-	if current_page < total_pages - 1:[m
+[31m-		current_page += 1[m
+[31m-		_show_page(current_page)[m
+[32m+[m	[32mif current_page >= TOTAL_PAGES - 1:[m
+[32m+[m		[32mreturn[m
+[32m+[m
+[32m+[m	[32mcurrent_page += 1[m
+[32m+[m	[32m_show_page(current_page)[m
+[32m+[m
+ [m
+ func _on_prev_page_pressed() -> void:[m
+[31m-	if current_page > 0:[m
+[31m-		current_page -= 1[m
+[31m-		_show_page(current_page)[m
+[32m+[m	[32mif current_page <= 0:[m
+[32m+[m		[32mreturn[m
+[32m+[m
+[32m+[m	[32mcurrent_page -= 1[m
+[32m+[m	[32m_show_page(current_page)[m
+[32m+[m
+ [m
+ func _show_page(page_index: int) -> void:[m
+[31m-	# Скрываем все страницы[m
+[31m-	if page1: page1.visible = false[m
+[31m-	if page2: page2.visible = false[m
+[31m-	[m
+[31m-	# Показываем нужную[m
+[31m-	match page_index:[m
+[31m-		0:[m
+[31m-			if page1: page1.visible = true[m
+[31m-		1:[m
+[31m-			if page2: page2.visible = true[m
+[32m+[m	[32mcurrent_page = clampi([m
+[32m+[m		[32mpage_index,[m
+[32m+[m		[32m0,[m
+[32m+[m		[32mTOTAL_PAGES - 1[m
+[32m+[m	[32m)[m
+[32m+[m
+[32m+[m	[32mpage1.visible = current_page == 0[m
+[32m+[m	[32mpage2.visible = current_page == 1[m

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="AutoClickerData" format=3 uid="uid://djqxsc7nehn86"]
+
+[ext_resource type="Script" uid="uid://dofydyjcnq5qu" path="res://resources/shop_items/autoclicker_data.gd" id="1_6j768"]
+
+[resource]
+script = ExtResource("1_6j768")
+click_value = 50
+max_hp = 300
+rhpt = 10
+dmg = 4
+bonus_max_hp = 25
+ubp_max_hp = 2500
+bonus_click_value = 10
+ubp_click_value = 2500
+ubp_dmg = 2500
+ubp_dmg_period = 2500
+bonus_rhpt = 4
+ubp_rhpt = 2500
+item_name = "Iron Factory"
+description = "Automated iron factory"
+item_price = 5000
+can_buy = true
+metadata/_custom_type_script = "uid://dofydyjcnq5qu"

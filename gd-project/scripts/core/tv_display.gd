@@ -1,127 +1,408 @@
 extends SubViewport
 
+
+const BOSS_VOICE: AudioStream = preload(
+	"res://assets/audio/Evilai.mp3"
+)
+
+
 @export var eyes_screen: Control
-@export var score_screen: Node
+@export var score_screen: Control
+
 
 var lbl_score_title: Label
 var lbl_score_val: Label
+
 var lbl_quota_title: Label
 var lbl_quota_val: Label
+
 var lbl_timer: Label
 var lbl_cps: Label
 var lbl_cost: Label
 
+
+var _intro_active: bool = true
+
+var _boss_voice_player: AudioStreamPlayer
+var _factory_manager: FactoryManager
+
+
 func _ready() -> void:
 	_find_labels()
 	_setup_labels()
-	
-	if GameManager:
-		GameManager.score_changed.connect(_on_score_changed)
-	if QuotaManager:
-		QuotaManager.timer_updated.connect(_on_timer_updated)
-		QuotaManager.run_started.connect(_on_run_started)
-		QuotaManager.run_ended.connect(_on_run_ended)
-		QuotaManager.preparation_phase_started.connect(_on_preparation_phase_started)
-		# Подключаемся к сигналу обновления квоты (если есть)
-		if QuotaManager.has_signal("quota_updated"):
-			QuotaManager.quota_updated.connect(_on_quota_updated)
-	
-	_show_eyes("PRESS THE BUTTON TO BEGIN")
-	AudioManager.play_sfx("Evilai", 1.0)
-	await get_tree().create_timer(20.0).timeout
+	_connect_global_signals()
+
+	# Глаза должны быть видны с первого кадра.
+	_intro_active = true
+	_show_eyes()
+
+	# Скрытый основной экран уже получает актуальные данные,
+	# но не отображается до завершения голоса.
+	_update_display()
+
+	# FactoryBackend может завершить свой _ready()
+	# немного позже этого SubViewport.
+	call_deferred("_connect_factory_manager")
+
+	await _play_boss_intro()
+
+	_intro_active = false
 	_show_main_screen()
 	_update_display()
 
-func _find_labels() -> void:
-	if not score_screen:
-		push_error("score_screen not assigned!")
+
+# -------------------------------------------------------------------
+# Инициализация
+# -------------------------------------------------------------------
+
+func _connect_global_signals() -> void:
+	if not GameManager.score_changed.is_connected(
+		_on_score_changed
+	):
+		GameManager.score_changed.connect(
+			_on_score_changed
+		)
+
+	if not QuotaManager.timer_updated.is_connected(
+		_on_timer_updated
+	):
+		QuotaManager.timer_updated.connect(
+			_on_timer_updated
+		)
+
+	if not QuotaManager.run_started.is_connected(
+		_on_run_started
+	):
+		QuotaManager.run_started.connect(
+			_on_run_started
+		)
+
+	if not QuotaManager.run_ended.is_connected(
+		_on_run_ended
+	):
+		QuotaManager.run_ended.connect(
+			_on_run_ended
+		)
+
+	if not QuotaManager.preparation_phase_started.is_connected(
+		_on_preparation_phase_started
+	):
+		QuotaManager.preparation_phase_started.connect(
+			_on_preparation_phase_started
+		)
+
+	if (
+		QuotaManager.has_signal("quota_updated")
+		and not QuotaManager.quota_updated.is_connected(
+			_on_quota_updated
+		)
+	):
+		QuotaManager.quota_updated.connect(
+			_on_quota_updated
+		)
+
+
+func _connect_factory_manager() -> void:
+	# Несколько кадров ожидания защищают от различного
+	# порядка инициализации вложенных сцен.
+	for _attempt in range(10):
+		var candidate := get_tree().get_first_node_in_group(
+			"factory_manager"
+		)
+
+		if candidate is FactoryManager:
+			_factory_manager = candidate as FactoryManager
+			break
+
+		await get_tree().process_frame
+
+	if _factory_manager == null:
+		push_warning(
+			"TVDisplay: FactoryManager was not found. "
+			+ "CPS will remain 0."
+		)
+
+		_update_cps_display(0.0)
 		return
-	
-	lbl_score_title = score_screen.get_node_or_null("Score")
-	lbl_score_val = score_screen.get_node_or_null("ScoreValue")
-	lbl_quota_title = score_screen.get_node_or_null("Quota")
-	lbl_quota_val = score_screen.get_node_or_null("QuotaValue")
-	lbl_timer = score_screen.get_node_or_null("Timer")
-	lbl_cps = score_screen.get_node_or_null("CPS")
-	lbl_cost = score_screen.get_node_or_null("Cost")
+
+	if not _factory_manager.cps_changed.is_connected(
+		_on_cps_changed
+	):
+		_factory_manager.cps_changed.connect(
+			_on_cps_changed
+		)
+
+	_update_cps_display(
+		_factory_manager.get_total_cps()
+	)
+
+
+# -------------------------------------------------------------------
+# Вступительный голос
+# -------------------------------------------------------------------
+
+func _play_boss_intro() -> void:
+	_boss_voice_player = AudioStreamPlayer.new()
+	_boss_voice_player.name = "BossVoicePlayer"
+	_boss_voice_player.stream = BOSS_VOICE
+	_boss_voice_player.bus = "SFX"
+
+	add_child(_boss_voice_player)
+
+	_boss_voice_player.play()
+
+	# Глаза останутся на экране ровно до завершения записи.
+	await _boss_voice_player.finished
+
+	if is_instance_valid(_boss_voice_player):
+		_boss_voice_player.queue_free()
+
+	_boss_voice_player = null
+
+
+# -------------------------------------------------------------------
+# Получение Label
+# -------------------------------------------------------------------
+
+func _find_labels() -> void:
+	if score_screen == null:
+		push_error(
+			"TVDisplay: score_screen is not assigned."
+		)
+		return
+
+	lbl_score_title = score_screen.get_node_or_null(
+		"Score"
+	) as Label
+
+	lbl_score_val = score_screen.get_node_or_null(
+		"ScoreValue"
+	) as Label
+
+	lbl_quota_title = score_screen.get_node_or_null(
+		"Quota"
+	) as Label
+
+	lbl_quota_val = score_screen.get_node_or_null(
+		"QuotaValue"
+	) as Label
+
+	lbl_timer = score_screen.get_node_or_null(
+		"Timer"
+	) as Label
+
+	lbl_cps = score_screen.get_node_or_null(
+		"CPS"
+	) as Label
+
+	lbl_cost = score_screen.get_node_or_null(
+		"Cost"
+	) as Label
+
 
 func _setup_labels() -> void:
-	for label in [lbl_score_title, lbl_score_val, lbl_quota_title, lbl_quota_val, lbl_timer, lbl_cps, lbl_cost]:
-		if label:
-			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-			label.pivot_offset = label.size / 2
+	var labels: Array[Label] = [
+		lbl_score_title,
+		lbl_score_val,
+		lbl_quota_title,
+		lbl_quota_val,
+		lbl_timer,
+		lbl_cps,
+		lbl_cost
+	]
 
-func _show_eyes(msg: String = "") -> void:
-	if eyes_screen: eyes_screen.visible = true
-	if score_screen: score_screen.visible = false
+	for label in labels:
+		if label == null:
+			continue
+
+		label.horizontal_alignment = \
+			HORIZONTAL_ALIGNMENT_CENTER
+
+		label.vertical_alignment = \
+			VERTICAL_ALIGNMENT_CENTER
+
+		label.pivot_offset = label.size / 2.0
+
+
+# -------------------------------------------------------------------
+# Переключение экранов
+# -------------------------------------------------------------------
+
+func _show_eyes(
+	_message: String = ""
+) -> void:
+	if eyes_screen != null:
+		eyes_screen.show()
+
+	if score_screen != null:
+		score_screen.hide()
+
 
 func _show_main_screen() -> void:
-	if eyes_screen: eyes_screen.visible = false
-	if score_screen: score_screen.visible = true
+	if eyes_screen != null:
+		eyes_screen.hide()
 
-func show_eyes_temporarily(duration: float = 3.0, message: String = "") -> void:
+	if score_screen != null:
+		score_screen.show()
+
+
+func show_eyes_temporarily(
+	duration: float = 3.0,
+	message: String = ""
+) -> void:
 	_show_eyes(message)
-	await get_tree().create_timer(duration).timeout
-	_show_main_screen()
 
-func _on_score_changed(new_score: int) -> void:
-	if lbl_score_val:
+	await get_tree().create_timer(
+		duration
+	).timeout
+
+	if not _intro_active:
+		_show_main_screen()
+
+
+# -------------------------------------------------------------------
+# Score, quota и timer
+# -------------------------------------------------------------------
+
+func _on_score_changed(
+	new_score: int
+) -> void:
+	if lbl_score_val != null:
 		lbl_score_val.text = str(new_score)
 
-func _on_timer_updated(time_left: float) -> void:
-	if not lbl_timer: return
-	var m = int(time_left / 60)
-	var s = int(time_left) % 60
-	lbl_timer.text = "%02d:%02d" % [m, s]
-	lbl_timer.modulate = Color.RED if time_left <= 5.0 else Color.WHITE
 
-func _on_quota_updated(target: int) -> void:
-	if lbl_quota_val:
-		lbl_quota_val.text = str(target)
+func _on_timer_updated(
+	time_left: float
+) -> void:
+	if lbl_timer == null:
+		return
 
-func _on_run_started() -> void:
-	_show_main_screen()
-	if lbl_quota_title:
-		lbl_quota_title.text = "QUOTA"
-	# Обновляем квоту при старте раунда
-	_update_quota_display()
-	# Сбрасываем таймер на белый цвет
-	if lbl_timer:
+	var minutes := int(time_left / 60.0)
+	var seconds := int(time_left) % 60
+
+	lbl_timer.text = "%02d:%02d" % [
+		minutes,
+		seconds
+	]
+
+	if time_left <= 5.0:
+		lbl_timer.modulate = Color.RED
+	else:
 		lbl_timer.modulate = Color.WHITE
 
-func _on_run_ended(success: bool) -> void:
-	if lbl_timer:
-		lbl_timer.text = "SUCCESS" if success else "FAILED"
-		lbl_timer.modulate = Color.GREEN if success else Color.RED
-	
-	# Ждём 2 секунды и обновляем дисплей
+
+func _on_quota_updated(
+	target: int
+) -> void:
+	if lbl_quota_val != null:
+		lbl_quota_val.text = str(target)
+
+
+func _on_run_started() -> void:
+	# Старт квоты не должен убирать глаза,
+	# пока запись босса ещё играет.
+	if not _intro_active:
+		_show_main_screen()
+
+	if lbl_quota_title != null:
+		lbl_quota_title.text = "QUOTA"
+
+	_update_quota_display()
+
+	if lbl_timer != null:
+		lbl_timer.modulate = Color.WHITE
+
+
+func _on_run_ended(
+	success: bool
+) -> void:
+	if _intro_active:
+		return
+
+	if lbl_timer != null:
+		if success:
+			lbl_timer.text = "SUCCESS"
+			lbl_timer.modulate = Color.GREEN
+		else:
+			lbl_timer.text = "FAILED"
+			lbl_timer.modulate = Color.RED
+
 	await get_tree().create_timer(2.0).timeout
 	_update_display()
 
+
 func _on_preparation_phase_started() -> void:
-	if lbl_quota_title:
+	if lbl_quota_title != null:
 		lbl_quota_title.text = "QUOTA"
+
 	_update_display()
 
+
+# -------------------------------------------------------------------
+# CPS
+# -------------------------------------------------------------------
+
+func _on_cps_changed(
+	new_cps: float
+) -> void:
+	_update_cps_display(new_cps)
+
+
+func _update_cps_display(
+	cps: float
+) -> void:
+	if lbl_cps == null:
+		return
+
+	lbl_cps.text = "CPS: %s" % _format_cps(cps)
+
+
+func _format_cps(
+	cps: float
+) -> String:
+	var integer_value := int(round(cps))
+
+	if abs(cps - float(integer_value)) < 0.001:
+		return str(integer_value)
+
+	return "%.1f" % cps
+
+
+# -------------------------------------------------------------------
+# Полное обновление дисплея
+# -------------------------------------------------------------------
+
 func _update_display() -> void:
-	# Обновляем счёт
-	if lbl_score_val:
-		lbl_score_val.text = str(GameManager.score)
-	
-	# Обновляем квоту
+	if lbl_score_val != null:
+		lbl_score_val.text = str(
+			GameManager.score
+		)
+
 	_update_quota_display()
-	
-	# Заглушки
-	if lbl_cps: lbl_cps.text = "CPS: 0"
-	if lbl_cost: lbl_cost.text = "COST: 1"
+
+	if _factory_manager != null:
+		_update_cps_display(
+			_factory_manager.get_total_cps()
+		)
+	else:
+		_update_cps_display(0.0)
+
+	# Пока остаётся существующее значение стоимости
+	# обычного клика/следующего улучшения.
+	if lbl_cost != null:
+		lbl_cost.text = "COST: 1"
+
 
 func _update_quota_display() -> void:
-	if not lbl_quota_val or not QuotaManager:
+	if lbl_quota_val == null:
 		return
-	
-	var idx = QuotaManager.current_quota_index
-	if idx < QuotaManager.quotas.size():
-		lbl_quota_val.text = str(QuotaManager.quotas[idx][1])
+
+	var quota_index: int = \
+		QuotaManager.current_quota_index
+
+	if quota_index < QuotaManager.quotas.size():
+		lbl_quota_val.text = str(
+			QuotaManager.quotas[quota_index][1]
+		)
 	else:
 		lbl_quota_val.text = "ALL DONE"
