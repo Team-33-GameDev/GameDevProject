@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://br5ehmaanfefj"]
+
+[ext_resource type="Script" uid="uid://csxk5juvbf2rl" path="res://scripts/components/fabric_manager/factory_stats_display.gd.gd" id="1_ws88g"]
+[ext_resource type="Shader" uid="uid://df3hms7og5df3" path="res://scripts/shaders/display.gdshader" id="2_af2os"]
+[ext_resource type="FontFile" uid="uid://k4cpkpiau57r" path="res://assets/fonts/VT323-Regular.ttf" id="2_font"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_stats"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yf5fn"]
+shader = ExtResource("2_af2os")
+shader_parameter/intensity = 1.0
+shader_parameter/glitch_frequency = 2.0
+shader_parameter/glitch_duration = 0.1
+shader_parameter/red_displacement = 0.02
+shader_parameter/green_displacement = 0.02
+shader_parameter/blue_displacement = 0.02
+shader_parameter/scanline_intensity = 0.3
+shader_parameter/noise_intensity = 0.2
+shader_parameter/slice_intensity = 0.4
+shader_parameter/ghost_intensity = 0.1
+shader_parameter/negative_intensity = 1.0
+
+[node name="FactoryStatsDisplay" type="Sprite3D" unique_id=1803374159]
+pixel_size = 0.003
+texture_filter = 1
+texture = SubResource("ViewportTexture_stats")
+script = ExtResource("1_ws88g")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=775230942]
+disable_3d = true
+size = Vector2i(512, 576)
+render_target_update_mode = 4
+
+[node name="Background" type="ColorRect" parent="SubViewport" unique_id=1879573667]
+material = SubResource("ShaderMaterial_yf5fn")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.11372549, 0.2627451, 0.8509804, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport/Background" unique_id=2060263519]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 22
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/Background/MarginContainer" unique_id=646109019]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Title" type="Label" parent="SubViewport/Background/MarginContainer/VBoxContainer" unique_id=670011781]
+custom_minimum_size = Vector2(0, 88)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 56
+text = "WOODEN FACTORY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HP" type="Label" parent="SubViewport/Background/MarginContainer/VBoxContainer" unique_id=1457263108]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 48
+text = "HP: 1000/1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CPS" type="Label" parent="SubViewport/Background/MarginContainer/VBoxContainer" unique_id=843627666]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 48
+text = "CPS: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DPS" type="Label" parent="SubViewport/Background/MarginContainer/VBoxContainer" unique_id=1729332796]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 48
+text = "DPS: 50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restore" type="Label" parent="SubViewport/Background/MarginContainer/VBoxContainer" unique_id=2085897341]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 44
+text = "RESTORE/CLICK: 50"
+horizontal_alignment = 1
+vertical_alignment = 1
