@@ -7,5 +7,6 @@ script = ExtResource("1_foujs")
 bonus_max_hp = 10
 item_name = "Wooden Finger"
 description = "Basic automated wooden factory"
+item_price = 0
 can_buy = true
 metadata/_custom_type_script = "uid://dofydyjcnq5qu"
