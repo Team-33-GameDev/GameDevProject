@@ -27,14 +27,19 @@ var current_quota_target: int = 0
 var _last_printed_second: int = -1
 
 func _ready() -> void:
-	# Подписываемся на изменения очков, чтобы "услышать" первый клик игрока
-	GameManager.score_changed.connect(_on_score_changed)
-	
-	# Подписываемся на начало/конец фазы для управления музыкой
+	# Запускаем фазу только после активного клика игрока.
+	GameManager.player_click_performed.connect(
+		_on_player_click_performed
+	)
+
+	# Подписываемся на начало/конец фазы для управления музыкой.
 	run_started.connect(_on_run_started)
 	run_ended.connect(_on_run_ended)
-	
-	print("=== QuotaManager initialized. Press the BIG BUTTON to start! ===")
+
+	print(
+		"=== QuotaManager initialized. "
+		+ "Press the BIG BUTTON to start! ==="
+	)
 
 # Запуск музыки при начале фазы кликанья
 func _on_run_started():
@@ -58,9 +63,11 @@ func _process(delta: float) -> void:
 			_evaluate_quota()
 
 # Этот метод срабатывает каждый раз, когда меняется score в GameManager
-func _on_score_changed(new_score: int) -> void:
-	# Если игра еще не начата и игрок сделал первый клик (очки > 0)
-	if current_state == GameState.IDLE and new_score > 0:
+func _on_player_click_performed(_amount: int) -> void:
+	if (
+		current_state == GameState.IDLE
+		and GameManager.score > 0
+	):
 		_start_run()
 
 func _start_run() -> void:

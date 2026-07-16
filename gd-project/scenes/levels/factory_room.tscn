@@ -5,20 +5,39 @@
 [ext_resource type="PackedScene" uid="uid://bbojsavgjwtu2" path="res://assets/models/room_empty_without_door.glb" id="2_vuhhj"]
 [ext_resource type="PackedScene" uid="uid://bvnu1gyxrsg5w" path="res://assets/models/moneypulator_wood.glb" id="5_vuhhj"]
 [ext_resource type="PackedScene" uid="uid://d0gsmxmx1xdhg" path="res://assets/models/moneypulator_stone.glb" id="6_krh7k"]
-[ext_resource type="PackedScene" uid="uid://c6xn2xphkk0kd" path="res://assets/models/shop_screen.glb" id="6_yj7pv"]
 [ext_resource type="PackedScene" uid="uid://fra4j47w0ip8" path="res://assets/models/moneypulator_cuprum.glb" id="7_yj7pv"]
 [ext_resource type="PackedScene" uid="uid://dxqeif5uariag" path="res://scenes/props/factory_manager_display/factory_manager_screens.tscn" id="8_1qede"]
 [ext_resource type="PackedScene" uid="uid://cqufjl11l5pwe" path="res://assets/models/moneypulator_metal.glb" id="8_e04ft"]
 [ext_resource type="PackedScene" uid="uid://nfgc2jcjj7h7" path="res://scenes/props/factory_manager_display/factory_manager_entity.tscn" id="8_ehan2"]
 [ext_resource type="PackedScene" uid="uid://dq7833himt7oi" path="res://assets/models/moneypulator_gold.glb" id="9_ehan2"]
 [ext_resource type="PackedScene" uid="uid://b00dx1jidv7d3" path="res://assets/models/moneypulator_glass.glb" id="10_i3cy2"]
+[ext_resource type="PackedScene" uid="uid://b68vm2jv20hg3" path="res://scenes/props/factory_stats_display/stats_screen.tscn" id="10_yj7pv"]
 [ext_resource type="PackedScene" uid="uid://ctm7s8l0xptky" path="res://scenes/props/factory_manager.tscn" id="13_krh7k"]
+[ext_resource type="Script" uid="uid://cawyh4hj4if6a" path="res://scripts/core/factories/factory_animation_controller.gd.gd" id="14_yj7pv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_id0bx"]
 size = Vector3(7.255, 0.3, 7.12)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_002rk"]
 points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.20757934, -3.617579, -3.6850786, -0.20757934, 3.6374202, -3.6850786, 0.25305554, -3.617579, 3.6850567, -0.20757934, -3.617579, -3.6850786, 0.25305554, 3.6374202, 3.6850567, -0.20757934, 3.6374202, 3.6850567, 0.25305554, -3.617579)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_e04ft"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ehan2"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_i3cy2"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wq75n"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_pp8hq"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mp2uc"]
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k1bj6"]
 size = Vector3(0.727478, 0.9760742, 0.9622803)
@@ -158,24 +177,6 @@ mesh = SubResource("BoxMesh_id0bx")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box/Wall_left/StaticBody3D" unique_id=110699993]
 shape = SubResource("ConvexPolygonShape3D_002rk")
 
-[node name="shop_screen" parent="Box" unique_id=1201688013 instance=ExtResource("6_yj7pv")]
-transform = Transform3D(-1.7484556e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.7484556e-08, -1, -1, -3.117)
-
-[node name="shop_screen2" parent="Box" unique_id=1252037959 instance=ExtResource("6_yj7pv")]
-transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, -3, -1, -3.117)
-
-[node name="shop_screen3" parent="Box" unique_id=801434707 instance=ExtResource("6_yj7pv")]
-transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, 1, -1, -3.117)
-
-[node name="shop_screen4" parent="Box" unique_id=1849898784 instance=ExtResource("6_yj7pv")]
-transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, -5, -1, -3.117)
-
-[node name="shop_screen5" parent="Box" unique_id=1780234531 instance=ExtResource("6_yj7pv")]
-transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, 3, -1, -3.117)
-
-[node name="shop_screen6" parent="Box" unique_id=6682142 instance=ExtResource("6_yj7pv")]
-transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, 5, -1, -3.117)
-
 [node name="moneypulator_wood" parent="Box" unique_id=342683300 instance=ExtResource("5_vuhhj")]
 transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, -5, 0.5, -2.6)
 
@@ -193,6 +194,56 @@ transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-
 
 [node name="moneypulator_glass" parent="Box" unique_id=1412038313 instance=ExtResource("10_i3cy2")]
 transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 5, 0.5, -2.6)
+
+[node name="FactoryStatsDisplays" type="Node3D" parent="Box" unique_id=1432870713]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.076630354)
+
+[node name="WoodenStats" parent="Box/FactoryStatsDisplays" unique_id=1564050712 instance=ExtResource("10_yj7pv")]
+transform = Transform3D(-1.7484556e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.7484556e-08, -4.9898844, -0.9894142, -3.0875835)
+
+[node name="FactoryStatsDisplay" parent="Box/FactoryStatsDisplays/WoodenStats" index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_e04ft")
+display_name = "WOODEN FACTORY"
+
+[node name="WoodenStats2" parent="Box/FactoryStatsDisplays" unique_id=737505982 instance=ExtResource("10_yj7pv")]
+transform = Transform3D(-1.7484556e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.7484556e-08, -3.0099878, -0.9894142, -3.0875835)
+
+[node name="FactoryStatsDisplay" parent="Box/FactoryStatsDisplays/WoodenStats2" index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_ehan2")
+display_name = "STONE FACTORY"
+factory_index = 1
+
+[node name="WoodenStats3" parent="Box/FactoryStatsDisplays" unique_id=1303793399 instance=ExtResource("10_yj7pv")]
+transform = Transform3D(-1.7484556e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.7484556e-08, -0.98985744, -0.9894142, -3.0875835)
+
+[node name="FactoryStatsDisplay" parent="Box/FactoryStatsDisplays/WoodenStats3" index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_i3cy2")
+display_name = "COPPER FACTORY"
+factory_index = 2
+
+[node name="WoodenStats4" parent="Box/FactoryStatsDisplays" unique_id=1313431968 instance=ExtResource("10_yj7pv")]
+transform = Transform3D(-1.7484556e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.7484556e-08, 1.0052369, -0.9894142, -3.0875835)
+
+[node name="FactoryStatsDisplay" parent="Box/FactoryStatsDisplays/WoodenStats4" index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_wq75n")
+display_name = "IRON FACTORY"
+factory_index = 3
+
+[node name="WoodenStats5" parent="Box/FactoryStatsDisplays" unique_id=1727946551 instance=ExtResource("10_yj7pv")]
+transform = Transform3D(-1.7484556e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.7484556e-08, 2.9977632, -0.9894142, -3.0875835)
+
+[node name="FactoryStatsDisplay" parent="Box/FactoryStatsDisplays/WoodenStats5" index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_pp8hq")
+display_name = "GOLDEN FACTORY"
+factory_index = 4
+
+[node name="WoodenStats6" parent="Box/FactoryStatsDisplays" unique_id=1955069142 instance=ExtResource("10_yj7pv")]
+transform = Transform3D(-1.7484556e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.7484556e-08, 4.992654, -0.9894142, -3.0875835)
+
+[node name="FactoryStatsDisplay" parent="Box/FactoryStatsDisplays/WoodenStats6" index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_mp2uc")
+display_name = "DIAMOND FACTORY"
+factory_index = 5
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=308935352]
 transform = Transform3D(-0.99883914, 0.04171628, -0.024084868, 2.7805946e-08, 0.49999994, 0.86602545, 0.04816979, 0.86502016, -0.4994195, 27.579636, 16.074268, 5.3751807)
@@ -218,3 +269,13 @@ process_mode = 2
 process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1000, 0)
 visible = false
+
+[node name="FactoryAnimationController" type="Node" parent="." unique_id=741646637]
+script = ExtResource("14_yj7pv")
+
+[editable path="Box/FactoryStatsDisplays/WoodenStats"]
+[editable path="Box/FactoryStatsDisplays/WoodenStats2"]
+[editable path="Box/FactoryStatsDisplays/WoodenStats3"]
+[editable path="Box/FactoryStatsDisplays/WoodenStats4"]
+[editable path="Box/FactoryStatsDisplays/WoodenStats5"]
+[editable path="Box/FactoryStatsDisplays/WoodenStats6"]

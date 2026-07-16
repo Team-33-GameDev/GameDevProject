@@ -1,6 +1,7 @@
 extends Node
 
-signal score_changed(new_score: int) 
+signal score_changed(new_score: int)
+signal player_click_performed(amount: int)
 signal click_power_changed(new_power: int)
 
 # Score state 
@@ -84,7 +85,7 @@ func add_score(amount: int) -> void:
 
 func click(amount: int = 0) -> void:
 	add_score(amount)
-
+	player_click_performed.emit(amount)
 
 
 

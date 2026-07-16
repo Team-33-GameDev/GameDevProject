@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b68vm2jv20hg3"]
+
+[ext_resource type="PackedScene" uid="uid://c6xn2xphkk0kd" path="res://assets/models/shop_screen.glb" id="1_n5qp6"]
+[ext_resource type="PackedScene" uid="uid://br5ehmaanfefj" path="res://scenes/props/factory_stats_display/factory_stats_display.tscn.tscn" id="2_gm6vq"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_n5qp6"]
+viewport_path = NodePath("SubViewport")
+
+[node name="shop_screen" unique_id=1564050712 instance=ExtResource("1_n5qp6")]
+
+[node name="FactoryStatsDisplay" parent="." index="5" unique_id=1803374159 instance=ExtResource("2_gm6vq")]
+transform = Transform3D(-7.86805e-08, 0, 1.8, 0, 1.975, 0, -1.8, 0, -7.86805e-08, 0.03807187, 1.9856853, -0.01719153)
+modulate = Color(0.3882353, 0.5921569, 1, 1)
+texture = SubResource("ViewportTexture_n5qp6")
