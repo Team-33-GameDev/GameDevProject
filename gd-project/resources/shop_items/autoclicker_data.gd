@@ -69,10 +69,22 @@ func is_time_to_click():
 	return (cur_click_ticks % click_ticks_period) == 0
 
 func click() -> bool:
-	if !(is_time_to_click()) or is_factory_pause or !is_alive():
+	if (
+		not is_time_to_click()
+		or is_factory_pause
+		or not is_alive()
+	):
 		return false
+		
 	cur_click_ticks = 0
-	GameManager.click(click_value)
+
+	if (
+		QuotaManager.current_state
+		!= QuotaManager.GameState.RUNNING
+	):
+		return false
+
+	GameManager.add_score(click_value)
 	return true
 
 func is_time_to_damage() -> bool:

@@ -125,6 +125,18 @@ func _create_timer() -> void:
 
 
 func _on_timer_timeout() -> void:
+	# Во время подготовки фабрики полностью заморожены:
+	# не начисляют очки, не получают урон и не двигают
+	# внутренние счётчики производственного цикла.
+	if (
+		QuotaManager.current_state
+		!= QuotaManager.GameState.RUNNING
+	):
+		# CPS продолжает рассчитываться по сохранённым
+		# характеристикам фабрик.
+		_emit_cps_if_changed()
+		return
+
 	for factory in active_factories:
 		if factory == null:
 			continue
@@ -132,7 +144,8 @@ func _on_timer_timeout() -> void:
 		if factory.is_active():
 			factory.process_tick()
 
-	# Также учитывает остановку или уничтожение фабрики.
+	# Учитывает покупку, улучшение, остановку
+	# или уничтожение фабрики.
 	_emit_cps_if_changed()
 
 

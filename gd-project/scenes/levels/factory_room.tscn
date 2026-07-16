@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dq7833himt7oi" path="res://assets/models/moneypulator_gold.glb" id="9_ehan2"]
 [ext_resource type="PackedScene" uid="uid://b00dx1jidv7d3" path="res://assets/models/moneypulator_glass.glb" id="10_i3cy2"]
 [ext_resource type="PackedScene" uid="uid://ctm7s8l0xptky" path="res://scenes/props/factory_manager.tscn" id="13_krh7k"]
+[ext_resource type="Script" uid="uid://cawyh4hj4if6a" path="res://scripts/core/factories/factory_animation_controller.gd.gd" id="14_yj7pv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_id0bx"]
 size = Vector3(7.255, 0.3, 7.12)
@@ -218,3 +219,6 @@ process_mode = 2
 process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1000, 0)
 visible = false
+
+[node name="FactoryAnimationController" type="Node" parent="." unique_id=741646637]
+script = ExtResource("14_yj7pv")
