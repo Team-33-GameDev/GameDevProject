@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cfer628tqsham" path="res://assets/models/shop.glb" id="10_rbtne"]
 [ext_resource type="PackedScene" uid="uid://dq5ryhgjqp1d7" path="res://assets/models/electricity.glb" id="11_itmb2"]
 [ext_resource type="PackedScene" uid="uid://btpaq7jjj48yb" path="res://assets/models/rack.glb" id="12_og8p1"]
+[ext_resource type="PackedScene" uid="uid://rg84upsptpit" path="res://scenes/props/crowbar.tscn" id="13_e8u5p"]
 [ext_resource type="PackedScene" uid="uid://b0ktvijayof3k" path="res://scenes/ui/PauseMenu.tscn" id="14_p5jwx"]
 [ext_resource type="PackedScene" uid="uid://d1wka00q8eltb" path="res://assets/models/ventilation.glb" id="14_wruq6"]
 [ext_resource type="PackedScene" uid="uid://clhj5s54yba67" path="res://assets/models/green_button.glb" id="15_e8u5p"]
@@ -47,6 +48,24 @@ size = Vector3(7.255, 0.3, 7.12)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_002rk"]
 points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.20757934, -3.617579, -3.6850786, -0.20757934, 3.6374202, -3.6850786, 0.25305554, -3.617579, 3.6850567, -0.20757934, -3.617579, -3.6850786, 0.25305554, 3.6374202, 3.6850567, -0.20757934, 3.6374202, 3.6850567, 0.25305554, -3.617579)
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_e8u5p"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3vm3l"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_o5seq"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_p05v7"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4h8x8"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_vhf6d"]
+viewport_path = NodePath("SubViewport")
+
 [node name="GameRoom" type="Node3D" unique_id=1207060130]
 script = ExtResource("1_wlvec")
 
@@ -74,11 +93,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28564167, 1.5752821, 0.440
 
 [node name="MainRoom" type="Node3D" parent="." unique_id=1314816958]
 
+[node name="Crowbar" parent="MainRoom" unique_id=1350393720 instance=ExtResource("13_e8u5p")]
+transform = Transform3D(0.8792704, 0.3552483, 0.31730464, -0.3746066, 0.92718387, 0, -0.29419973, -0.11886442, 0.94832367, 2.5887837, 2.7718692, -0.12729049)
+
 [node name="Buttons" type="Node3D" parent="MainRoom" unique_id=1675684213]
 transform = Transform3D(1.84, 0, 0, 0, 1.84, 0, 0, 0, 1.84, 3.1318579, 1.6693687, -0.10862672)
 
 [node name="ClickButton" parent="MainRoom/Buttons" unique_id=304157062 instance=ExtResource("2_wlvec")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.8315176, -0.07343346, 0)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.8315176, -0.16986597, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Buttons/ClickButton" unique_id=1574464909]
 
@@ -96,6 +118,7 @@ mesh = SubResource("BoxMesh_hjm0p")
 [node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Box/Floor" unique_id=710719251]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Box/Floor/StaticBody3D" unique_id=33112761]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0.14322239, 0)
 shape = SubResource("ConvexPolygonShape3D_0kvo2")
 
 [node name="Wall_right" type="MeshInstance3D" parent="MainRoom/Box" unique_id=261907745]
@@ -237,7 +260,7 @@ transform = Transform3D(1.3374798e-15, -3.059797e-08, -0.7, -0.7, -3.059797e-08,
 transform = Transform3D(1.3374798e-15, -3.059797e-08, -0.7, -0.7, -3.059797e-08, 0, -3.059797e-08, 0.7, -3.059797e-08, -0.5515573, 4.661282, 4.413)
 
 [node name="комната_пустая2" parent="MainRoom/Room_objects" unique_id=2071442509 instance=ExtResource("6_knoj5")]
-transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.8412401e-08, 0.055, -0.46953666, 0)
+transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.8412401e-08, 0.0562722, -0.45870167, 0.00022435188)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/комната_пустая2" unique_id=447619473]
 
@@ -273,6 +296,9 @@ transform = Transform3D(-0.7, 6.119594e-08, 2.67496e-15, 0, -3.059797e-08, 0.7, 
 [node name="room_empty_without_door" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="6" unique_id=630867899]
 transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.8412401e-08, 0, -2.27, 1.278)
 
+[node name="CollisionShape3D" parent="FactoryRoom/Box/Floor/StaticBody3D" parent_id_path=PackedInt32Array(900522601, 718908318) index="0" unique_id=1912312562]
+transform = Transform3D(0.9999999, 0, -7.1054274e-15, 0, 0.99999994, 0, 7.1054274e-15, 0, 0.99999994, 0, 0.14322239, 0)
+
 [node name="Wall_front4" type="MeshInstance3D" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="15" unique_id=866347304]
 transform = Transform3D(-8.047853e-09, -2, 0, -8.047853e-09, 3.821371e-15, -0.953127, 0.18411344, -8.742278e-08, -4.1662503e-08, 6.8264923, 1.199367, -4.5871553)
 mesh = SubResource("BoxMesh_id0bx")
@@ -291,28 +317,37 @@ mesh = SubResource("BoxMesh_id0bx")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FactoryRoom/Box/Wall_front5/StaticBody3D" unique_id=479916229]
 shape = SubResource("ConvexPolygonShape3D_002rk")
 
-[node name="shop_screen" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="21" unique_id=1201688013]
-transform = Transform3D(-1.7484556e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.7484556e-08, -1, -0.5, -3.117)
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats" parent_id_path=PackedInt32Array(900522601, 1564050712) index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_e8u5p")
 
-[node name="shop_screen2" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="22" unique_id=1252037959]
-transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, -3, -0.5, -3.117)
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats2" parent_id_path=PackedInt32Array(900522601, 737505982) index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_3vm3l")
 
-[node name="shop_screen3" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="23" unique_id=801434707]
-transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, 1, -0.5, -3.117)
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats3" parent_id_path=PackedInt32Array(900522601, 1303793399) index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_o5seq")
 
-[node name="shop_screen4" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="24" unique_id=1849898784]
-transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, -5, -0.5, -3.117)
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats4" parent_id_path=PackedInt32Array(900522601, 1313431968) index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_p05v7")
 
-[node name="shop_screen5" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="25" unique_id=1780234531]
-transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, 3, -0.5, -3.117)
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats5" parent_id_path=PackedInt32Array(900522601, 1727946551) index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_4h8x8")
 
-[node name="shop_screen6" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="26" unique_id=6682142]
-transform = Transform3D(4.769952e-09, 0, -0.4, 0, 0.4, 0, 0.4, 0, 4.769952e-09, 5, -0.5, -3.117)
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats6" parent_id_path=PackedInt32Array(900522601, 1955069142) index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_vhf6d")
 
 [node name="BigButtonRoom" parent="." unique_id=2143751424 instance=ExtResource("16_e8u5p")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -20.375832, 0, 10.276939)
 
+[node name="CollisionShape3D" parent="BigButtonRoom/Box/Floor/StaticBody3D" parent_id_path=PackedInt32Array(2143751424, 2057951552) index="0" unique_id=820366375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14322239, 0)
+
 [connection signal="button_clicked" from="MainRoom/Buttons/ClickButton" to="." method="_on_click_button_button_clicked"]
 
 [editable path="FactoryRoom"]
+[editable path="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats"]
+[editable path="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats2"]
+[editable path="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats3"]
+[editable path="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats4"]
+[editable path="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats5"]
+[editable path="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats6"]
 [editable path="BigButtonRoom"]

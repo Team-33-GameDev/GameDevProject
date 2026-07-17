@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://rg84upsptpit"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s6so8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g4kdn"]
+friction = 0.15
+bounce = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_30b57"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a3h07"]
+height = 11.044106
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nwbvl"]
+albedo_color = Color(0.6337041, 0.6882145, 0.8324032, 1)
+metallic = 0.9
+roughness = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4kdn"]
+material = SubResource("StandardMaterial3D_nwbvl")
+
+[node name="Crowbar" type="Node3D" unique_id=1350393720]
+
+[node name="Unlocking_zone" type="Area3D" parent="." unique_id=469772313]
+transform = Transform3D(1.7251991, 0, 0, 0, 0.14073278, 0, 0, 0, 0.14501593, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Unlocking_zone" unique_id=1248556282]
+transform = Transform3D(1.0000002, 0, 0, 0, 1.3342717, 0, 0, 0, 1.4078994, 0, 0, 0)
+shape = SubResource("BoxShape3D_s6so8")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=612682917]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_g4kdn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="RigidBody3D" unique_id=1499743185]
+transform = Transform3D(-6.9938584e-09, 0.16384275, 0, -0.15999998, -7.161832e-09, 0, 0, 0, 0.45427972, 0.9230131, 1.3699725e-09, 0.16154541)
+shape = SubResource("BoxShape3D_30b57")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1382101152]
+transform = Transform3D(-6.9938557e-09, 0.15999998, 0, -0.15999998, -6.9938557e-09, 0, 0, 0, 0.16, -0.031340946, 1.3699725e-09, 0)
+shape = SubResource("CapsuleShape3D_a3h07")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1265104397]
+transform = Transform3D(1.7028593, 0, 0, 0, 0.1407328, 0, 0, 0, 0.14501594, 0, 0, 0)
+mesh = SubResource("BoxMesh_g4kdn")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RigidBody3D" unique_id=766219869]
+transform = Transform3D(-2.0894044e-08, 0, -0.145, 0, 0.141, 0, 0.47800463, 0, -6.3382206e-09, 0.9239408, 0, 0.159)
+mesh = SubResource("BoxMesh_g4kdn")
