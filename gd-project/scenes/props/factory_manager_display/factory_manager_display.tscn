@@ -6,10 +6,10 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_yf5fn"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1na1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uotgh"]
 shader = ExtResource("1_uotgh")
 shader_parameter/intensity = 1.0
-shader_parameter/glitch_frequency = 0.10000000149012
+shader_parameter/glitch_frequency = 2.00000009174012
 shader_parameter/glitch_duration = 0.00999999977648
 shader_parameter/red_displacement = 0.0190000009025
 shader_parameter/green_displacement = 0.02
@@ -18,7 +18,7 @@ shader_parameter/scanline_intensity = 0.050000002375
 shader_parameter/noise_intensity = 0.366000017385
 shader_parameter/slice_intensity = 0.56400002679
 shader_parameter/ghost_intensity = 0.5
-shader_parameter/negative_intensity = 0.9150000434625
+shader_parameter/negative_intensity = 1.0
 
 [node name="FactoryManagerDisplay" type="Sprite3D" unique_id=1537646579]
 texture = SubResource("ViewportTexture_yf5fn")
@@ -27,9 +27,8 @@ texture = SubResource("ViewportTexture_yf5fn")
 size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
-[node name="ColorRect" type="ColorRect" parent="SubViewport" unique_id=319372979]
-visible = false
-material = SubResource("ShaderMaterial_m1na1")
+[node name="ColorRect" type="ColorRect" parent="SubViewport" unique_id=953683863]
+material = SubResource("ShaderMaterial_uotgh")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

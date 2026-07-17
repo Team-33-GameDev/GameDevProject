@@ -41,7 +41,10 @@ func _create_refresh_timer() -> void:
 	_refresh_timer.name = "RefreshTimer"
 	_refresh_timer.wait_time = refresh_interval
 	_refresh_timer.one_shot = false
-	_refresh_timer.timeout.connect(_refresh)
+
+	_refresh_timer.timeout.connect(
+		_refresh
+	)
 
 	add_child(_refresh_timer)
 	_refresh_timer.start()
@@ -55,18 +58,26 @@ func _refresh() -> void:
 
 	if (
 		_factory_manager == null
-		or not is_instance_valid(_factory_manager)
+		or not is_instance_valid(
+			_factory_manager
+		)
 	):
-		_factory_manager = _find_factory_manager()
+		_factory_manager = \
+			_find_factory_manager()
 
 	if _factory_manager == null:
 		_set_unavailable()
 		return
 
 	var factory: Factory = \
-		_factory_manager.get_factory(factory_index)
+		_factory_manager.get_factory(
+			factory_index
+		)
 
-	if factory == null or factory.data == null:
+	if (
+		factory == null
+		or factory.data == null
+	):
 		_set_unavailable()
 		return
 
@@ -78,13 +89,17 @@ func _refresh() -> void:
 	]
 
 	cps_label.text = "CPS: %s" % \
-		_format_rate(_calculate_cps(data))
+		_format_rate(
+			_calculate_cps(data)
+		)
 
-	dps_label.text = "DPS: %s" % \
-		_format_rate(_calculate_dps(data))
+	dps_label.text = "DPS: %s HP/SEC" % \
+		_format_rate(
+			_calculate_dps(data)
+		)
 
-	restore_label.text = "RESTORE/CLICK: %d" % \
-		data.rhpt
+	restore_label.text = \
+		"RESTORE/CLICK: %d" % data.rhpt
 
 
 func _find_factory_manager() -> FactoryManager:
@@ -133,25 +148,10 @@ func _calculate_dps(
 	if not _is_factory_contributing(data):
 		return 0.0
 
-	if _factory_manager.tick_interval <= 0.0:
-		return 0.0
-
-	var damage_period: int = maxi(
-		1,
-		data.dmg_tick_period
-	)
-
-	var seconds_per_damage: float = (
+	# Никаких вычислений через период тиков.
+	# Показываем значение, заданное в ресурсе фабрики.
+	return data.get_dps(
 		_factory_manager.tick_interval
-		* float(damage_period)
-	)
-
-	if seconds_per_damage <= 0.0:
-		return 0.0
-
-	return (
-		float(data.dmg)
-		/ seconds_per_damage
 	)
 
 
@@ -174,13 +174,16 @@ func _format_rate(
 		value,
 		rounded_value
 	):
-		return str(int(rounded_value))
+		return str(
+			int(rounded_value)
+		)
 
 	return "%.1f" % value
 
 
 func _set_unavailable() -> void:
+	title_label.text = display_name.to_upper()
 	hp_label.text = "HP: --/--"
 	cps_label.text = "CPS: --"
-	dps_label.text = "DPS: --"
+	dps_label.text = "DPS: -- HP/SEC"
 	restore_label.text = "RESTORE/CLICK: --"

@@ -33,8 +33,10 @@ func _ready() -> void:
 	var parent = get_parent()
 	if parent is FactoryManager:
 		manager = parent
+		data.normalize_dps(manager.tick_interval)
 	else:
 		push_error("Factory: parent is not FactoryManager!")
+		return
 	
 
 	return
@@ -144,12 +146,17 @@ func upgrade_hp() -> bool:
 	return false
 
 func upgrade_damage() -> bool:
-	if not data or not data.is_purchased:
+	if (
+		not data
+		or not data.is_purchased
+		or manager == null
+	):
 		return false
-	if data.upg_dmg():
-		#data_updated.emit()
+
+	if data.upg_dmg(manager.tick_interval):
 		_update_ui()
 		return true
+
 	return false
 
 func upgrade_damage_period() -> bool:
@@ -174,12 +181,29 @@ func upgrade_rhpt() -> bool:
 func get_data_copy() -> AutoClickerData:
 	return data.duplicate_data() if data else null
 
-func restore_from_data(saved_data: AutoClickerData) -> void:
+func restore_from_data(
+	saved_data: AutoClickerData
+) -> void:
 	if saved_data == null:
 		return
+
 	data = saved_data.duplicate_data()
-	data.cur_hp = min(data.cur_hp, data.max_hp)
-	#data_updated.emit()
+
+	if manager != null:
+		data.normalize_dps(
+			manager.tick_interval
+		)
+	else:
+		data.dmg = maxi(1, data.dmg)
+		data.dmg_tick_period = maxi(
+			1,
+			data.dmg_tick_period
+		)
+
+	data.cur_hp = mini(
+		data.cur_hp,
+		data.max_hp
+	)
 
 	
 func _on_click_button_button_clicked() -> void:
