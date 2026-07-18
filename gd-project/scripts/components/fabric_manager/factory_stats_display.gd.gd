@@ -114,6 +114,35 @@ func _find_factory_manager() -> FactoryManager:
 	return null
 
 
+## Вызывается сигналом зелёной кнопки.
+func _on_restore_button_clicked() -> void:
+	if (
+		_factory_manager == null
+		or not is_instance_valid(_factory_manager)
+	):
+		_factory_manager = _find_factory_manager()
+
+	if _factory_manager == null:
+		return
+
+	var factory: Factory = \
+		_factory_manager.get_factory(
+			factory_index
+		)
+
+	if (
+		factory == null
+		or factory.data == null
+		or not factory.data.is_purchased
+	):
+		return
+
+	factory.restore_hp()
+
+	# Сразу обновляем значение HP на дисплее.
+	_refresh()
+
+
 func _calculate_cps(
 	data: AutoClickerData
 ) -> float:
@@ -148,8 +177,6 @@ func _calculate_dps(
 	if not _is_factory_contributing(data):
 		return 0.0
 
-	# Никаких вычислений через период тиков.
-	# Показываем значение, заданное в ресурсе фабрики.
 	return data.get_dps(
 		_factory_manager.tick_interval
 	)
