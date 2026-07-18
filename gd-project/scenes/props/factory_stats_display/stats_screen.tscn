@@ -2,8 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://c6xn2xphkk0kd" path="res://assets/models/shop_screen.glb" id="1_n5qp6"]
 [ext_resource type="PackedScene" uid="uid://br5ehmaanfefj" path="res://scenes/props/factory_stats_display/factory_stats_display.tscn.tscn" id="2_gm6vq"]
+[ext_resource type="PackedScene" uid="uid://bveau463x4lou" path="res://assets/models/green_button.tscn" id="3_gm6vq"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_n5qp6"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_gm6vq"]
 viewport_path = NodePath("SubViewport")
 
 [node name="shop_screen" unique_id=1564050712 instance=ExtResource("1_n5qp6")]
@@ -11,4 +12,9 @@ viewport_path = NodePath("SubViewport")
 [node name="FactoryStatsDisplay" parent="." index="5" unique_id=1803374159 instance=ExtResource("2_gm6vq")]
 transform = Transform3D(-7.86805e-08, 0, 1.8, 0, 1.975, 0, -1.8, 0, -7.86805e-08, 0.03807187, 1.9856853, -0.01719153)
 modulate = Color(0.3882353, 0.5921569, 1, 1)
-texture = SubResource("ViewportTexture_n5qp6")
+texture = SubResource("ViewportTexture_gm6vq")
+
+[node name="RestoreButton" parent="." index="6" unique_id=125727656 instance=ExtResource("3_gm6vq")]
+transform = Transform3D(-4.8082526e-08, 1.1, -4.8082526e-08, 0, -4.8082526e-08, -1.1, -1.1, -4.8082526e-08, 2.101754e-15, 0, 3.4339335, 2.233022)
+
+[connection signal="button_clicked" from="RestoreButton" to="FactoryStatsDisplay" method="_on_restore_button_clicked"]
