@@ -13,7 +13,15 @@ const WIEGHT_DOWN = 1.5
 @onready var camera = $Head/Camera3D
 @onready var aim_ray = $Head/Camera3D/RayCast3D
 @onready var cam_sight = $Head/Camera3D/Cam_sight
+@onready var aim_ray_end = $Head/Camera3D/RayCast3D/Marker3D
+
+@export var throw_force: float = 15.0
+@export var hold_distance: float = 1.5
+@export var hold_offset: Vector3 = Vector3(0, -0.2, 0)
+var is_pick: bool = false 
+
 var aim_target
+var held_object: RigidBody3D = null
 
 # Звуки шагов
 var footstep_timer: float = 0.0
@@ -110,26 +118,121 @@ func _physics_process(delta: float) -> void:
 
 	aim_target = null 
 	if aim_ray.get_collider():
-		aim_target = aim_ray.get_collider().owner
+		aim_target = aim_ray.get_collider()
 
 	if aim_target:
+		#print("Aim_target: ", aim_target.name)
+		#print("Aim_target groups: ", aim_target.get_groups())
+		#print("Aim_target parent: ", aim_target.get_parent().name if aim_target.get_parent() else "null")
 		cam_sight.color = Color.GOLD
 		if aim_target.is_in_group("interactable"):
 			if Input.is_action_just_pressed("interact"):
-				print("player: interact")
+				print("player: Iteract accept")
+				var interactable = _find_interactable(aim_target)
+				if interactable:
+					interactable.interact()
+				else:
+					print("Did not found method")
+				#elif aim_target.owner and aim_target.owner.has_method("click"):
+					#print("player: Object can be clicked and found correct method")
+					#aim_target.owner.click()
 		if aim_target.is_in_group("clickable"):
 			if Input.is_action_just_pressed("click"):
 				print("player: Click accept")
 				AudioManager.play_sfx("button_click")
-				if aim_target.has_method("click"):
-					aim_target.click()
-				elif aim_target.owner and aim_target.owner.has_method("click"):
-					aim_target.owner.click()
+				var clickable = _find_clickable(aim_target)
+				if clickable:
+					clickable.click()
+				else:
+					print("Did not found method")
+				#elif aim_target.owner and aim_target.owner.has_method("click"):
+					#print("player: Object can be clicked and found correct method")
+					#aim_target.owner.click()
+		if aim_target.is_in_group("pickable"):
+			if Input.is_action_just_pressed("click"):
+				if held_object == null:
+					_pick_up(aim_target)
+				elif held_object == aim_target and is_pick:
+					_throw()
+				#else:
+					#_throw()
+					#_pick_up(aim_target)
 	else:
 		cam_sight.color = Color.WHITE
 
 	move_and_slide()
+func _pick_up(object: RigidBody3D) -> void:
+	is_pick = true
+	if object == null or object == held_object:
+		return
 
+	if object is RigidBody3D:
+		object.freeze = true
+
+	var old_parent = object.get_parent()
+	if old_parent:
+		old_parent.remove_child(object)
+
+	camera.add_child(object)
+	#object.position = hold_offset + Vector3(0, 0, -hold_distance)
+	object.position = aim_ray_end.position
+	
+	object.rotation = Vector3.ZERO
+
+	held_object = object
+	print("player: Picked up ", object.name)
+func _find_clickable(node: Node) -> Node:
+	if node.has_method("click"):
+		return node
+	var parent = node.get_parent()
+	while parent:
+		if parent.has_method("click"):
+			return parent
+		parent = parent.get_parent()
+	if node.owner and node.owner.has_method("click"):
+		return node.owner
+	return null
+
+func _find_interactable(node: Node) -> Node:
+	if node.has_method("interact"):
+		return node
+	var parent = node.get_parent()
+	while parent:
+		if parent.has_method("interact"):
+			return parent
+		parent = parent.get_parent()
+	if node.owner and node.owner.has_method("interact"):
+		return node.owner
+	return null
+
+func _throw() -> void:
+	is_pick = false 
+	if held_object == null:
+		return
+
+	var object = held_object
+	held_object = null
+
+	camera.remove_child(object)
+
+	var world = get_tree().current_scene
+	if world:
+		world.add_child(object)
+		object.global_position = aim_ray_end.global_position 
+		object.global_rotation = aim_ray_end.global_rotation 
+	object.freeze = false
+	object.apply_central_impulse((aim_ray_end.global_position - aim_ray.global_position) * throw_force)
+	#if object is RigidBody3D:
+		#object.freeze = false
+		#var direction = -camera.global_transform.basis.z
+		#object.apply_central_impulse(direction * throw_force)
+	#else:
+		#if object.has_method("set_linear_velocity"):
+			#var direction = -camera.global_transform.basis.z
+			#object.set_linear_velocity(direction * throw_force)
+
+	print("player: Threw ", object.name)
+	
 func play_footstep():
 	var pitch = randf_range(0.9, 1.1)
 	AudioManager.play_sfx("footstep", pitch)

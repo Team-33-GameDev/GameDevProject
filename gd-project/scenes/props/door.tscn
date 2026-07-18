@@ -1,0 +1,212 @@
+[gd_scene format=3 uid="uid://bqg2g8sh0qi7b"]
+
+[ext_resource type="Script" uid="uid://bx3cpu6yiogms" path="res://scripts/components/props/door.gd" id="1_5e0ln"]
+[ext_resource type="Material" uid="uid://bltc0qqqevy2b" path="res://assets/models/Metal.tres" id="2_yepiq"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5e0ln"]
+animation = &"Door_close"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yepiq"]
+animation = &"Door_open"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8dmq6"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lbmyp"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vinnd"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"open"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mctn1"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"close"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t1sgj"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"open"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5e0ln"]
+states/Door_close/node = SubResource("AnimationNodeAnimation_5e0ln")
+states/Door_close/position = Vector2(707, 160)
+states/Door_open/node = SubResource("AnimationNodeAnimation_yepiq")
+states/Door_open/position = Vector2(508, 160)
+states/RESET/node = SubResource("AnimationNodeAnimation_8dmq6")
+states/RESET/position = Vector2(597, 85)
+states/Start/position = Vector2(396, 85)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_lbmyp"), "RESET", "Door_open", SubResource("AnimationNodeStateMachineTransition_vinnd"), "Door_open", "Door_close", SubResource("AnimationNodeStateMachineTransition_mctn1"), "Door_close", "Door_open", SubResource("AnimationNodeStateMachineTransition_t1sgj")]
+graph_offset = Vector2(118, 17)
+
+[sub_resource type="Animation" id="Animation_yepiq"]
+resource_name = "Door_close"
+length = 1.0666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.0333333),
+"transitions": PackedFloat32Array(0.32987726, 0.31864014),
+"update": 0,
+"values": [Vector3(0, 1.6231562, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8dmq6"]
+resource_name = "Door_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.31864014, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.6231562, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lbmyp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vinnd"]
+_data = {
+&"Door_close": SubResource("Animation_yepiq"),
+&"Door_open": SubResource("Animation_8dmq6"),
+&"RESET": SubResource("Animation_lbmyp")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x0c4f"]
+albedo_color = Color(1, 0.7294118, 0.03137255, 1)
+metallic = 0.8
+roughness = 0.35
+emission_enabled = true
+emission = Color(1, 0.7294118, 0.03137255, 1)
+emission_energy_multiplier = 0.01
+
+[sub_resource type="BoxMesh" id="BoxMesh_s6so8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30b57"]
+albedo_color = Color(0.66426104, 0.10419058, 9.62615e-08, 1)
+metallic = 1.0
+roughness = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_x0c4f"]
+size = Vector3(0.82714844, 0.40686035, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4kdn"]
+size = Vector3(0.9819336, 1.0024414, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6so8"]
+albedo_color = Color(0.63375676, 0.63375676, 0.6337569, 1)
+metallic = 0.88
+metallic_specular = 0.65
+roughness = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4kdn"]
+size = Vector3(0.9824219, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g4kdn"]
+top_radius = 0.072265625
+bottom_radius = 0.072265625
+height = 2.6750183
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_s6so8"]
+top_radius = 0.029785156
+bottom_radius = 0.029785156
+height = 0.95861816
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_x0c4f"]
+top_radius = 0.03173828
+bottom_radius = 0.03173828
+height = 0.11956787
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s6so8"]
+size = Vector3(1.0458984, 0.13012695, 0.13916016)
+
+[node name="Door" type="RigidBody3D" unique_id=1968044639 groups=["interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3614008, 0, 0)
+collision_layer = 17
+gravity_scale = 0.0
+freeze = true
+script = ExtResource("1_5e0ln")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=456709320]
+root_node = NodePath("../Door/MeshInstance3D")
+tree_root = SubResource("AnimationNodeStateMachine_5e0ln")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/close = false
+parameters/conditions/open = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1034100322]
+root_node = NodePath("../Door/MeshInstance3D")
+libraries/ = SubResource("AnimationLibrary_vinnd")
+
+[node name="Sign" type="MeshInstance3D" parent="." unique_id=459293960]
+transform = Transform3D(-0.726, -2.0107238e-09, 1.2839806e-15, 0, -1.0053619e-09, -0.336, 6.346894e-08, -0.023, 1.4687027e-08, -0.68440735, 0.5453621, -0.051367193)
+material_overlay = SubResource("StandardMaterial3D_x0c4f")
+mesh = SubResource("BoxMesh_s6so8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sign" unique_id=2054048136]
+transform = Transform3D(-1.3774104, 0, 7.1727775e-09, -3.8009907e-06, -1.9004952e-06, -2.589832, 1.1373129e-14, -2.9761906, 7.749162e-09, -0.0034650564, -1.125109, 0.010852814)
+material_override = SubResource("StandardMaterial3D_30b57")
+mesh = SubResource("BoxMesh_x0c4f")
+
+[node name="Label3D" type="Label3D" parent="Sign" unique_id=425448252]
+transform = Transform3D(1.3774103, 0, -1.4210855e-14, 4.5474735e-13, -1.9004952e-06, 43.47826, 0, -2.9761906, -1.300934e-07, -0.017664015, 0.58551884, -0.07979083)
+modulate = Color(0, 0, 0, 1)
+text = "Staff only
+"
+font_size = 23
+outline_size = 0
+
+[node name="Door" type="CollisionShape3D" parent="." unique_id=729214798 groups=["interactable"]]
+transform = Transform3D(1.0703547, 0, 0, 0, 2.179997, 0, 0, 0, 0.12405161, -0.675, 0, 0)
+shape = SubResource("BoxShape3D_g4kdn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door" unique_id=314929831]
+transform = Transform3D(1.0942987, 0, 0, 0, 1.0585284, 0, 0, 0, 0.7001901, -0.0087890625, 0, 0)
+material_override = SubResource("StandardMaterial3D_s6so8")
+mesh = SubResource("BoxMesh_g4kdn")
+
+[node name="Pin" type="MeshInstance3D" parent="." unique_id=77770026]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.091204405, 0.07673645, 0)
+material_override = ExtResource("2_yepiq")
+mesh = SubResource("CylinderMesh_g4kdn")
+
+[node name="Door handle" type="MeshInstance3D" parent="." unique_id=1004911075]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -0.7028854, -0.07457693, -0.11416066)
+material_override = ExtResource("2_yepiq")
+mesh = SubResource("CylinderMesh_s6so8")
+
+[node name="Door handle_thing" type="MeshInstance3D" parent="Door handle" unique_id=1890807035]
+transform = Transform3D(1, -4.3711392e-08, -4.371139e-08, -4.3711392e-08, -4.3711385e-08, -1, 4.371139e-08, 1, -4.371139e-08, -7.450581e-09, -0.48200393, 0)
+material_override = ExtResource("2_yepiq")
+mesh = SubResource("CylinderMesh_x0c4f")
+
+[node name="Door handle_thing2" type="MeshInstance3D" parent="Door handle" unique_id=1668246817]
+transform = Transform3D(1, -4.3711392e-08, -4.371139e-08, -4.3711392e-08, -4.3711385e-08, -1, 4.371139e-08, 1, -4.371139e-08, 3.3527613e-08, 0.4745078, 0)
+material_override = ExtResource("2_yepiq")
+mesh = SubResource("CylinderMesh_x0c4f")
+
+[node name="Handle_colider" type="CollisionShape3D" parent="." unique_id=481382116]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6913073, -0.091315985, -0.13779032)
+shape = SubResource("BoxShape3D_s6so8")

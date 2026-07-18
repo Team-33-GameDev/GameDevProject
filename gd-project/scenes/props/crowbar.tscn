@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://rg84upsptpit"]
+
+[ext_resource type="Script" uid="uid://4glx11jioakk" path="res://scripts/components/props/crowbar.gd" id="1_saqbf"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g4kdn"]
+friction = 0.48
+bounce = 0.4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a3h07"]
+radius = 0.918
+height = 11.509
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_30b57"]
+size = Vector3(1, 1, 1.0390625)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nwbvl"]
+albedo_color = Color(0.6337041, 0.6882145, 0.8324032, 1)
+metallic = 0.9
+roughness = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4kdn"]
+material = SubResource("StandardMaterial3D_nwbvl")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s6so8"]
+size = Vector3(1.0878906, 1, 2.5732422)
+
+[node name="Crowbar" type="RigidBody3D" unique_id=612682917 groups=["crowbar", "pickable"]]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+collision_layer = 18
+collision_mask = 49
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_g4kdn")
+script = ExtResource("1_saqbf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1382101152 groups=["clickable"]]
+transform = Transform3D(-6.993857e-09, 0.15999998, 0, -0.15999998, -6.993857e-09, 0, 0, 0, 0.16, 0.046635408, 1.3699725e-09, 0)
+shape = SubResource("CapsuleShape3D_a3h07")
+debug_color = Color(0, 0.650854, 0.08529771, 0.41960785)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1499743185 groups=["clickable"]]
+transform = Transform3D(-6.9938744e-09, 0.16384275, 0, -0.15999998, -7.161848e-09, 0, 0, 0, 0.4542808, 0.9230132, 1.3699725e-09, 0.15267275)
+shape = SubResource("BoxShape3D_30b57")
+debug_color = Color(0, 0.6509804, 0.08627451, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1265104397 groups=["clickable", "interactable"]]
+transform = Transform3D(1.7028593, 0, 0, 0, 0.1407328, 0, 0, 0, 0.14501594, 0, 0, 0)
+mesh = SubResource("BoxMesh_g4kdn")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=766219869 groups=["clickable", "interactable"]]
+transform = Transform3D(-2.0894044e-08, 0, -0.145, 0, 0.141, 0, 0.47800463, 0, -6.3382206e-09, 0.9239408, 0, 0.159)
+mesh = SubResource("BoxMesh_g4kdn")
+
+[node name="Unlocking_zone" type="Area3D" parent="." unique_id=469772313 groups=["clickable", "interactable"]]
+transform = Transform3D(1.7251993, 0, 0, 0, 0.1407328, 0, 0, 0, 0.14501594, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Unlocking_zone" unique_id=1248556282 groups=["clickable", "interactable"]]
+transform = Transform3D(1.0000002, 0, 0, 0, 1.3342717, 0, 0, 0, 1.4079003, 0.043945327, 0, 1.1074835)
+shape = SubResource("BoxShape3D_s6so8")
+debug_color = Color(0.64899206, 0.5207767, 1.92523e-07, 0.41960785)

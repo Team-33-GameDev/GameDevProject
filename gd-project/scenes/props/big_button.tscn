@@ -144,7 +144,7 @@ states/pressdown/position = Vector2(439, 210)
 states/pressup/node = SubResource("AnimationNodeAnimation_qler0")
 states/pressup/position = Vector2(604, 130)
 transitions = ["pressdown", "pressup", SubResource("AnimationNodeStateMachineTransition_kilru"), "idle", "pressdown", SubResource("AnimationNodeStateMachineTransition_pojwm"), "pressup", "idle", SubResource("AnimationNodeStateMachineTransition_8h6ew"), "RESET", "idle", SubResource("AnimationNodeStateMachineTransition_2f5ff"), "Start", "RESET", SubResource("AnimationNodeStateMachineTransition_erdxc")]
-graph_offset = Vector2(-1, 23)
+graph_offset = Vector2(-14, -78)
 
 [node name="Big Button" type="Node3D" unique_id=548379183 groups=["can_click_big_button"]]
 script = ExtResource("1_g0gsu")

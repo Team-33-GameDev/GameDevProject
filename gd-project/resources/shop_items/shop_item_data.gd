@@ -39,3 +39,12 @@ func get_can_buy() -> bool:
 func set_can_buy(value: bool) -> bool:
 	can_buy = value
 	return can_buy
+
+
+
+func duplicate_data() -> ShopItemData:
+	var new = ShopItemData.new()
+	new.item_name = item_name
+	new.description = description
+	new.item_price = item_price
+	return new
