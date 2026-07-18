@@ -15,15 +15,38 @@ var test_sound_player: AudioStreamPlayer3D
 
 
 func _ready() -> void:
-	# Здесь раньше находилась отладочная команда:
-	#
-	# GameManager.click(100000000)
-	#
-	# Она полностью удалена.
-	pass
+	if not QuotaManager.boss_intro_state_changed.is_connected(
+		_on_boss_intro_state_changed
+	):
+		QuotaManager.boss_intro_state_changed.connect(
+			_on_boss_intro_state_changed
+		)
+
+	# Дочерние узлы входят в дерево раньше GameRoom, поэтому
+	# здесь можно сразу убрать кнопку из группы clickable.
+	_on_boss_intro_state_changed(
+		QuotaManager.is_boss_intro_active()
+	)
+
+
+func _on_boss_intro_state_changed(
+	active: bool
+) -> void:
+	if mc_button == null:
+		return
+
+	if active:
+		mc_button.remove_from_group(&"clickable")
+	elif not mc_button.is_in_group(&"clickable"):
+		mc_button.add_to_group(&"clickable")
 
 
 func _on_click_button_button_clicked() -> void:
+	# Дополнительная проверка защищает от вызова сигнала
+	# другим кодом, пока монолог ещё не завершён.
+	if QuotaManager.is_boss_intro_active():
+		return
+
 	shop.click.emit()
 
 
