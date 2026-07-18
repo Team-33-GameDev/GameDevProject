@@ -23,12 +23,13 @@ var lbl_cost: Label
 
 var _intro_active: bool = true
 
-# Общая ссылка для всех экземпляров TVDisplay. Она не позволяет
-# двум вступительным голосам звучать одновременно при перезапуске.
+# Общая ссылка для всех экземпляров TVDisplay.
+# Не позволяет двум вступительным голосам звучать одновременно.
 static var _active_boss_voice_player: AudioStreamPlayer
 
 var _boss_voice_player: AudioStreamPlayer
 var _factory_manager: FactoryManager
+var _shop_backend: Shop
 
 
 func _ready() -> void:
@@ -45,7 +46,10 @@ func _ready() -> void:
 	_show_eyes()
 	_update_display()
 
+	# Backend-узлы могут завершить свой _ready()
+	# немного позже этого SubViewport.
 	call_deferred("_connect_factory_manager")
+	call_deferred("_connect_shop_backend")
 
 	# === ЖЕЛЕЗОБЕТОННАЯ ПРОВЕРКА ===
 	# Проверяем путь к файлу текущей сцены. 
@@ -67,12 +71,13 @@ func _ready() -> void:
 
 	_intro_active = false
 	QuotaManager.set_boss_intro_active(false)
+
 	_show_main_screen()
 	_update_display()
 
 
 func _exit_tree() -> void:
-	var owns_active_intro := (
+	var owns_active_intro: bool = (
 		_boss_voice_player != null
 		and _active_boss_voice_player == _boss_voice_player
 	)
@@ -83,6 +88,8 @@ func _exit_tree() -> void:
 	# экран уже успел запустить собственный монолог.
 	if _intro_active and owns_active_intro:
 		QuotaManager.set_boss_intro_active(false)
+
+	_disconnect_shop_backend()
 
 
 # -------------------------------------------------------------------
@@ -140,8 +147,10 @@ func _connect_factory_manager() -> void:
 	# Несколько кадров ожидания защищают от различного
 	# порядка инициализации вложенных сцен.
 	for _attempt in range(10):
-		var candidate := get_tree().get_first_node_in_group(
-			"factory_manager"
+		var candidate: Node = (
+			get_tree().get_first_node_in_group(
+				"factory_manager"
+			)
 		)
 
 		if candidate is FactoryManager:
@@ -171,6 +180,76 @@ func _connect_factory_manager() -> void:
 	)
 
 
+func _connect_shop_backend() -> void:
+	# TVDisplay находится внутри SubViewport и может
+	# инициализироваться раньше корневого ShopSystem.
+	for _attempt in range(10):
+		var current_scene: Node = get_tree().current_scene
+
+		# Сначала ищем основной backend по ожидаемому пути.
+		if current_scene != null:
+			var direct_backend: Node = (
+				current_scene.get_node_or_null(
+					"ShopSystem"
+				)
+			)
+
+			if direct_backend is Shop:
+				_shop_backend = direct_backend as Shop
+				break
+
+		# Запасной поиск через группу.
+		var grouped_backend: Node = (
+			get_tree().get_first_node_in_group(
+				"shop_backend"
+			)
+		)
+
+		if grouped_backend is Shop:
+			_shop_backend = grouped_backend as Shop
+			break
+
+		await get_tree().process_frame
+
+	if _shop_backend == null:
+		push_warning(
+			"TVDisplay: ShopSystem was not found. "
+			+ "Click power will remain 1."
+		)
+
+		_update_click_power_display(1)
+		return
+
+	if not _shop_backend.click_upgraded.is_connected(
+		_on_click_upgraded
+	):
+		_shop_backend.click_upgraded.connect(
+			_on_click_upgraded
+		)
+
+	_update_click_power_display(
+		_get_current_click_power()
+	)
+
+
+func _disconnect_shop_backend() -> void:
+	if _shop_backend == null:
+		return
+
+	if not is_instance_valid(_shop_backend):
+		_shop_backend = null
+		return
+
+	if _shop_backend.click_upgraded.is_connected(
+		_on_click_upgraded
+	):
+		_shop_backend.click_upgraded.disconnect(
+			_on_click_upgraded
+		)
+
+	_shop_backend = null
+
+
 # -------------------------------------------------------------------
 # Вступительный голос
 # -------------------------------------------------------------------
@@ -182,14 +261,20 @@ func _play_boss_intro() -> void:
 	_stop_existing_boss_voices()
 
 	var player := AudioStreamPlayer.new()
+
 	player.name = "BossVoicePlayer"
 	player.stream = BOSS_VOICE
 	player.bus = "SFX"
 
 	_boss_voice_player = player
 	_active_boss_voice_player = player
+
 	add_child(player)
-	player.add_to_group(&"boss_voice_player")
+
+	player.add_to_group(
+		&"boss_voice_player"
+	)
+
 	player.play()
 
 	# Глаза останутся на экране ровно до завершения записи.
@@ -206,7 +291,9 @@ func _play_boss_intro() -> void:
 
 
 func _stop_existing_boss_voices() -> void:
-	var previous_active := _active_boss_voice_player
+	var previous_active: AudioStreamPlayer = (
+		_active_boss_voice_player
+	)
 
 	if is_instance_valid(previous_active):
 		previous_active.stop()
@@ -216,7 +303,7 @@ func _stop_existing_boss_voices() -> void:
 
 	_active_boss_voice_player = null
 
-	for node in get_tree().get_nodes_in_group(
+	for node: Node in get_tree().get_nodes_in_group(
 		&"boss_voice_player"
 	):
 		if not is_instance_valid(node):
@@ -299,15 +386,17 @@ func _setup_labels() -> void:
 		lbl_cost
 	]
 
-	for label in labels:
+	for label: Label in labels:
 		if label == null:
 			continue
 
-		label.horizontal_alignment = \
+		label.horizontal_alignment = (
 			HORIZONTAL_ALIGNMENT_CENTER
+		)
 
-		label.vertical_alignment = \
+		label.vertical_alignment = (
 			VERTICAL_ALIGNMENT_CENTER
+		)
 
 		label.pivot_offset = label.size / 2.0
 
@@ -365,8 +454,8 @@ func _on_timer_updated(
 	if lbl_timer == null:
 		return
 
-	var minutes := int(time_left / 60.0)
-	var seconds := int(time_left) % 60
+	var minutes: int = int(time_left / 60.0)
+	var seconds: int = int(time_left) % 60
 
 	lbl_timer.text = "%02d:%02d" % [
 		minutes,
@@ -415,7 +504,13 @@ func _on_run_ended(
 			lbl_timer.text = "FAILED"
 			lbl_timer.modulate = Color.RED
 
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(
+		2.0
+	).timeout
+
+	if not is_inside_tree():
+		return
+
 	_update_display()
 
 
@@ -448,12 +543,58 @@ func _update_cps_display(
 func _format_cps(
 	cps: float
 ) -> String:
-	var integer_value := int(round(cps))
+	var integer_value: int = int(round(cps))
 
 	if abs(cps - float(integer_value)) < 0.001:
 		return str(integer_value)
 
 	return "%.1f" % cps
+
+
+# -------------------------------------------------------------------
+# Сила клика
+# -------------------------------------------------------------------
+
+func _on_click_upgraded(
+	_upgrade_type: String
+) -> void:
+	_update_click_power_display(
+		_get_current_click_power()
+	)
+
+
+func _update_click_power_display(
+	click_power: int
+) -> void:
+	if lbl_cost == null:
+		return
+
+	lbl_cost.text = "CLICK: %d" % click_power
+
+
+func _get_current_click_power() -> int:
+	if _shop_backend == null:
+		return 1
+
+	if not is_instance_valid(_shop_backend):
+		return 1
+
+	if _shop_backend.click_upgrade_data == null:
+		return 1
+
+	if _shop_backend.has_method(
+		&"get_current_click_power"
+	):
+		var result: Variant = _shop_backend.call(
+			&"get_current_click_power"
+		)
+
+		return maxi(
+			int(result),
+			1
+		)
+
+	return 1
 
 
 # -------------------------------------------------------------------
@@ -475,18 +616,18 @@ func _update_display() -> void:
 	else:
 		_update_cps_display(0.0)
 
-	# Пока остаётся существующее значение стоимости
-	# обычного клика/следующего улучшения.
-	if lbl_cost != null:
-		lbl_cost.text = "COST: 1"
+	_update_click_power_display(
+		_get_current_click_power()
+	)
 
 
 func _update_quota_display() -> void:
 	if lbl_quota_val == null:
 		return
 
-	var quota_index: int = \
+	var quota_index: int = (
 		QuotaManager.current_quota_index
+	)
 
 	if quota_index < QuotaManager.quotas.size():
 		lbl_quota_val.text = str(

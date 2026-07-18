@@ -1,6 +1,8 @@
-[gd_scene format=3 uid="uid://drysr83387cnd"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" uid="uid://dsifc87o2m2cw" path="res://scripts/components/shop/shop_system.gd" id="1_8jtqr"]
+[ext_resource type="Script" path="res://scripts/components/shop/shop_system.gd" id="1_script"]
+[ext_resource type="Resource" path="res://resources/shop_items/basic_click.tres" id="2_click_data"]
 
-[node name="ShopSystem" type="Node3D" unique_id=49439873]
-script = ExtResource("1_8jtqr")
+[node name="ShopSystem" type="Node3D" groups=["shop_backend"]]
+script = ExtResource("1_script")
+click_upgrade_data = ExtResource("2_click_data")
