@@ -10,47 +10,43 @@ signal click
 var test_sound_player: AudioStreamPlayer3D
 
 func _ready() -> void:
-	var scene_name = get_tree().current_scene.name.to_lower()
-	
-	if scene_name == "mainmenu" or scene_name == "control":
-		print("🎮 Game Room запущен как ФОН МЕНЮ. Отключаю только игровую логику.")
-		
-		# 1. Отключаем Игрока
-		var player = get_node_or_null("Player")
-		if player:
-			player.process_mode = Node.PROCESS_MODE_DISABLED
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			var player_cam = player.get_node_or_null("Head/Camera3D")
-			if player_cam:
-				player_cam.current = false
+	if not QuotaManager.boss_intro_state_changed.is_connected(
+		_on_boss_intro_state_changed
+	):
+		QuotaManager.boss_intro_state_changed.connect(
+			_on_boss_intro_state_changed
+		)
 
-		# 2. Отключаем магазин
-		if shop:
-			shop.process_mode = Node.PROCESS_MODE_DISABLED
+	# Дочерние узлы входят в дерево раньше GameRoom, поэтому
+	# здесь можно сразу убрать кнопку из группы clickable.
+	_on_boss_intro_state_changed(
+		QuotaManager.is_boss_intro_active()
+	)
 
-		# 3. УБРАЛ СТРОКУ mc_button.disabled = true
-		# Просто отключаем обработку, этого достаточно
-		if mc_button:
-			mc_button.process_mode = Node.PROCESS_MODE_DISABLED
 
+func _on_boss_intro_state_changed(
+	active: bool
+) -> void:
+	if mc_button == null:
 		return
 
-	# === ИГРА ===
-	print(" Game Room запущен как ИГРА. Загрузка логики...")
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if active:
+		mc_button.remove_from_group(&"clickable")
+	elif not mc_button.is_in_group(&"clickable"):
+		mc_button.add_to_group(&"clickable")
+
+
 func _on_click_button_button_clicked() -> void:
-	print("🔴 [GameRoom] Кнопка нажата!")
-	if process_mode == Node.PROCESS_MODE_DISABLED:
-		print("❌ [GameRoom] Отменено, так как process_mode = DISABLED (мы в меню?)")
+	# Дополнительная проверка защищает от вызова сигнала
+	# другим кодом, пока монолог ещё не завершён.
+	if QuotaManager.is_boss_intro_active():
 		return
-		
-	if shop:
-		print("🔴 [GameRoom] Вызываем shop.click.emit()")
-		shop.click.emit()
-	else:
-		print("❌ [GameRoom] Нода 'shop' не найдена!")
 
-# Остальные функции с проверками (они безопасны)
+	shop.click.emit()
+
+
+# Старые обработчики оставлены для совместимости
+# с существующими соединениями сцены.
 func _on_click_button_2_button_clicked() -> void:
 	if process_mode == Node.PROCESS_MODE_DISABLED: return
 	if shop and shop.has_method("buy_factory"): shop.buy_factory(0)

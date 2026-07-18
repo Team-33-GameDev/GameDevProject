@@ -23,6 +23,10 @@ var lbl_cost: Label
 
 var _intro_active: bool = true
 
+# Общая ссылка для всех экземпляров TVDisplay. Она не позволяет
+# двум вступительным голосам звучать одновременно при перезапуске.
+static var _active_boss_voice_player: AudioStreamPlayer
+
 var _boss_voice_player: AudioStreamPlayer
 var _factory_manager: FactoryManager
 
@@ -32,6 +36,11 @@ func _ready() -> void:
 	_setup_labels()
 	_connect_global_signals()
 
+	# Пока монолог не завершён, основная кнопка не должна
+	# начислять очки или запускать клик-фазу.
+	QuotaManager.set_boss_intro_active(true)
+
+	# Глаза должны быть видны с первого кадра.
 	_intro_active = true
 	_show_eyes()
 	_update_display()
@@ -51,9 +60,29 @@ func _ready() -> void:
 
 	# Если мы дошли сюда, значит это НАСТОЯЩАЯ игра
 	await _play_boss_intro()
+
+	# Узел мог быть удалён во время смены сцены.
+	if not is_inside_tree():
+		return
+
 	_intro_active = false
+	QuotaManager.set_boss_intro_active(false)
 	_show_main_screen()
 	_update_display()
+
+
+func _exit_tree() -> void:
+	var owns_active_intro := (
+		_boss_voice_player != null
+		and _active_boss_voice_player == _boss_voice_player
+	)
+
+	_stop_own_boss_voice()
+
+	# Старый экран не должен снять блокировку, если новый
+	# экран уже успел запустить собственный монолог.
+	if _intro_active and owns_active_intro:
+		QuotaManager.set_boss_intro_active(false)
 
 
 # -------------------------------------------------------------------
@@ -147,20 +176,74 @@ func _connect_factory_manager() -> void:
 # -------------------------------------------------------------------
 
 func _play_boss_intro() -> void:
-	_boss_voice_player = AudioStreamPlayer.new()
-	_boss_voice_player.name = "BossVoicePlayer"
-	_boss_voice_player.stream = BOSS_VOICE
-	_boss_voice_player.bus = "SFX"
+	# При повторной загрузке комнаты старый голос может
+	# существовать до конца текущего кадра. Останавливаем
+	# все предыдущие экземпляры до запуска нового.
+	_stop_existing_boss_voices()
 
-	add_child(_boss_voice_player)
+	var player := AudioStreamPlayer.new()
+	player.name = "BossVoicePlayer"
+	player.stream = BOSS_VOICE
+	player.bus = "SFX"
 
-	_boss_voice_player.play()
+	_boss_voice_player = player
+	_active_boss_voice_player = player
+	add_child(player)
+	player.add_to_group(&"boss_voice_player")
+	player.play()
 
 	# Глаза останутся на экране ровно до завершения записи.
-	await _boss_voice_player.finished
+	await player.finished
 
-	if is_instance_valid(_boss_voice_player):
+	if is_instance_valid(player):
+		player.queue_free()
+
+	if _boss_voice_player == player:
+		_boss_voice_player = null
+
+	if _active_boss_voice_player == player:
+		_active_boss_voice_player = null
+
+
+func _stop_existing_boss_voices() -> void:
+	var previous_active := _active_boss_voice_player
+
+	if is_instance_valid(previous_active):
+		previous_active.stop()
+
+		if not previous_active.is_queued_for_deletion():
+			previous_active.queue_free()
+
+	_active_boss_voice_player = null
+
+	for node in get_tree().get_nodes_in_group(
+		&"boss_voice_player"
+	):
+		if not is_instance_valid(node):
+			continue
+
+		if node == previous_active:
+			continue
+
+		if node is AudioStreamPlayer:
+			(node as AudioStreamPlayer).stop()
+
+		if not node.is_queued_for_deletion():
+			node.queue_free()
+
+
+func _stop_own_boss_voice() -> void:
+	if not is_instance_valid(_boss_voice_player):
+		_boss_voice_player = null
+		return
+
+	_boss_voice_player.stop()
+
+	if not _boss_voice_player.is_queued_for_deletion():
 		_boss_voice_player.queue_free()
+
+	if _active_boss_voice_player == _boss_voice_player:
+		_active_boss_voice_player = null
 
 	_boss_voice_player = null
 

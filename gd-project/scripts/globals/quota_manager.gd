@@ -5,6 +5,7 @@ signal timer_updated(time_left: float)
 signal quota_updated(target: int)
 signal run_started()
 signal run_ended(success: bool)
+signal boss_intro_state_changed(active: bool)
 
 # Состояния игры для контроля логики
 enum GameState { IDLE, RUNNING, GAME_OVER }
@@ -22,6 +23,10 @@ var quotas: Array = [
 var current_quota_index: int = 0
 var time_left: float = 0.0
 var current_quota_target: int = 0
+
+# Пока идёт вступительный монолог, ручной клик не должен
+# запускать квоту. Значение меняет TVDisplay.
+var _boss_intro_active: bool = false
 
 # Переменная для предотвращения спама в консоли (выводим только при смене секунды)
 var _last_printed_second: int = -1
@@ -65,8 +70,23 @@ func _process(delta: float) -> void:
 		if time_left <= 0.0:
 			_evaluate_quota()
 
+func set_boss_intro_active(value: bool) -> void:
+	if _boss_intro_active == value:
+		return
+
+	_boss_intro_active = value
+	boss_intro_state_changed.emit(value)
+
+
+func is_boss_intro_active() -> bool:
+	return _boss_intro_active
+
+
 # Этот метод срабатывает каждый раз, когда меняется score в GameManager
 func _on_player_click_performed(_amount: int) -> void:
+	if _boss_intro_active:
+		return
+
 	if (
 		current_state == GameState.IDLE
 		and GameManager.score > 0
@@ -137,6 +157,7 @@ func pause_game() -> void:
 	print("⏸️ Game paused and reset.")
 func reset_game() -> void:
 	# Полный сброс состояния игры
+	_boss_intro_active = false
 	current_state = GameState.IDLE
 	current_quota_index = 0
 	time_left = 0.0
