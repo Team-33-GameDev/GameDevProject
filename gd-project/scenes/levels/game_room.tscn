@@ -2,19 +2,23 @@
 
 [ext_resource type="PackedScene" uid="uid://6stmcgq62iml" path="res://scenes/characters/player.tscn" id="1_aamux"]
 [ext_resource type="Script" uid="uid://cvxpxqr8xmtlc" path="res://scripts/core/click_actions/game_room.gd" id="1_wlvec"]
+[ext_resource type="PackedScene" uid="uid://c0wald6cd5qga" path="res://scenes/props/click_shop_display/click_shop_overlay.tscn" id="2_e8u5p"]
 [ext_resource type="PackedScene" uid="uid://csj1cxy74xjv7" path="res://scenes/props/click_botton.tscn" id="2_wlvec"]
 [ext_resource type="PackedScene" uid="uid://dl1rlysl588xw" path="res://scenes/props/screen/monitor_system.tscn" id="4_4pl3d"]
 [ext_resource type="PackedScene" uid="uid://bc5bail6pwctx" path="res://assets/models/game_room_empty.glb" id="6_knoj5"]
+[ext_resource type="PackedScene" uid="uid://dcpw1llf0ibhw" path="res://scenes/props/click_shop_display/click_shop_station.tscn" id="6_p5jwx"]
 [ext_resource type="PackedScene" uid="uid://dofa43wuhxybx" path="res://assets/models/lamp.glb" id="7_bmb82"]
 [ext_resource type="PackedScene" uid="uid://bp2js71nyec7h" path="res://assets/models/vent.glb" id="8_xfipo"]
-[ext_resource type="PackedScene" uid="uid://cfer628tqsham" path="res://assets/models/shop.glb" id="10_rbtne"]
 [ext_resource type="PackedScene" uid="uid://dq5ryhgjqp1d7" path="res://assets/models/electricity.glb" id="11_itmb2"]
 [ext_resource type="PackedScene" uid="uid://btpaq7jjj48yb" path="res://assets/models/rack.glb" id="12_og8p1"]
 [ext_resource type="PackedScene" uid="uid://b0ktvijayof3k" path="res://scenes/ui/PauseMenu.tscn" id="14_p5jwx"]
 [ext_resource type="PackedScene" uid="uid://d1wka00q8eltb" path="res://assets/models/ventilation.glb" id="14_wruq6"]
 [ext_resource type="PackedScene" uid="uid://dhyjthbxihqrk" path="res://scenes/levels/factory_room.tscn" id="15_gpf6e"]
-[ext_resource type="PackedScene" uid="uid://drysr83387cnd" path="res://scenes/props/shop_system.tscn" id="15_shop"]
+[ext_resource type="PackedScene" path="res://scenes/props/shop_system.tscn" id="15_shop"]
 [ext_resource type="PackedScene" uid="uid://4sebpbpjva8v" path="res://scenes/levels/big_button_room.tscn" id="16_e8u5p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k1bj6"]
+size = Vector3(0.727478, 0.9760742, 0.9622803)
 
 [sub_resource type="Environment" id="Environment_hjm0p"]
 glow_intensity = 1.0
@@ -32,8 +36,6 @@ points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.207
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_bmb82"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_p5jwx"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_gpf6e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e8u5p"]
@@ -45,9 +47,6 @@ size = Vector3(7.255, 0.3, 7.12)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_002rk"]
 points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.20757934, -3.617579, -3.6850786, -0.20757934, 3.6374202, -3.6850786, 0.25305554, -3.617579, 3.6850567, -0.20757934, -3.617579, -3.6850786, 0.25305554, 3.6374202, 3.6850567, -0.20757934, 3.6374202, 3.6850567, 0.25305554, -3.617579)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_p5jwx"]
-viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gpf6e"]
 viewport_path = NodePath("SubViewport")
@@ -64,8 +63,22 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_p05v7"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_4h8x8"]
+viewport_path = NodePath("SubViewport")
+
 [node name="GameRoom" type="Node3D" unique_id=1207060130]
 script = ExtResource("1_wlvec")
+
+[node name="ClickShopEntity" parent="." unique_id=827171526 instance=ExtResource("6_p5jwx")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -5.945362, -0.239, 1.3768104)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ClickShopEntity" unique_id=712440987]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClickShopEntity/StaticBody3D" unique_id=357007038]
+transform = Transform3D(3.6181486, 0, 0, 0, 7.669595, 0, 0, 0, 3.5349164, 0.3896036, 2.3542752, -0.74563885)
+shape = SubResource("BoxShape3D_k1bj6")
+
+[node name="ClickShopOverlay" parent="." unique_id=1582709016 instance=ExtResource("2_e8u5p")]
 
 [node name="ShopSystem" parent="." unique_id=49439873 instance=ExtResource("15_shop")]
 
@@ -202,15 +215,6 @@ transform = Transform3D(-0.09, -7.86805e-09, 3.439234e-16, 0, -3.934025e-09, -0.
 [node name="вентилятор" parent="MainRoom/Room_objects/вентилятор" unique_id=944199813 instance=ExtResource("8_xfipo")]
 transform = Transform3D(-0.089999996, -7.86805e-09, 8.881784e-16, -8.881784e-16, -3.9340255e-09, -0.089999996, 7.86805e-09, -0.089999996, 3.934025e-09, -25.623438, 2.699997, -4.358)
 
-[node name="магазин" parent="MainRoom/Room_objects" unique_id=2117977622 instance=ExtResource("10_rbtne")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -6.167054, 0.5319605, 1.6827083)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/магазин" unique_id=970665285]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/магазин/StaticBody3D" unique_id=596956074]
-transform = Transform3D(3.6181486, 0, 0, 0, 7.669595, 0, 0, 0, 3.5349164, 0.88261604, 2.4460256, -0.76268363)
-shape = SubResource("BoxShape3D_p5jwx")
-
 [node name="стеллаж" parent="MainRoom/Room_objects" unique_id=476936738 instance=ExtResource("12_og8p1")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 5.692563, -0.29135823, 3.5990982)
 
@@ -254,14 +258,12 @@ transform = Transform3D(1.3374798e-15, -3.059797e-08, -0.7, -0.7, -3.059797e-08,
 transform = Transform3D(1.3374798e-15, -3.059797e-08, -0.7, -0.7, -3.059797e-08, 0, -3.059797e-08, 0.7, -3.059797e-08, -0.5515573, 4.661282, 4.413)
 
 [node name="комната_пустая2" parent="MainRoom/Room_objects" unique_id=2071442509 instance=ExtResource("6_knoj5")]
-transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.8412401e-08, 0.055, -0.46953666, 0)
+transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.8412401e-08, 0.054916553, -0.46240973, -0.003405571)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/комната_пустая2" unique_id=447619473]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/комната_пустая2/StaticBody3D" unique_id=872684488]
 shape = SubResource("ConvexPolygonShape3D_knoj5")
-
-[node name="Shop" parent="MainRoom" unique_id=58760676 instance=ExtResource("15_shop")]
 
 [node name="щиток" parent="MainRoom" unique_id=777848184 instance=ExtResource("11_itmb2")]
 transform = Transform3D(-2.622683e-08, -2.6226836e-08, 0.6, -0.6, -2.6226834e-08, -2.6226832e-08, 2.6226836e-08, -0.6, -2.6226834e-08, 0.1437769, 2.296129, 4.37575)
@@ -291,22 +293,22 @@ mesh = SubResource("BoxMesh_id0bx")
 shape = SubResource("ConvexPolygonShape3D_002rk")
 
 [node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats" parent_id_path=PackedInt32Array(900522601, 1564050712) index="5" unique_id=1803374159]
-texture = SubResource("ViewportTexture_p5jwx")
-
-[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats2" parent_id_path=PackedInt32Array(900522601, 737505982) index="5" unique_id=1803374159]
 texture = SubResource("ViewportTexture_gpf6e")
 
-[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats3" parent_id_path=PackedInt32Array(900522601, 1303793399) index="5" unique_id=1803374159]
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats2" parent_id_path=PackedInt32Array(900522601, 737505982) index="5" unique_id=1803374159]
 texture = SubResource("ViewportTexture_e8u5p")
 
-[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats4" parent_id_path=PackedInt32Array(900522601, 1313431968) index="5" unique_id=1803374159]
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats3" parent_id_path=PackedInt32Array(900522601, 1303793399) index="5" unique_id=1803374159]
 texture = SubResource("ViewportTexture_3vm3l")
 
-[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats5" parent_id_path=PackedInt32Array(900522601, 1727946551) index="5" unique_id=1803374159]
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats4" parent_id_path=PackedInt32Array(900522601, 1313431968) index="5" unique_id=1803374159]
 texture = SubResource("ViewportTexture_o5seq")
 
-[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats6" parent_id_path=PackedInt32Array(900522601, 1955069142) index="5" unique_id=1803374159]
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats5" parent_id_path=PackedInt32Array(900522601, 1727946551) index="5" unique_id=1803374159]
 texture = SubResource("ViewportTexture_p05v7")
+
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats6" parent_id_path=PackedInt32Array(900522601, 1955069142) index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_4h8x8")
 
 [node name="BigButtonRoom" parent="." unique_id=2143751424 instance=ExtResource("16_e8u5p")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -20.375832, 0, 10.276939)

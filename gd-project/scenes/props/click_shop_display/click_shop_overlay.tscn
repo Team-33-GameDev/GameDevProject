@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c0wald6cd5qga"]
+
+[ext_resource type="Script" uid="uid://d28rph64rnc0f" path="res://scripts/components/shop/click_shop_overlay.gd" id="1_kgcn3"]
+[ext_resource type="PackedScene" uid="uid://cljwpwemo1iaj" path="res://scenes/props/click_shop_display/click_shop_screen.tscn" id="2_shop_screen"]
+
+[node name="ClickShopOverlay" type="CanvasLayer" unique_id=1646125338]
+process_mode = 3
+layer = 20
+visible = false
+script = ExtResource("1_kgcn3")
+
+[node name="ClickShopScreen" parent="." unique_id=693783576 instance=ExtResource("2_shop_screen")]
+process_mode = 3
+allow_close = true
+
+[node name="ColorRect" parent="ClickShopScreen" index="0" unique_id=1830762320]
+color = Color(0, 0.10980392, 0.40392157, 0.6313726)
+
+[editable path="ClickShopScreen"]
