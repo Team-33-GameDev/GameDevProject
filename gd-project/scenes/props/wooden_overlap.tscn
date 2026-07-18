@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://b16n8h78uxii5"]
+
+[ext_resource type="Script" uid="uid://de78qgiy3ty83" path="res://scripts/components/props/wooden_overlap.gd" id="1_vjfns"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s6so8"]
+size = Vector3(2.7823334, 1.2197876, 1.0405273)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4kdn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6so8"]
+albedo_color = Color(0.3842062, 0.24933633, 0.051746167, 1)
+roughness = 0.65
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4kdn"]
+
+[node name="Wooden_Overlap" type="RigidBody3D" unique_id=1090349405]
+mass = 5.0
+script = ExtResource("1_vjfns")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=771146729]
+transform = Transform3D(0.089, 0, 0, 0, 0.375, 0, 0, 0, 2.565, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=128270990]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 1, 0.24629971, 0.012298584, 0.0017089847)
+shape = SubResource("BoxShape3D_s6so8")
+debug_color = Color(0.4868123, 0.5858021, 0, 0.41960785)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1897536580]
+transform = Transform3D(0.089, 0, 0, 0, 0.375, 0, 0, 0, 2.565, 0, 0, 0)
+shape = SubResource("BoxShape3D_g4kdn")
+
+[node name="Wooden_plate" type="MeshInstance3D" parent="CollisionShape3D" unique_id=341748289]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.99999976, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_s6so8")
+mesh = SubResource("BoxMesh_g4kdn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

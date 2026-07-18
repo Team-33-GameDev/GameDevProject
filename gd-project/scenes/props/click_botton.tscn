@@ -53,11 +53,11 @@ libraries/ = SubResource("AnimationLibrary_8c5yo")
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.045, 0)
 mesh = SubResource("CylinderMesh_td72y")
 
-[node name="Area3D" type="Area3D" parent="Button_Model" unique_id=1328944375]
+[node name="Area3D" type="Area3D" parent="Button_Model" unique_id=1328944375 groups=["clickable"]]
 collision_layer = 17
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Button_Model/Area3D" unique_id=265093947]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Button_Model/Area3D" unique_id=265093947 groups=["clickable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0024027377, 0)
 shape = SubResource("CylinderShape3D_ohs8h")
 
