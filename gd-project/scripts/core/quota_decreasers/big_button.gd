@@ -33,3 +33,7 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 		animation_tree.set("parameters/conditions/pressdown", false)
 		can_press = true
 		
+
+
+func _on_big_button_clicked() -> void:
+	pass # Replace with function body.

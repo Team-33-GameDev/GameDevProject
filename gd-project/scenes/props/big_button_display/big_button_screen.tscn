@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cep4g0a1wn7tn"]
+
+[ext_resource type="PackedScene" uid="uid://c6xn2xphkk0kd" path="res://assets/models/shop_screen.glb" id="1_model"]
+[ext_resource type="Script" uid="uid://kpbw4ghgqdio" path="res://scenes/props/big_button_display/big_button_screen.gd" id="2_script"]
+[ext_resource type="PackedScene" path="res://scenes/props/big_button_display/big_button_display.tscn" id="3_display"]
+
+[node name="BigButtonScreen" instance=ExtResource("1_model")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("2_script")
+
+[node name="Cylinder" parent="." index="3"]
+transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.06, 0.16073558, 4.0095487, 0)
+
+[node name="Cylinder_001" parent="." index="4"]
+transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.06, 0.113341056, 0.011820912, 0)
+
+[node name="BigButtonDisplay" parent="." index="5" instance=ExtResource("3_display")]
+transform = Transform3D(-3.934025e-08, 0, 0.9, 0, 1.975, 0, -0.9, 0, -3.934025e-08, 0.03807187, 1.9856853, -0.01719153)
+modulate = Color(0.3882353, 0.5921569, 1, 1)
