@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_foujs")
+dmg = 5
 bonus_max_hp = 10
 item_name = "Wooden Finger"
 description = "Basic automated wooden factory"

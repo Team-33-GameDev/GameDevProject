@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://cljwpwemo1iaj"]
+
+[ext_resource type="Script" uid="uid://c2efe3uy8o84i" path="res://scripts/components/shop/click_shop_screen.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://cybqoovqfq46b" path="res://assets/ui/VT323-Regular.ttf" id="2_font"]
+[ext_resource type="PackedScene" uid="uid://cam8armf0nq2i" path="res://scenes/props/click_shop_display/click_shop_card.tscn" id="3_card"]
+
+[node name="ClickShopScreen" type="Control" unique_id=1750910960]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1830762320]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Title" type="Label" parent="." unique_id=1914067041]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 5.0
+offset_bottom = 88.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 72
+text = "SHOP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BalanceLabel" type="Label" parent="." unique_id=1446825022]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -330.0
+offset_top = 18.0
+offset_right = -24.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+text = "SCORE: 0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Cards" type="GridContainer" parent="." unique_id=1845960233]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -415.0
+offset_top = -194.0
+offset_right = 415.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 70
+theme_override_constants/v_separation = 30
+columns = 2
+
+[node name="AdditiveCard" parent="Cards" unique_id=1748271042 instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="CrowbarCard" parent="Cards" unique_id=1593983726 instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="MultiplicativeCard" parent="Cards" unique_id=1053398233 instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="HammerCard" parent="Cards" unique_id=1385186254 instance=ExtResource("3_card")]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="." unique_id=2122696976]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -50.0
+offset_right = -24.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 28
+text = "SHOP TERMINAL"
+horizontal_alignment = 1
+vertical_alignment = 1

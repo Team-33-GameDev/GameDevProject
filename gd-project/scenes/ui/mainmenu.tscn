@@ -2,23 +2,9 @@
 
 [ext_resource type="Script" uid="uid://csbfemvh15fcn" path="res://scenes/ui/mainmenu.gd" id="1_c040g"]
 [ext_resource type="FontFile" uid="uid://cybqoovqfq46b" path="res://assets/ui/VT323-Regular.ttf" id="2_nudk7"]
-[ext_resource type="Shader" uid="uid://df3hms7og5df3" path="res://scripts/shaders/display.gdshader" id="2_wxwbn"]
 [ext_resource type="Theme" uid="uid://by0txkhaxan0u" path="res://assets/ui/new_theme.tres" id="4_cix78"]
+[ext_resource type="PackedScene" uid="uid://dc5qvyc1qv2t1" path="res://scenes/levels/game_room.tscn" id="5_e6rwi"]
 [ext_resource type="Texture2D" uid="uid://dvse8fqguovsy" path="res://assets/ui/buttons.png" id="5_v8ire"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wruq6"]
-shader = ExtResource("2_wxwbn")
-shader_parameter/intensity = 1.0
-shader_parameter/glitch_frequency = 2.0
-shader_parameter/glitch_duration = 0.1
-shader_parameter/red_displacement = 0.02
-shader_parameter/green_displacement = 0.02
-shader_parameter/blue_displacement = 0.02
-shader_parameter/scanline_intensity = 0.3
-shader_parameter/noise_intensity = 0.2
-shader_parameter/slice_intensity = 0.4
-shader_parameter/ghost_intensity = 0.1
-shader_parameter/negative_intensity = 1.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bl2cu"]
 texture = ExtResource("5_v8ire")
@@ -36,33 +22,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c040g")
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1954250144]
-material = SubResource("ShaderMaterial_wruq6")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="Label" type="Label" parent="ColorRect" unique_id=123446279]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -100.0
-offset_right = 100.0
-offset_bottom = 23.0
-grow_horizontal = 2
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("2_nudk7")
-theme_override_font_sizes/font_size = 100
-text = "Click to Live"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=631439830]
 layout_mode = 1
@@ -123,6 +82,28 @@ theme_override_font_sizes/font_size = 64
 theme_override_styles/disabled = SubResource("StyleBoxTexture_61o3f")
 text = "Quit
 "
+
+[node name="Label" type="Label" parent="." unique_id=123446279]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -260.0
+offset_right = 260.0
+offset_bottom = 100.0
+grow_horizontal = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_nudk7")
+theme_override_font_sizes/font_size = 100
+text = "Click to Live"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameRoom" parent="." unique_id=1207060130 instance=ExtResource("5_e6rwi")]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=435030959]
+transform = Transform3D(-0.002429597, 0, 0.9999971, 0, 1, 0, -0.9999971, 0, -0.002429597, 6.3965163, 2.3193095, 0)
 
 [connection signal="pressed" from="VBoxContainer/play button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]

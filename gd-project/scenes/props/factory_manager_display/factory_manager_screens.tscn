@@ -9,10 +9,9 @@
 
 [node name="FactoryManagerScreen" type="Control" unique_id=267126241]
 layout_mode = 3
-anchor_right = 1.9930001
-anchor_bottom = 1.988
-offset_right = -1143.9363
-offset_bottom = -640.224
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yntq7")
@@ -24,7 +23,7 @@ anchor_right = 1.001
 anchor_bottom = 1.0
 offset_right = -0.15209961
 mouse_filter = 2
-color = Color(0.11372549, 0.2627451, 0.8509804, 1)
+color = Color(0.11372549, 0.2627451, 0.8509804, 0)
 
 [node name="Title" type="Label" parent="." unique_id=1565265518]
 layout_mode = 1
@@ -103,14 +102,14 @@ FACTORY"
 
 [node name="NextPageButton" type="Button" parent="PagesController/Page1" unique_id=1270218471]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
-anchor_top = 0.55600005
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.55600005
+anchor_bottom = 0.5
 offset_left = -48.0
-offset_top = -26.788025
-offset_bottom = 26.211975
+offset_top = -34.0
+offset_bottom = 34.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_1xs3t")
@@ -170,16 +169,12 @@ FACTORY"
 
 [node name="PrevPageButton" type="Button" parent="PagesController/Page2" unique_id=1979954990]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.55600005
-anchor_right = 1.0
-anchor_bottom = 0.55600005
-offset_left = -1152.0
-offset_top = -34.288025
-offset_right = -1104.0
-offset_bottom = 33.711975
-grow_horizontal = 0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -34.0
+offset_right = 48.0
+offset_bottom = 34.0
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_1xs3t")
 theme_override_font_sizes/font_size = 60
