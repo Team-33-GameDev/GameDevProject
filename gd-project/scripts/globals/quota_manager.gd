@@ -48,6 +48,9 @@ func _ready() -> void:
 
 # Запуск музыки при начале фазы кликанья
 func _on_run_started():
+	# Не запускаем музыку если мы в меню
+	if get_tree().current_scene.name.to_lower() == "mainmenu":
+		return
 	AudioManager.play_music("game")
 
 # Остановка музыки при окончании фазы

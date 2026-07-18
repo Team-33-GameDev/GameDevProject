@@ -4,6 +4,7 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 5.5
 const SENSITIVITY = 0.005
 const WIEGHT_DOWN = 1.5
+
 @export var vel_down_con: int = -1
 @export var min_angle: float = deg_to_rad(-85)
 @export var max_angle: float = deg_to_rad(85)
@@ -14,20 +15,38 @@ const WIEGHT_DOWN = 1.5
 @onready var cam_sight = $Head/Camera3D/Cam_sight
 var aim_target
 
-
-
 # Звуки шагов
 var footstep_timer: float = 0.0
 var footstep_interval: float = 0.45
 var was_moving: bool = false
 
 func _ready() -> void:
+	# === ПРОВЕРКА: МЫ В МЕНЮ? ===
+	# Если текущая активная сцена называется "MainMenu" (или как у тебя названа корневая нода mainmenu.tscn)
+	var current_scene_name = get_tree().current_scene.name.to_lower()
+	if current_scene_name == "mainmenu" or current_scene_name == "control":
+		print("🎮 Игрок обнаружил меню. Отключаю управление и камеру.")
+		
+		# 1. Отключаем обработку скрипта полностью
+		process_mode = Node.PROCESS_MODE_DISABLED
+		
+		# 2. Возвращаем курсор, чтобы меню работало!
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		
+		# 3. Отключаем камеру игрока, чтобы она не перебивала камеру фона!
+		if camera:
+			camera.current = false
+			
+		return # ВЫХОДИМ. Дальнейший код инициализации НЕ выполнится.
+
+	# === ЕСЛИ МЫ ЗДЕСЬ, ЗНАЧИТ ЭТО НАСТОЯЩАЯ ИГРА ===
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	# Добавляем AudioListener для 3D звука
 	var listener = AudioListener3D.new()
 	$Head/Camera3D.add_child(listener)
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Пауза на ESC
@@ -51,7 +70,6 @@ func _input(event: InputEvent) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	# Если на паузе — не обрабатываем движение
 	if get_tree().paused:
 		return
 	
@@ -60,11 +78,13 @@ func _physics_process(delta: float) -> void:
 			velocity += WIEGHT_DOWN * get_gravity() * delta
 		else:
 			velocity += get_gravity() * delta
+			
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
@@ -102,26 +122,21 @@ func _physics_process(delta: float) -> void:
 				print("player: Click accept")
 				AudioManager.play_sfx("button_click")
 				if aim_target.has_method("click"):
-					print("player: Object can be clicked and found correct method")
 					aim_target.click()
 				elif aim_target.owner and aim_target.owner.has_method("click"):
-					print("player: Object can be clicked and found correct method")
 					aim_target.owner.click()
 	else:
 		cam_sight.color = Color.WHITE
 
 	move_and_slide()
-	
 
 func play_footstep():
 	var pitch = randf_range(0.9, 1.1)
 	AudioManager.play_sfx("footstep", pitch)
 
 func open_pause():
-	# Ищем PauseMenu по всему дереву сцен
 	var pause_menu = get_tree().root.find_child("PauseMenu", true, false)
 	if pause_menu == null:
-		# Если не нашли по имени, ищем Control с pause_menu.gd
 		pause_menu = get_tree().root.find_child("Control", true, false)
 	if pause_menu and pause_menu.has_method("open_pause"):
 		pause_menu.open_pause()

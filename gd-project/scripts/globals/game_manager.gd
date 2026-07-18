@@ -110,6 +110,7 @@ func _ready() -> void:
 	#add_multiplicative_bonus(2.0)
 	#print("Total click power: ", total_click_power)
 	pass
+	
 
 
 
