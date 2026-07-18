@@ -10,35 +10,45 @@ signal click
 var test_sound_player: AudioStreamPlayer3D
 
 func _ready() -> void:
-	# === НАДЕЖНАЯ ПРОВЕРКА: МЫ В МЕНЮ ИЛИ В ИГРЕ? ===
-	# Если текущая активная сцена в дереве НЕ является этой сценой, 
-	# значит, мы загружены как под-сцена (фон в меню).
-	if get_tree().current_scene != self:
-		print("🎮 Game Room запущен как ФОН МЕНЮ. Игровая логика отключена.")
-		
-		# Полностью отключаем обработку для этой ноды и всех её детей
-		process_mode = Node.PROCESS_MODE_DISABLED
-		
-		# Если у тебя есть 3D звук для теста, можно его тут включить, а игровую логику пропустить
-		# test_sound_player = AudioManager.play_sfx_3d_loop("button_click", Vector3(0, 2, 0), self)
-		
-		return # ВЫХОДИМ из функции, игровая логика ниже не выполнится!
-
-	# === ЕСЛИ МЫ ЗДЕСЬ, ЗНАЧИТ ЭТО НАСТОЯЩАЯ ИГРА ===
-	print("🎮 Game Room запущен как ИГРА. Загрузка логики...")
+	var scene_name = get_tree().current_scene.name.to_lower()
 	
-	# Тут твоя обычная игровая инициализация (если она есть)
-	# Например:
-	# GameManager.score_changed.connect(_on_score_changed)
+	if scene_name == "mainmenu" or scene_name == "control":
+		print("🎮 Game Room запущен как ФОН МЕНЮ. Отключаю только игровую логику.")
+		
+		# 1. Отключаем Игрока
+		var player = get_node_or_null("Player")
+		if player:
+			player.process_mode = Node.PROCESS_MODE_DISABLED
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			var player_cam = player.get_node_or_null("Head/Camera3D")
+			if player_cam:
+				player_cam.current = false
 
+		# 2. Отключаем магазин
+		if shop:
+			shop.process_mode = Node.PROCESS_MODE_DISABLED
+
+		# 3. УБРАЛ СТРОКУ mc_button.disabled = true
+		# Просто отключаем обработку, этого достаточно
+		if mc_button:
+			mc_button.process_mode = Node.PROCESS_MODE_DISABLED
+
+		return
+
+	# === ИГРА ===
+	print(" Game Room запущен как ИГРА. Загрузка логики...")
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 func _on_click_button_button_clicked() -> void:
-	# Эта функция не вызовется, если process_mode = DISABLED, 
-	# но на всякий случай добавим проверку:
+	print("🔴 [GameRoom] Кнопка нажата!")
 	if process_mode == Node.PROCESS_MODE_DISABLED:
+		print("❌ [GameRoom] Отменено, так как process_mode = DISABLED (мы в меню?)")
 		return
 		
-	if shop and shop.has_method("emit"): # Убедимся, что shop существует
+	if shop:
+		print("🔴 [GameRoom] Вызываем shop.click.emit()")
 		shop.click.emit()
+	else:
+		print("❌ [GameRoom] Нода 'shop' не найдена!")
 
 # Остальные функции с проверками (они безопасны)
 func _on_click_button_2_button_clicked() -> void:
