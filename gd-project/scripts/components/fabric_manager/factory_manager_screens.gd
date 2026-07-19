@@ -4,6 +4,11 @@ extends Control
 signal close_requested
 
 
+const REFERENCE_SIZE := Vector2(1152.0, 648.0)
+
+
+@onready var title_label: Label = $Title
+
 @onready var page1: Control = \
 	$PagesController/Page1
 
@@ -15,6 +20,12 @@ signal close_requested
 
 @onready var prev_page_button: Button = \
 	$PagesController/Page2/PrevPageButton
+
+@onready var page1_factories_row: HBoxContainer = \
+	$PagesController/Page1/FactoriesRow
+
+@onready var page2_factories_row: HBoxContainer = \
+	$PagesController/Page2/FactoriesRow
 
 @onready var factory_slots = [
 	$PagesController/Page1/FactoriesRow/WoodenFactory,
@@ -33,6 +44,15 @@ const TOTAL_PAGES: int = 2
 
 
 func _ready() -> void:
+	if not resized.is_connected(
+		_apply_responsive_layout
+	):
+		resized.connect(
+			_apply_responsive_layout
+		)
+
+	call_deferred("_apply_responsive_layout")
+
 	_show_page(0)
 
 	if not next_page_button.pressed.is_connected(
@@ -48,6 +68,53 @@ func _ready() -> void:
 		prev_page_button.pressed.connect(
 			_on_prev_page_pressed
 		)
+
+
+func _apply_responsive_layout() -> void:
+	if size.x <= 0.0 or size.y <= 0.0:
+		return
+
+	var ui_scale: float = minf(
+		size.x / REFERENCE_SIZE.x,
+		size.y / REFERENCE_SIZE.y
+	)
+
+	ui_scale = maxf(ui_scale, 0.01)
+
+	_scale_control(
+		title_label,
+		ui_scale,
+		Vector2(0.5, 0.0)
+	)
+	_scale_control(
+		page1_factories_row,
+		ui_scale,
+		Vector2(0.5, 0.5)
+	)
+	_scale_control(
+		page2_factories_row,
+		ui_scale,
+		Vector2(0.5, 0.5)
+	)
+	_scale_control(
+		next_page_button,
+		ui_scale,
+		Vector2(1.0, 0.5)
+	)
+	_scale_control(
+		prev_page_button,
+		ui_scale,
+		Vector2(0.0, 0.5)
+	)
+
+
+func _scale_control(
+	control: Control,
+	ui_scale: float,
+	pivot_ratio: Vector2
+) -> void:
+	control.pivot_offset = control.size * pivot_ratio
+	control.scale = Vector2.ONE * ui_scale
 
 
 func setup(manager) -> void:

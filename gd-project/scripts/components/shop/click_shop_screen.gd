@@ -7,11 +7,16 @@ signal crowbar_requested
 signal hammer_requested
 
 
+const REFERENCE_SIZE := Vector2(1152.0, 648.0)
+
+
 @export var allow_close: bool = false
 
 
+@onready var title_label: Label = $Title
 @onready var balance_label: Label = $BalanceLabel
 @onready var status_label: Label = $StatusLabel
+@onready var cards_grid: GridContainer = $Cards
 
 @onready var additive_card: ClickShopCard = (
 	$Cards/AdditiveCard
@@ -35,6 +40,15 @@ var _default_status: String = ""
 
 
 func _ready() -> void:
+	if not resized.is_connected(
+		_apply_responsive_layout
+	):
+		resized.connect(
+			_apply_responsive_layout
+		)
+
+	call_deferred("_apply_responsive_layout")
+
 	_default_status = (
 		"ESC - CLOSE"
 		if allow_close
@@ -79,6 +93,48 @@ func _ready() -> void:
 		)
 
 	_refresh()
+
+
+func _apply_responsive_layout() -> void:
+	if size.x <= 0.0 or size.y <= 0.0:
+		return
+
+	var ui_scale: float = minf(
+		size.x / REFERENCE_SIZE.x,
+		size.y / REFERENCE_SIZE.y
+	)
+
+	ui_scale = maxf(ui_scale, 0.01)
+
+	# The grid keeps its 16:9 reference geometry and is scaled as one
+	# unit, so card sizes, gaps, borders and fonts remain proportional.
+	cards_grid.pivot_offset = cards_grid.size * 0.5
+	cards_grid.scale = Vector2.ONE * ui_scale
+
+	title_label.offset_top = 5.0 * ui_scale
+	title_label.offset_bottom = 88.0 * ui_scale
+	title_label.add_theme_font_size_override(
+		"font_size",
+		maxi(1, roundi(72.0 * ui_scale))
+	)
+
+	balance_label.offset_left = -330.0 * ui_scale
+	balance_label.offset_top = 18.0 * ui_scale
+	balance_label.offset_right = -24.0 * ui_scale
+	balance_label.offset_bottom = 60.0 * ui_scale
+	balance_label.add_theme_font_size_override(
+		"font_size",
+		maxi(1, roundi(30.0 * ui_scale))
+	)
+
+	status_label.offset_left = 24.0 * ui_scale
+	status_label.offset_top = -50.0 * ui_scale
+	status_label.offset_right = -24.0 * ui_scale
+	status_label.offset_bottom = -8.0 * ui_scale
+	status_label.add_theme_font_size_override(
+		"font_size",
+		maxi(1, roundi(28.0 * ui_scale))
+	)
 
 
 func setup(new_shop_backend: Shop) -> void:

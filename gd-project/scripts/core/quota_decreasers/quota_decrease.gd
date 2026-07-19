@@ -3,12 +3,22 @@ extends Node3D
 var data: QuotaData
 
 
+const REQUIRED_JUMPS: int = 3
+const DECREASE_PERCENT: float = 0.05
+
+
 signal jump_registered
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	data = template_data.duplicate_data()
 	data.init()
-	data.is_purchased = false 
+	data.is_purchased = false
+
+	# Restore the original Big Button behavior at runtime. This keeps
+	# the mechanic stable even if an older balance resource is cached
+	# or stores different tuning values.
+	data.condition_click = REQUIRED_JUMPS
+	data.q_decrease_percent = DECREASE_PERCENT
 
 
 

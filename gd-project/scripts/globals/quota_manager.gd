@@ -11,7 +11,7 @@ signal boss_intro_state_changed(active: bool)
 enum GameState { IDLE, RUNNING, GAME_OVER }
 
 const VICTORY_ROOM_SCENE := "res://scenes/levels/victory_room.tscn"
-const MINIMUM_QUOTA_RATIO: float = 0.90
+const MINIMUM_QUOTA_RATIO: float = 0.70
 var current_state: GameState = GameState.IDLE
 
 # Список квот: время в секундах, необходимое количество очков

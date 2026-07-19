@@ -3,6 +3,7 @@ class_name AutoClickerData
 
 
 const MIN_DPS: float = 1.0
+const FACTORY_WEAR_MULTIPLIER: int = 2
 
 
 @export_category("Start Value")
@@ -145,7 +146,14 @@ func apply_dmg() -> bool:
 		return false
 
 	cur_tick_dmg = 0
-	cur_hp = maxi(0, cur_hp - dmg)
+	# The campaign is deliberately more maintenance-heavy: every wear
+	# event removes twice the configured base damage. Keeping the
+	# multiplier here makes all six factories follow the same rule and
+	# preserves the relative balance of their resource values.
+	cur_hp = maxi(
+		0,
+		cur_hp - dmg * FACTORY_WEAR_MULTIPLIER
+	)
 
 	return true
 
