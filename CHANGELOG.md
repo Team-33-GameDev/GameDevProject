@@ -1,3 +1,77 @@
+## [4.0]
+
+### 🚀 Features
+
+- Feat(big button): add big button that dicrease the quota and demonstrate info
+- Feature/factoryu ui update
+- Feat: add factory statistics displays
+
+### 🐛 Bug Fixes
+
+- Fix: apply glass material to glass factory model
+- Fix: changing cuprum texture
+- Fix: cuprum factory model fix
+- Fix: start clicking phase only from player input
+- Fix: rebalance factory dps and screen sizes
+- Fix: restore button
+
+### 💼 Other
+
+- Add new sounds
+- Merge pull request #198 from Team-33-GameDev/feature/main-menu
+
+add new sounds
+- Integrate complete Game Room scene and factory models
+- Merge pull request #201 from Team-33-GameDev/feature/full-game-room-visual
+
+Integrate complete Game Room scene and factory models
+- Merge pull request #200 from Team-33-GameDev/docs/CHANGELOG-git-cliff-upd
+
+docs: CHANGElOG v.0.3.0
+- Merge pull request #202 from Team-33-GameDev/feature/full-game-room-visual
+
+Feature/full game room visual
+- Merge pull request #203 from Team-33-GameDev/dxvlxp-patch-77
+
+fix: cuprum factory model fix
+- Merge pull request #204 from Team-33-GameDev/feat/add-big-button-qouta-decrese-room
+
+feat(big button):add big button that dicrease the quota and demonstra…
+- Create README.md
+- Add files via upload
+- Update README.md
+- Merge pull request #205 from Team-33-GameDev/dorokhina-documentation-week6
+
+Dorokhina documentation week6
+- Adding green buttons for fixing factories
+- Merge pull request #206 from Team-33-GameDev/update-main-scene
+
+Adding green buttons for fixing factories
+- Fix factory manager fullscreen UI input
+- Connect factory purchases and upgrades to UI
+- Configure factory progression and upgrade values
+- Merge pull request #207 from Team-33-GameDev/factory-ui-integration
+
+Factory UI integration
+- Add new button style
+- Merge pull request #208 from Team-33-GameDev/feature/main-menu
+
+add new button style
+- Merge pull request #210 from Team-33-GameDev/add-factory-stat-displays
+
+Add factory stat displays
+- Merge pull request #211 from Team-33-GameDev/fix/factory-dps-and-restore
+
+fix: rebalance factory dps and screen sizes
+- Merge pull request #212 from Team-33-GameDev/fix/factory-dps-and-restore
+
+fix: restore button
+- Add new menu background
+- Add new menu background
+
+### 📚 Documentation
+- Update CHANGELOG.md information for latest version
+- 
 ## [0.3.0] - 2026-07-12
 
 ### 🚀 Features
