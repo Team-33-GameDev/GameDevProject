@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dofa43wuhxybx" path="res://assets/models/lamp.glb" id="1_l0wp4"]
 [ext_resource type="PackedScene" uid="uid://bhhhng2em6bwo" path="res://assets/models/room_empty_big_button.glb" id="1_nmjpf"]
 [ext_resource type="PackedScene" uid="uid://6qjvhtlc0prv" path="res://scenes/props/quota_value_decrease.tscn" id="3_bv6ui"]
+[ext_resource type="Material" uid="uid://cc6va3srls4nw" path="res://assets/models/black.tres" id="3_nmjpf"]
 [ext_resource type="PackedScene" uid="uid://cep4g0a1wn7tn" path="res://scenes/props/big_button_display/big_button_screen.tscn" id="4_a5v4h"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_f1n2c"]
@@ -25,7 +26,7 @@ transform = Transform3D(-0.4, 6.039832e-08, 0, -6.039832e-08, -0.4, 0, 0, 0, 0.4
 [node name="SpotLight3D" type="SpotLight3D" parent="Box/lamp2" unique_id=1345210830]
 transform = Transform3D(2.5, 1.6940659e-21, 4.2632564e-14, 4.2632564e-14, -1.0927848e-07, -2.5, 0, 2.5, -1.0927848e-07, 0.58208084, -3.2292233, -0.15975341)
 layers = 31
-light_color = Color(1.09848, 0.82407165, 0.49392402, 1)
+light_color = Color(0.3882353, 0.5921569, 1, 1)
 light_energy = 16.0
 light_indirect_energy = 16.0
 light_volumetric_fog_energy = 4.593
@@ -43,7 +44,7 @@ transform = Transform3D(-0.4, 3.4969112e-08, 0, -3.4969112e-08, -0.4, 0, 0, 0, 0
 [node name="SpotLight3D" type="SpotLight3D" parent="Box/lamp" unique_id=1727828189]
 transform = Transform3D(2.5, 1.6940659e-21, 4.2632564e-14, 4.2632564e-14, -1.0927848e-07, -2.5, 0, 2.5, -1.0927848e-07, 0.58208084, -3.2292233, -0.15975341)
 layers = 31
-light_color = Color(1.09848, 0.82407165, 0.49392402, 1)
+light_color = Color(0.3882353, 0.5921569, 1, 1)
 light_energy = 16.0
 light_indirect_energy = 16.0
 light_volumetric_fog_energy = 4.593
@@ -58,6 +59,7 @@ spot_angle_attenuation = 1.6817954
 [node name="Floor" type="MeshInstance3D" parent="Box" unique_id=1228913860]
 transform = Transform3D(1.9530226, 0, 0, 0, 2, 0, 0, 0, 1.5, 0, -2.5084124, 1.1806631)
 mesh = SubResource("BoxMesh_f1n2c")
+surface_material_override/0 = ExtResource("3_nmjpf")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Box/Floor" unique_id=2057951552]
 

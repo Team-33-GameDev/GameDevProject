@@ -1,17 +1,12 @@
 [gd_scene format=3 uid="uid://b16n8h78uxii5"]
 
 [ext_resource type="Script" uid="uid://de78qgiy3ty83" path="res://scripts/components/props/wooden_overlap.gd" id="1_vjfns"]
+[ext_resource type="PackedScene" uid="uid://crtydlcjp0hou" path="res://assets/models/wood.glb" id="2_ghvqf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s6so8"]
 size = Vector3(2.7823334, 1.2197876, 1.0405273)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g4kdn"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6so8"]
-albedo_color = Color(0.3842062, 0.24933633, 0.051746167, 1)
-roughness = 0.65
-
-[sub_resource type="BoxMesh" id="BoxMesh_g4kdn"]
 
 [node name="Wooden_Overlap" type="RigidBody3D" unique_id=1090349405]
 mass = 5.0
@@ -31,10 +26,8 @@ debug_color = Color(0.4868123, 0.5858021, 0, 0.41960785)
 transform = Transform3D(0.089, 0, 0, 0, 0.375, 0, 0, 0, 2.565, 0, 0, 0)
 shape = SubResource("BoxShape3D_g4kdn")
 
-[node name="Wooden_plate" type="MeshInstance3D" parent="CollisionShape3D" unique_id=341748289]
-transform = Transform3D(0.9999999, 0, 0, 0, 0.99999976, 0, 0, 0, 1, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_s6so8")
-mesh = SubResource("BoxMesh_g4kdn")
+[node name="wood" parent="CollisionShape3D" unique_id=1229985500 instance=ExtResource("2_ghvqf")]
+transform = Transform3D(-1.9233316e-07, -5.617977, 0, 1.0442834, -5.8281852e-08, 0, 0, 0, 0.19493178, 0, 0, 0)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
