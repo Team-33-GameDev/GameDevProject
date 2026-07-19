@@ -4,6 +4,10 @@ class_name ContextHintPopup
 
 const DEFAULT_DURATION: float = 6.0
 const SLIDE_DISTANCE: float = 48.0
+const POPUP_MINIMUM_SIZE := Vector2(360.0, 224.0)
+const CODE_FONT_SIZE: int = 22
+const TITLE_FONT_SIZE: int = 36
+const MESSAGE_FONT_SIZE: int = 27
 
 const HINTS := {
 	&"induction": {
@@ -113,6 +117,7 @@ var _motion_tween: Tween = null
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer = 120
+	_apply_readability_overrides()
 	popup_window.hide()
 
 	if not get_viewport().size_changed.is_connected(
@@ -126,6 +131,23 @@ func _ready() -> void:
 	_apply_responsive_layout()
 	call_deferred("_connect_scene_sources")
 	call_deferred("_check_initial_hint")
+
+
+func _apply_readability_overrides() -> void:
+	popup_window.custom_minimum_size = POPUP_MINIMUM_SIZE
+	code_label.add_theme_font_size_override(
+		&"font_size",
+		CODE_FONT_SIZE
+	)
+	title_label.add_theme_font_size_override(
+		&"font_size",
+		TITLE_FONT_SIZE
+	)
+	title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	message_label.add_theme_font_size_override(
+		&"font_size",
+		MESSAGE_FONT_SIZE
+	)
 
 
 func _process(delta: float) -> void:
@@ -455,8 +477,8 @@ func _apply_responsive_layout() -> void:
 	)
 	var popup_width: float = clampf(
 		viewport_size.x * 0.36,
-		320.0,
-		520.0
+		POPUP_MINIMUM_SIZE.x,
+		580.0
 	)
 
 	popup_window.size.x = minf(
