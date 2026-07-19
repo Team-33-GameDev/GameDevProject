@@ -4,21 +4,24 @@
 
 [resource]
 script = ExtResource("1_f4mlp")
-click_value = 250
-max_hp = 500
-rhpt = 15
+click_value = 90
+max_hp = 750
+rhpt = 190
 dmg = 15
-dmg_tick_period = 180
-bonus_max_hp = 50
+dmg_tick_period = 210
+upg_price_multiplier = 1.8
+bonus_max_hp = 150
 ubp_max_hp = 4000
-bonus_click_value = 50
-ubp_click_value = 10000
-ubp_dmg = 6000
-ubp_dmg_period = 6000
-bonus_rhpt = 6
-ubp_rhpt = 5000
+bonus_click_value = 30
+ubp_click_value = 5500
+bonus_dmg = -1
+ubp_dmg = 5500
+bonus_dmg_period = 25
+ubp_dmg_period = 5500
+bonus_rhpt = 95
+ubp_rhpt = 3500
 item_name = "Golden Factory"
 description = "Automated golden factory"
-item_price = 14000
+item_price = 11000
 can_buy = true
 metadata/_custom_type_script = "uid://dofydyjcnq5qu"

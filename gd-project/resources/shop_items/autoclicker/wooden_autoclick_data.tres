@@ -4,14 +4,22 @@
 
 [resource]
 script = ExtResource("1_foujs")
+click_value = 1
+max_hp = 100
+rhpt = 25
 dmg = 5
-dmg_tick_period = 150
-bonus_max_hp = 10
-ubp_max_hp = 40
+dmg_tick_period = 225
+upg_price_multiplier = 1.8
+bonus_max_hp = 20
+ubp_max_hp = 80
+bonus_click_value = 1
 ubp_click_value = 100
-ubp_dmg = 60
-ubp_dmg_period = 60
-ubp_rhpt = 50
+bonus_dmg = -1
+ubp_dmg = 100
+bonus_dmg_period = 25
+ubp_dmg_period = 100
+bonus_rhpt = 12
+ubp_rhpt = 60
 item_name = "Wooden Finger"
 description = "Basic automated wooden factory"
 item_price = 0

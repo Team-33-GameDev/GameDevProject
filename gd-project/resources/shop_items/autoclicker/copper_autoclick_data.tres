@@ -4,18 +4,21 @@
 
 [resource]
 script = ExtResource("1_drw6e")
-click_value = 15
-max_hp = 200
-rhpt = 8
-dmg = 3
-dmg_tick_period = 90
-bonus_max_hp = 20
-ubp_max_hp = 300
-bonus_click_value = 5
-ubp_click_value = 750
-ubp_dmg = 400
-ubp_dmg_period = 400
-bonus_rhpt = 3
+click_value = 10
+max_hp = 240
+rhpt = 60
+dmg = 6
+dmg_tick_period = 188
+upg_price_multiplier = 1.8
+bonus_max_hp = 50
+ubp_max_hp = 400
+bonus_click_value = 3
+ubp_click_value = 500
+bonus_dmg = -1
+ubp_dmg = 500
+bonus_dmg_period = 25
+ubp_dmg_period = 500
+bonus_rhpt = 30
 ubp_rhpt = 350
 item_name = "Copper Factory"
 item_price = 900

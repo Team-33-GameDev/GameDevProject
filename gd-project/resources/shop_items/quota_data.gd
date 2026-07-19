@@ -55,6 +55,7 @@ func duplicate_data() -> QuotaData:
 	new_data.cooldown = cooldown
 	new_data.cooldown_rem = cooldown_rem
 	new_data.condition_click = condition_click
+	new_data.click_value = click_value
 	new_data.cur_condition_click = cur_condition_click
 	new_data.q_decrease_percent = q_decrease_percent
 	return new_data

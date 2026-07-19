@@ -20,10 +20,10 @@ func test_initial_state_is_idle():
 func test_initial_quota_index_zero():
 	assert_eq(QuotaManager.current_quota_index, 0)
 
-func test_first_quota_is_100():
+func test_first_quota_is_65():
 	# Locks in the balance: if someone changes the first quota,
 	# this test reminds them to update the docs and this file too
-	assert_eq(QuotaManager.quotas[0][1], 100, "first quota = 100 points")
+	assert_eq(QuotaManager.quotas[0][1], 65, "first quota = 65 points")
 	assert_eq(QuotaManager.quotas[0][0], 30.0, "first quota time = 30 sec")
 
 # ============ RUN START ============
@@ -35,7 +35,7 @@ func test_first_click_starts_run():
 
 func test_run_sets_timer_and_target():
 	GameManager.click(1)
-	assert_eq(QuotaManager.current_quota_target, 100, "target = first quota")
+	assert_eq(QuotaManager.current_quota_target, 65, "target = first quota")
 	assert_almost_eq(QuotaManager.time_left, 30.0, 0.1, "timer = 30 sec")
 
 func test_run_started_signal():
@@ -69,7 +69,7 @@ func test_timer_does_not_tick_in_idle():
 
 func test_quota_success_advances_index():
 	GameManager.click(1)          # start the run
-	GameManager.add_score(99)     # reach 100
+	GameManager.add_score(64)     # reach 65
 	QuotaManager._process(30.1)   # time is up
 	assert_eq(QuotaManager.current_quota_index, 1,
 		"success advances the quota index")
@@ -77,7 +77,7 @@ func test_quota_success_advances_index():
 func test_quota_success_keeps_surplus_score():
 	GameManager.click(125)
 	QuotaManager._process(30.1)
-	assert_eq(GameManager.score, 25,
+	assert_eq(GameManager.score, 60,
 		"completed quota burns, surplus remains spendable")
 
 func test_quota_success_returns_to_idle():
@@ -93,27 +93,37 @@ func test_quota_success_emits_signals():
 	assert_signal_emitted_with_parameters(QuotaManager, "run_ended", [true])
 	assert_signal_emitted(QuotaManager, "preparation_phase_started")
 
-func test_second_quota_is_200():
+func test_second_quota_is_210():
 	GameManager.click(100)
 	QuotaManager._process(30.1)   # complete the first quota
 	GameManager.click(1)          # start the second run
-	assert_eq(QuotaManager.current_quota_target, 200,
-		"second quota = 200")
+	assert_eq(QuotaManager.current_quota_target, 210,
+		"second quota = 210")
 
-func test_campaign_has_four_balanced_quotas():
-	assert_eq(QuotaManager.quotas.size(), 4)
-	assert_eq(QuotaManager.quotas[2], [30.0, 800])
-	assert_eq(QuotaManager.quotas[3], [30.0, 1500])
+func test_campaign_has_twelve_balanced_quotas():
+	assert_eq(QuotaManager.quotas.size(), 12)
+	assert_eq(QuotaManager.quotas[2], [50.0, 480])
+	assert_eq(QuotaManager.quotas[11], [100.0, 190000])
 
-func test_quota_reduction_is_limited_to_thirty_percent():
+	var total_duration: float = 0.0
+	var previous_target: int = 0
+	for quota: Array in QuotaManager.quotas:
+		total_duration += float(quota[0])
+		assert_gt(int(quota[1]), previous_target)
+		previous_target = int(quota[1])
+
+	assert_eq(total_duration, 900.0,
+		"active campaign time must be at least 15 minutes")
+
+func test_quota_reduction_is_limited_to_ten_percent():
 	GameManager.click(1)
 	for _attempt in range(20):
-		QuotaManager.decrease_quota(0.05)
-	assert_eq(QuotaManager.current_quota_target, 70,
+		QuotaManager.decrease_quota(0.02)
+	assert_eq(QuotaManager.current_quota_target, 59,
 		"the big button cannot replace earning score")
 
 func test_quota_cannot_be_reduced_during_preparation():
-	assert_false(QuotaManager.decrease_quota(0.05))
+	assert_false(QuotaManager.decrease_quota(0.02))
 	assert_eq(QuotaManager.current_quota_target, 0)
 
 func test_overshoot_counts_as_success():
@@ -121,7 +131,7 @@ func test_overshoot_counts_as_success():
 	QuotaManager._process(30.1)
 	assert_eq(QuotaManager.current_quota_index, 1,
 		"overshooting is also a success")
-	assert_eq(GameManager.score, 400,
+	assert_eq(GameManager.score, 435,
 		"overshoot becomes the preparation budget")
 
 # ============ RESET ============

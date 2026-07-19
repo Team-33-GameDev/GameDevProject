@@ -21,6 +21,15 @@ func _ready() -> void:
 
 
 func click() -> void:
+	# Покупки и планирование относятся к фазе подготовки.
+	# Открытие оверлея ставит дерево на паузу, поэтому во время забега
+	# терминал иначе позволял бы бесплатно останавливать таймер квоты.
+	if (
+		QuotaManager.current_state
+		== QuotaManager.GameState.RUNNING
+	):
+		return
+
 	shop_opened.emit()
 
 
