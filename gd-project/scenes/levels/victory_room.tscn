@@ -1,0 +1,238 @@
+[gd_scene format=3 uid="uid://13knfyqkffae"]
+
+[ext_resource type="Script" uid="uid://c2glqnrfiocn1" path="res://scripts/core/victory_room.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://6stmcgq62iml" path="res://scenes/characters/player.tscn" id="2_player"]
+[ext_resource type="AudioStream" uid="uid://hbd1oj5bjpqj" path="res://assets/audio/ambient.mp3.mp3" id="3_ambient"]
+[ext_resource type="Texture2D" uid="uid://b7t6qmgwp6bil" path="res://assets/display/eyes/blue_eyes.png" id="4_blue_eyes"]
+[ext_resource type="PackedScene" uid="uid://bi431ovil5hhi" path="res://assets/models/portal_cake.glb" id="5_cake"]
+[ext_resource type="Texture2D" uid="uid://cfkyvy4yxpkqd" path="res://assets/display/eyes/red_eyes.png" id="6_screamer"]
+[ext_resource type="AudioStream" uid="uid://cw7agek2tn7q" path="res://assets/audio/cake_screamer.wav" id="7_scream_audio"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_room"]
+size = Vector3(7.255, 0.29367676, 7.12)
+
+[sub_resource type="StandardMaterial3D" id="Material_room"]
+albedo_color = Color(0.002, 0.006, 0.018, 1)
+metallic = 0.15
+roughness = 0.82
+
+[sub_resource type="ConvexPolygonShape3D" id="Shape_room"]
+points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.20757934, -3.617579, -3.6850786, -0.20757934, 3.6374202, -3.6850786, 0.25305554, -3.617579, 3.6850567, -0.20757934, -3.617579, -3.6850786, 0.25305554, 3.6374202, 3.6850567, -0.20757934, 3.6374202, 3.6850567, 0.25305554, -3.617579)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pedestal"]
+top_radius = 0.86
+bottom_radius = 1.02
+height = 1.05
+radial_segments = 48
+
+[sub_resource type="StandardMaterial3D" id="Material_pedestal"]
+albedo_color = Color(0.055, 0.09, 0.17, 1)
+metallic = 0.65
+roughness = 0.24
+emission_enabled = true
+emission = Color(0.01, 0.045, 0.12, 1)
+emission_energy_multiplier = 1.8
+
+[sub_resource type="CylinderShape3D" id="Shape_pedestal"]
+height = 1.05
+radius = 1.02
+
+[sub_resource type="CylinderShape3D" id="Shape_cake"]
+height = 1.35
+radius = 0.98
+
+[sub_resource type="Environment" id="Environment_wh7pi"]
+background_energy_multiplier = 16.0
+
+[node name="VictoryRoom" type="Node3D" unique_id=2136011880]
+script = ExtResource("1_script")
+
+[node name="BlueSpotLight" type="SpotLight3D" parent="." unique_id=1189716721]
+transform = Transform3D(-0.8660254, -0.5000001, -3.7252907e-09, 1.2904785e-08, -2.980232e-08, 1, -0.50000006, 0.8660254, 3.226196e-08, 0.466, 9.14, -2)
+light_color = Color(0.08, 0.42, 1, 1)
+light_energy = 10.0
+shadow_enabled = true
+shadow_bias = 1.4
+spot_range = 10.5
+spot_attenuation = 0.0
+spot_angle = 29.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=292514611]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 20.54, 18.2, 19.67)
+light_color = Color(0.12, 0.22, 0.45, 1)
+light_energy = 0.32
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=1284135709 instance=ExtResource("2_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4660325, 3.057031, 2.4793806)
+
+[node name="Room" type="Node3D" parent="." unique_id=322918226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29444146, 3.474465, -0.7806158)
+
+[node name="Floor" type="MeshInstance3D" parent="Room" unique_id=758889147]
+transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 1.5, 0, -1.8101051, 0)
+mesh = SubResource("BoxMesh_room")
+surface_material_override/0 = SubResource("Material_room")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Room/Floor" unique_id=304079378]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/Floor/StaticBody3D" unique_id=243760845]
+shape = SubResource("Shape_room")
+
+[node name="Roof" type="MeshInstance3D" parent="Room" unique_id=357159255]
+transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 1.5, 0, 8.216623, 0)
+mesh = SubResource("BoxMesh_room")
+surface_material_override/0 = SubResource("Material_room")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Room/Roof" unique_id=501781688]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/Roof/StaticBody3D" unique_id=1640234418]
+shape = SubResource("Shape_room")
+
+[node name="WallFront" type="MeshInstance3D" parent="Room" unique_id=2084324272]
+transform = Transform3D(-6.556708e-08, -2, 0, -6.556708e-08, 3.821371e-15, -1.5, 1.5, -8.742278e-08, -6.556708e-08, 5.59241, 3.4432564, 0.053004265)
+mesh = SubResource("BoxMesh_room")
+surface_material_override/0 = SubResource("Material_room")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Room/WallFront" unique_id=1884848521]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/WallFront/StaticBody3D" unique_id=431110743]
+shape = SubResource("Shape_room")
+
+[node name="WallBack" type="MeshInstance3D" parent="Room" unique_id=1414193405]
+transform = Transform3D(-6.556708e-08, -2, 0, -6.556708e-08, 3.821371e-15, -1.5, 1.5, -8.742278e-08, -6.556708e-08, -5.087757, 3.135, 0.56185913)
+mesh = SubResource("BoxMesh_room")
+surface_material_override/0 = SubResource("Material_room")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Room/WallBack" unique_id=1074277945]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/WallBack/StaticBody3D" unique_id=1673615032]
+shape = SubResource("Shape_room")
+
+[node name="WallRight" type="MeshInstance3D" parent="Room" unique_id=1337540106]
+transform = Transform3D(1.5, 0, 0, 0, -8.742278e-08, -1.5, 0, 2, -6.556708e-08, 0, 3.135, 5.297003)
+mesh = SubResource("BoxMesh_room")
+surface_material_override/0 = SubResource("Material_room")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Room/WallRight" unique_id=1637373481]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/WallRight/StaticBody3D" unique_id=215884359]
+shape = SubResource("Shape_room")
+
+[node name="WallLeft" type="MeshInstance3D" parent="Room" unique_id=314741229]
+transform = Transform3D(1.5, 0, 0, 0, -8.742278e-08, -1.5, 0, 2, -6.556708e-08, 0, 3.135, -5.0296373)
+mesh = SubResource("BoxMesh_room")
+surface_material_override/0 = SubResource("Material_room")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Room/WallLeft" unique_id=313646229]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room/WallLeft/StaticBody3D" unique_id=91700459]
+shape = SubResource("Shape_room")
+
+[node name="Ambient" type="AudioStreamPlayer" parent="." unique_id=695422048]
+stream = ExtResource("3_ambient")
+autoplay = true
+
+[node name="EyesBack" type="Sprite3D" parent="." unique_id=2123224097]
+process_mode = 3
+physics_interpolation_mode = 1
+auto_translate_mode = 1
+transform = Transform3D(1.35, 0, 0, 0, 1.35, 0, 0, 0, 1.35, 0.26419306, 4.724969, -5.271218)
+gi_mode = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("4_blue_eyes")
+
+[node name="EyesLeft" type="Sprite3D" parent="." unique_id=1949709405]
+process_mode = 3
+physics_interpolation_mode = 1
+auto_translate_mode = 1
+transform = Transform3D(-5.9e-08, 0, 1.35, 0, 1.35, 0, -1.35, 0, -5.9e-08, -4.9552765, 4.6107845, -0.6376004)
+gi_mode = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("4_blue_eyes")
+
+[node name="EyesFront" type="Sprite3D" parent="." unique_id=252357279]
+process_mode = 3
+physics_interpolation_mode = 1
+auto_translate_mode = 1
+transform = Transform3D(-1.35, 0, -1.18e-07, 0, 1.35, 0, 1.18e-07, 0, -1.35, -0.16496849, 4.5587587, 3.795413)
+gi_mode = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("4_blue_eyes")
+
+[node name="EyesRight" type="Sprite3D" parent="." unique_id=646502678]
+process_mode = 3
+physics_interpolation_mode = 1
+auto_translate_mode = 1
+transform = Transform3D(-5.9e-08, 0, 1.35, 0, 1.35, 0, -1.35, 0, -5.9e-08, 6.9408345, 4.6806965, -0.45722246)
+gi_mode = 2
+shaded = true
+alpha_cut = 1
+texture_filter = 0
+texture = ExtResource("4_blue_eyes")
+
+[node name="Pedestal" type="MeshInstance3D" parent="." unique_id=138389893]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.466, 2.49, -2.05)
+mesh = SubResource("CylinderMesh_pedestal")
+surface_material_override/0 = SubResource("Material_pedestal")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pedestal" unique_id=2108155930]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pedestal/StaticBody3D" unique_id=1471694178]
+shape = SubResource("Shape_pedestal")
+
+[node name="CakeModel" parent="." unique_id=972789101 groups=["clickable"] instance=ExtResource("5_cake")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.466, 3.02, -2.05)
+
+[node name="CakeHitbox" type="StaticBody3D" parent="." unique_id=699232739 groups=["clickable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.466, 3.68, -2.05)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CakeHitbox" unique_id=650487876]
+shape = SubResource("Shape_cake")
+
+[node name="ScreamAudio" type="AudioStreamPlayer" parent="." unique_id=1303621311]
+stream = ExtResource("7_scream_audio")
+
+[node name="ScreamerOverlay" type="CanvasLayer" parent="." unique_id=1474489496]
+layer = 100
+visible = false
+
+[node name="Background" type="ColorRect" parent="ScreamerOverlay" unique_id=1361691311]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ScreamerImage" type="TextureRect" parent="ScreamerOverlay" unique_id=1176318412]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_screamer")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Flash" type="ColorRect" parent="ScreamerOverlay" unique_id=200626062]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1628355949]
+environment = SubResource("Environment_wh7pi")

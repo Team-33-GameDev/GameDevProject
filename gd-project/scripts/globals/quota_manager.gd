@@ -95,8 +95,7 @@ func _on_player_click_performed(_amount: int) -> void:
 
 func _start_run() -> void:
 	if current_quota_index >= quotas.size():
-		print("🏆 ВСЕ КВОТЫ ВЫПОЛНены! ВЫ ПОБЕДИЛИ (Демо-версия).")
-		current_state = GameState.GAME_OVER
+		_trigger_victory()
 		return
 
 	current_state = GameState.RUNNING
@@ -123,14 +122,27 @@ func _evaluate_quota() -> void:
 		GameManager.score = 0
 	
 		current_quota_index += 1
+
+		if current_quota_index >= quotas.size():
+			_trigger_victory()
+			return
+
 		current_state = GameState.IDLE
-	
+
 	# Эмитим сигнал о начале фазы подготовки
 		preparation_phase_started.emit()
 	else:
 		print("FAILURE! Quota not reached. DISPOSAL INITIATED.")
 		current_state = GameState.GAME_OVER
 		_trigger_game_over()
+
+func _trigger_victory() -> void:
+	print("🏆 ALL QUOTAS COMPLETED. ENTERING THE VICTORY ROOM.")
+	time_left = 0.0
+	GameManager.score = 0
+	current_state = GameState.GAME_OVER
+	get_tree().change_scene_to_file("res://scenes/levels/victory_room.tscn")
+
 
 func _trigger_game_over() -> void:
 	print("💀 GAME OVER. Restarting simulation...")
