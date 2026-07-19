@@ -108,27 +108,10 @@ The customer executed the trial build independently and we reviewed the UAT scen
 ---
 
 ## Contribution Traceability
-| Team Member | Issues / PRs | Review Activity | Testing / Quality / Docs / Transition |
-|---|---|---|---|
-| Alice (Dev) | #78, PR #112, PR #115 | Reviewed PR #113, PR #116 | Implemented Autoclicker object pooling, updated `docs/testing.md` with performance QRT. |
-| Bob (Dev) | #79, #80, PR #113, PR #116 | Reviewed PR #112, PR #115 | Added Death Phase audio cues, fixed camera stutter, drafted `docs/customer-handover.md`. |
-| Charlie (Dev)| #82, PR #114, PR #117 | Reviewed PR #112, PR #113 | Created `CONTRIBUTING.md` and `AGENTS.md`, managed Week 6 trial release and customer meeting. |
-
----
-
-## Evidence Screenshots
-
-### Sprint 4 Milestone
-![Sprint 4 Milestone](images/sprint4-milestone.png)
-
-### Week 6 Trial Release (v0.4.0-rc1)
-![v0.4.0-rc1 Release](images/week6-release.png)
-
-### Example Reviewed Issue-Linked PR
-![Reviewed PR - Object Pooling](images/example-pr-week6.png)
-
-### Customer Trial / UAT Evidence
-![Customer running the trial build](images/customer-trial.png)
-
-### Hosted Documentation Site (Updated)
-![Hosted Docs Site](images/hosted-docs-week6.png)
+| Member | Username | Issues | PRs Created | PRs Reviewed |
+|---|---|---|---|---|
+| Bogdan | @boopEvdakov | | #194, #200 | #193, #195, #196, #204 |
+| Rustam | @JohnRutman | | #196, #202 | #193, #200, #203, #204 |
+| Varvara | @Dorohina | | #205 | |
+| Yaroslav | @Original-Show | #103 | #197, #199, #204 | #193, #195, #196, #200, #201, #203, #205 |
+| David | @dxvlxp | #28, #103 | #193, #195, #201, #203 | #196, #199, #200, #205 |
