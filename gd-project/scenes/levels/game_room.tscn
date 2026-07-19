@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://btpaq7jjj48yb" path="res://assets/models/rack.glb" id="12_og8p1"]
 [ext_resource type="PackedScene" uid="uid://rg84upsptpit" path="res://scenes/props/crowbar.tscn" id="13_e8u5p"]
 [ext_resource type="PackedScene" uid="uid://b0ktvijayof3k" path="res://scenes/ui/PauseMenu.tscn" id="14_p5jwx"]
+[ext_resource type="PackedScene" uid="uid://b7h3kx9w2mn5c" path="res://scenes/ui/context_hint_popup.tscn" id="14_popup"]
 [ext_resource type="PackedScene" uid="uid://d1wka00q8eltb" path="res://assets/models/ventilation.glb" id="14_wruq6"]
 [ext_resource type="PackedScene" uid="uid://dhyjthbxihqrk" path="res://scenes/levels/factory_room.tscn" id="15_gpf6e"]
 [ext_resource type="PackedScene" path="res://scenes/props/shop_system.tscn" id="15_shop"]
@@ -104,6 +105,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28564167, 1.5752821, 0.440
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=86922858]
 
 [node name="Control" parent="CanvasLayer" unique_id=1361941140 instance=ExtResource("14_p5jwx")]
+
+[node name="ContextHintPopup" parent="." instance=ExtResource("14_popup")]
 
 [node name="MainRoom" type="Node3D" parent="." unique_id=1314816958]
 

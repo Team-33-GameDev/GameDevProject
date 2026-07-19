@@ -2,6 +2,7 @@
 
 ### Features
 
+- Add non-blocking contextual popup windows for controls, quotas, terminals, equipment and the Big Button.
 - Connect the Crowbar shop card to the existing world item.
 - Preserve score earned above a completed quota and reserve the active quota from purchases.
 - Expand and rebalance the campaign to 12 runs and at least 15 minutes of active play.

@@ -1,0 +1,134 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7h3kx9w2mn5c"]
+
+[ext_resource type="Script" uid="uid://dm2v8a4pk6r1q" path="res://scripts/components/ui/context_hint_popup.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://assets/ui/VT323-Regular.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="StylePanel"]
+bg_color = Color(0.018, 0.027, 0.043, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.19, 0.48, 0.69, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.65)
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleSeparator"]
+bg_color = Color(0.18, 0.39, 0.55, 0.45)
+
+[sub_resource type="StyleBoxFlat" id="StyleProgressBackground"]
+bg_color = Color(0.06, 0.1, 0.14, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleProgressFill"]
+bg_color = Color(0.3, 0.72, 0.95, 0.9)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[node name="ContextHintPopup" type="CanvasLayer"]
+layer = 120
+script = ExtResource("1_script")
+
+[node name="Screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PopupWindow" type="PanelContainer" parent="Screen"]
+custom_minimum_size = Vector2(320, 188)
+offset_right = 460.0
+offset_bottom = 188.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StylePanel")
+
+[node name="Content" type="HBoxContainer" parent="Screen/PopupWindow"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Accent" type="ColorRect" parent="Screen/PopupWindow/Content"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.47, 0.79, 1, 1)
+
+[node name="BodyMargin" type="MarginContainer" parent="Screen/PopupWindow/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 12
+
+[node name="Body" type="VBoxContainer" parent="Screen/PopupWindow/Content/BodyMargin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 7
+
+[node name="Header" type="MarginContainer" parent="Screen/PopupWindow/Content/BodyMargin/Body"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Code" type="Label" parent="Screen/PopupWindow/Content/BodyMargin/Body/Header"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.47, 0.79, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "SYSTEM NOTICE // 00"
+
+[node name="Separator" type="HSeparator" parent="Screen/PopupWindow/Content/BodyMargin/Body"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/separator = SubResource("StyleSeparator")
+
+[node name="Title" type="Label" parent="Screen/PopupWindow/Content/BodyMargin/Body"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.47, 0.79, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 29
+text = "CONTROL PROTOCOL"
+
+[node name="Message" type="Label" parent="Screen/PopupWindow/Content/BodyMargin/Body"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.82, 0.88, 0.93, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 21
+text = "Contextual directive text."
+autowrap_mode = 2
+
+[node name="Footer" type="MarginContainer" parent="Screen/PopupWindow/Content/BodyMargin/Body"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Progress" type="ProgressBar" parent="Screen/PopupWindow/Content/BodyMargin/Body/Footer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleProgressBackground")
+theme_override_styles/fill = SubResource("StyleProgressFill")
+value = 100.0
+show_percentage = false
