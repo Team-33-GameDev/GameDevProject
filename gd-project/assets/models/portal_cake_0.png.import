@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7t6qmgwp6bil"
-path.s3tc="res://.godot/imported/blue_eyes.png-afe078e9cfb6c2ef1c8161360b491324.s3tc.ctex"
+uid="uid://eiy47socl4yn"
+path.s3tc="res://.godot/imported/portal_cake_0.png-41f2af260ef5a0fa34146657d464dd2f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "eaecdc19ac2b2aae066ff77f27c07ebf"
+}
 
 [deps]
 
-source_file="res://assets/display/eyes/blue_eyes.png"
-dest_files=["res://.godot/imported/blue_eyes.png-afe078e9cfb6c2ef1c8161360b491324.s3tc.ctex"]
+source_file="res://assets/models/portal_cake_0.png"
+dest_files=["res://.godot/imported/portal_cake_0.png-41f2af260ef5a0fa34146657d464dd2f.s3tc.ctex"]
 
 [params]
 
