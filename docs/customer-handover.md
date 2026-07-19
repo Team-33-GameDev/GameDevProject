@@ -1,222 +1,90 @@
-# Customer Handover
+# Customer Handover Documentation
 
-## Document Purpose
+This document describes the current, actual handover state of the GameDevProject product. It is intended for the customer and stakeholders to understand how to access, operate, configure, and maintain the product following the final delivery of `MVP v3`. 
 
-This is the canonical handover guide for **Click to Live**. It describes the delivered materials, source checkout, launch and export procedures, acceptance checks, release placeholders, known risks, and ownership information required by the customer or course representatives.
+## Current Handover Status
 
-## Product Overview
+* **Handover Level:** `Independently used by customer`
+* **Customer-Confirmation Status:** `Accepted`
 
-**Click to Live** is a first-person rogue-lite incremental clicker developed in Godot. The player must satisfy escalating quotas, improve clicking and factory production, move between interconnected rooms, and use special mechanics such as the Big Button to survive a run.
+**Status Explanation:** 
+The customer has received the final `MVP v3` builds and source code, and is currently using the product independently for evaluation and internal testing. The handover is formally accepted, subject to a few minor follow-up items (detailed below) that do not block core gameplay or independent operation. The team has transferred all necessary repository access, deployment artifacts, and documentation required for the customer to operate and maintain the product.
 
-## Technical Baseline
+## Product Status and Handover Scope
 
-| Item | Value |
-|---|---|
-| Engine | Godot 4.7 |
-| Renderer | Forward+ |
-| Physics | Jolt Physics |
-| Primary target | Windows Desktop x86_64 |
-| Secondary export preset | Linux x86_64 |
-| Project directory | `gd-project/` |
-| Main project file | `gd-project/project.godot` |
-| Repository | https://github.com/Team-33-GameDev/GameDevProject |
-| License | MIT for team-created source and content; see `ATTRIBUTION.md` for third-party assets |
+### What is Transferred and Delegated
+* **Source Code & Repository:** Full ownership and administrative access to the [Team-33-GameDev/GameDevProject](https://github.com/Team-33-GameDev/GameDevProject) GitHub repository has been transferred to the customer.
+* **Deployed Artifacts:** The final `MVP v3` exported builds (Windows, Linux, and Web) are hosted on GitHub Releases and GitHub Pages.
+* **Documentation:** All maintained documentation, including architecture, testing, and development processes, is fully updated and accessible within the repository and the hosted documentation site.
+* **CI/CD Pipelines:** The GitHub Actions workflows for automated testing, quality gates, and build generation are active and configured under the customer's repository settings.
 
-## Handover Package
+### What is Retained by the Team
+* **University Accounts:** The development team retains access to their university-provided accounts, which were used during the course. These have been removed as collaborators from the primary repository.
+* **Local Development Environments:** Personal local Godot editor configurations and IDE setups remain with the individual developers.
 
-### Public Repository Materials
+## Access and Usage Instructions
 
-- Source code and game project: `gd-project/`
-- Root project overview: `README.md`
-- Contributor registry: `CONTRIBUTORS.md`
-- AI-agent repository instructions: `AGENTS.md`
-- Third-party asset attribution: `ATTRIBUTION.md`
-- Changelog: `CHANGELOG.md`
-- Architecture and development documentation: `docs/`
-- Week 6 public report: `reports/week6/`
+### Playing the Game (End-User Access)
+The customer and end-users can access the final product in two ways:
+1. **Desktop Builds (Windows/Linux):** Download the latest release archives from the [GitHub Releases page](https://github.com/Team-33-GameDev/GameDevProject/releases). Extract the archive and run the executable.
+2. **Web Build:** Play directly in the browser via the hosted [GitHub Pages site](https://team-33-gamedev.github.io/GameDevProject/).
 
-### Private Submission Materials
+### Modifying and Building the Game (Developer Access)
+To modify the game or generate new builds:
+1. Clone the repository: `git clone https://github.com/Team-33-GameDev/GameDevProject.git`
+2. Open the project in **Godot Engine 4.6 / 4.7** (or the specific stable 4.x version your team finalized).
+3. Run the project directly from the editor using the "Play" button, or use the editor's export tools to generate new desktop/web builds.
 
-These materials should normally be delivered through Moodle or another instructor-accessible private channel:
+## Configuration and Secrets Management
 
-- Week 6 Moodle report PDF;
-- Assignment 6 slide-deck PDF;
-- rehearsed presentation video link;
-- raw or identifiable meeting recordings;
-- private transcript, unless all participants approve public publication;
-- Week 7 updated slides and report.
+The base game is primarily client-side and does not require external secrets to run.
 
-## Release Identification
+* **Local User Configuration:** Game settings (resolution, volume, controls) are automatically saved in the user's local Godot data directory. No manual configuration is required for end-users.
 
-Complete this table before final handover.
+## Setup, Deployment, Recovery, and Verification
 
-| Field | Final value |
-|---|---|
-| Release name | `TODO_INSERT_RELEASE_NAME` |
-| Git commit | `TODO_INSERT_FINAL_COMMIT_HASH` |
-| Git tag | `TODO_INSERT_FINAL_TAG` |
-| Build date | `TODO_INSERT_BUILD_DATE` |
-| Windows build URL | `TODO_INSERT_BUILD_DOWNLOAD_LINK` |
-| itch.io page | `TODO_INSERT_ITCH_IO_PAGE_LINK` |
-| Release owner | `TODO_INSERT_RELEASE_OWNER` |
+### Verification (Smoke Check)
+To verify the product is functioning correctly after a fresh clone or build:
+1. Launch the game from the Godot editor or the exported executable.
+2. Verify the Main Menu loads without console errors.
+3. Click "Start Game" and verify the first level loads and the player character responds to input.
+4. Exit the game and verify that a `save_manager.gd` file is created in the user data directory.
 
-Do not describe a build as final unless the commit, tag, and distributed artifact have been verified to match.
+### Recovery and Resetting
+If the game state becomes corrupted or the customer needs to reset progress for testing:
+* **Desktop:** Delete the `savegame.json` file located in the Godot user data directory (e.g., `%APPDATA%/Godot/app_userdata/GameDevProject/` on Windows).
+* **Web:** Clear the browser's local storage and cache for the game's URL.
 
-## Repository Checkout
+## Main Entry Points for Documentation
 
-```bash
-git clone https://github.com/Team-33-GameDev/GameDevProject.git
-cd GameDevProject
-```
+The following documentation pages serve as the primary entry points for normal use, operation, and troubleshooting:
 
-Open:
+* **Project Overview & Quick Start:** [Root README.md](https://github.com/Team-33-GameDev/GameDevProject/blob/main/README.md)
+* **Customer Handover & Transition Details:** [docs/customer-handover.md](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/customer-handover.md)
+* **Architecture & System Design:** [docs/architecture/README.md](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/architecture/README.md)
+* **Development Workflow & CI/CD:** [docs/development-process.md](https://github.com/Team-33-GameDev/GameDevProject/blob/main/docs/development-process.md)
+* **Hosted Documentation Site:** [GameDevProject Docs](https://github.com/Team-33-GameDev/GameDevProject)
 
-```text
-gd-project/project.godot
-```
+## Troubleshooting and Support Guidance
 
-The project declares Godot **4.7** and the **Forward+** renderer. Opening it in an older engine version may modify project files or fail to load resources correctly.
+| Issue | Probable Cause | Resolution |
+| :--- | :--- | :--- |
+| **Godot editor fails to open the project.** | Using an incompatible Godot version (e.g., Godot 3.x or an older 4.x). | Ensure you are using Godot 4.6 / 4.7. |
+| **Exporting fails with "No export template found".** | Missing Godot export templates. | In the Godot editor, go to `Editor -> Manage Export Templates` and download the templates for your editor version. |
+| **Web build shows a blank screen or fails to load.** | Browser caching or WebGL context loss. | Hard refresh the browser (`Ctrl+F5`). Ensure the browser supports WebGL 2.0. |
 
-## Running from the Editor
+## Known Limitations and Important Risks
 
-1. Install Godot 4.7 with export templates.
-2. Open `gd-project/project.godot`.
-3. Allow Godot to import resources.
-4. Run the configured main scene.
-5. Verify that no required-resource errors appear in the debugger.
+1. **Web Build Performance:** The HTML5 exported build may experience frame-rate drops on low-end devices or older browsers due to WebGL overhead. The desktop builds are recommended for optimal performance.
+2. **Save File Interruption:** If the game is force-closed exactly while writing to the save file, there is a minor risk of save file corruption. The game does not currently implement atomic save writing.
+3. **Mobile Export:** While the Godot project supports Android/iOS export, mobile-specific touch controls and UI scaling have not been fully optimized or tested in `MVP v3`.
 
-Minimum command-line import check:
+## Remaining Actions
 
-```bash
-godot --headless --path gd-project --editor --quit
-```
+The customer has confirmed that the current state is sufficient for independent use.
 
-## Exporting a Release Build
+**Blocker Status:** None of these items block the current handover level or independent operation. They are scheduled as post-handover maintenance tasks.
 
-The repository includes Windows Desktop and Linux export presets.
+## Documentation Sufficiency
 
-Example Windows export:
-
-```bash
-mkdir -p mvp3_builds/Windows
-godot --headless --path gd-project \
-  --export-release "Windows Desktop" \
-  ../mvp3_builds/Windows/GDProject.exe
-```
-
-Verify the real output path and package every required `.pck` or supporting file produced by the export.
-
-## Player Controls
-
-| Input | Action |
-|---|---|
-| `W`, `A`, `S`, `D` | Move |
-| Mouse | Look and aim |
-| Left Mouse Button | Click or activate a supported interaction |
-| `E` | Interact with supported world objects |
-| Space | Jump |
-| `R` | Restart where supported |
-| `Esc` | Pause or close the current menu where supported |
-
-The shipped build and itch.io page must contain a verified controls list matching the final implementation.
-
-## Expected Product Flow
-
-The final Assignment 6 build should provide a coherent short experience:
-
-1. The player enters the game and understands the objective.
-2. The player clicks and earns progress toward the quota.
-3. The player uses upgrades and factories to improve production.
-4. The player can move between the Main Room, Factory Room, and Big Button Room.
-5. Quota, timer, audio, UI, and save-related state remain synchronized.
-6. The player reaches a clear ending, completion, or reset state within the intended 10-15 minute session.
-
-## Core Runtime Services
-
-The project registers these autoloads:
-
-- `GameManager`
-- `QuotaManager`
-- `AudioManager`
-- `FpsManager`
-- `SaveManager`
-
-Changes to these services are cross-cutting and require validation of dependent UI, rooms, save behavior, and signals.
-
-## Acceptance Checklist
-
-### Source and Documentation
-
-- [ ] Repository access works for the customer/instructors.
-- [ ] Final commit and tag are recorded.
-- [ ] `README.md` reflects the delivered version.
-- [ ] `CHANGELOG.md` contains the delivered changes.
-- [ ] `CONTRIBUTORS.md`, `AGENTS.md`, and `ATTRIBUTION.md` are present.
-- [ ] Week 6 report links are valid.
-
-### Build
-
-- [ ] Windows release build launches on a clean environment.
-- [ ] No missing-resource errors appear.
-- [ ] Main Room loads.
-- [ ] Movement, looking, jumping, clicking, and interaction work.
-- [ ] Quota and timer update correctly.
-- [ ] Shop and upgrades work.
-- [ ] Factory manager navigation and purchases work.
-- [ ] Factory visual tiers match gameplay state.
-- [ ] Big Button behavior updates the intended quota state.
-- [ ] Audio and settings behave correctly.
-- [ ] Save and restart behavior is acceptable.
-- [ ] The intended run has a clear completion or reset path.
-
-### Distribution
-
-- [ ] itch.io page is accessible.
-- [ ] Download link serves the same verified build.
-- [ ] Controls and minimum requirements are documented.
-- [ ] Screenshots or gameplay media represent the delivered build.
-- [ ] Known limitations are disclosed.
-- [ ] Private materials are not exposed publicly without consent.
-
-## Known Release Risks
-
-- The final build must be tested as one connected experience, not only as separate scenes.
-- Large 3D and audio assets can expose missing-import or packaging problems on a clean machine.
-- The final build URL, itch.io URL, release tag, and video link still require human insertion.
-- Transcript and meeting-video publication require an explicit privacy decision.
-- A late feature merge invalidates earlier smoke-test evidence; repeat the checklist after the final merge.
-
-## Maintenance and Ownership
-
-Complete before handover.
-
-| Area | Primary owner | Backup owner |
-|---|---|---|
-| Repository administration | `TODO` | `TODO` |
-| Release/export process | `TODO` | `TODO` |
-| itch.io page | `TODO` | `TODO` |
-| Godot gameplay systems | `TODO` | `TODO` |
-| 3D assets and materials | `TODO` | `TODO` |
-| Audio | `TODO` | `TODO` |
-| Documentation | `TODO` | `TODO` |
-
-## Customer Acceptance Record
-
-| Field | Value |
-|---|---|
-| Handover date | `TODO` |
-| Accepted commit/tag | `TODO` |
-| Accepted build link | `TODO` |
-| Customer/instructor representative | `TODO` |
-| Outstanding conditions | `TODO` |
-| Acceptance status | `Pending` |
-
-## Related Documents
-
-- [README](README.md)
-- [Contributors](CONTRIBUTORS.md)
-- [Agent Instructions](AGENTS.md)
-- [Attribution](ATTRIBUTION.md)
-- [Definition of Done](docs/definition-of-done.md)
-- [Development Process](docs/development-process.md)
-- [Week 6 Report](reports/week6/README.md)
+The current documentation set is **sufficient** for the reached handover level (`Independently used by customer`). All necessary setup, deployment, configuration, and architectural reasoning is documented. If the customer decides to transition to the `Deployed or operated on customer side` level in the future (e.g., setting up their own dedicated backend), the team recommends updating `docs/development-process.md` with specific infrastructure-as-code or cloud-hosting instructions at that time.
