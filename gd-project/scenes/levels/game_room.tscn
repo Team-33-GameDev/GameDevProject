@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dcpw1llf0ibhw" path="res://scenes/props/click_shop_display/click_shop_station.tscn" id="6_p5jwx"]
 [ext_resource type="PackedScene" uid="uid://dofa43wuhxybx" path="res://assets/models/lamp.glb" id="7_bmb82"]
 [ext_resource type="PackedScene" uid="uid://bp2js71nyec7h" path="res://assets/models/vent.glb" id="8_xfipo"]
+[ext_resource type="Material" uid="uid://cc6va3srls4nw" path="res://assets/models/black.tres" id="9_o5seq"]
 [ext_resource type="PackedScene" uid="uid://dq5ryhgjqp1d7" path="res://assets/models/electricity.glb" id="11_itmb2"]
 [ext_resource type="PackedScene" uid="uid://btpaq7jjj48yb" path="res://assets/models/rack.glb" id="12_og8p1"]
 [ext_resource type="PackedScene" uid="uid://rg84upsptpit" path="res://scenes/props/crowbar.tscn" id="13_e8u5p"]
@@ -127,6 +128,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7109432, -1.276)
 [node name="Floor" type="MeshInstance3D" parent="MainRoom/Box" unique_id=829156318]
 transform = Transform3D(1.9530226, 0, 0, 0, 2, 0, 0, 0, 1.5, 0, -2.5084124, 1.1806631)
 mesh = SubResource("BoxMesh_hjm0p")
+surface_material_override/0 = ExtResource("9_o5seq")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Box/Floor" unique_id=710719251]
 
@@ -135,8 +137,9 @@ transform = Transform3D(0.9999999, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 
 shape = SubResource("ConvexPolygonShape3D_0kvo2")
 
 [node name="Wall_right" type="MeshInstance3D" parent="MainRoom/Box" unique_id=261907745]
-transform = Transform3D(1.3446168, 0, 0, 0, -8.742278e-08, -1.0351806, 0, 2, -4.5249173e-08, 1.7277254, 1.5217199, 6.217581)
+transform = Transform3D(1.3446168, 0, 0, 0, -8.742278e-08, -1.0351806, 0, 2, -4.5249173e-08, 1.8058925, 1.744515, 6.3076115)
 mesh = SubResource("BoxMesh_hjm0p")
+surface_material_override/0 = ExtResource("9_o5seq")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Box/Wall_right" unique_id=1891822205]
 
@@ -146,6 +149,7 @@ shape = SubResource("ConvexPolygonShape3D_0kvo2")
 [node name="Wall_right2" type="MeshInstance3D" parent="MainRoom/Box" unique_id=2094297313]
 transform = Transform3D(0.19075696, 0, 0, 0, -8.742278e-08, -1.0351806, 0, 2, -4.5249173e-08, -5.8435655, 1.5217199, 6.217581)
 mesh = SubResource("BoxMesh_hjm0p")
+surface_material_override/0 = ExtResource("9_o5seq")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Box/Wall_right2" unique_id=1413962863]
 
@@ -155,6 +159,7 @@ shape = SubResource("ConvexPolygonShape3D_0kvo2")
 [node name="Wall_right3" type="MeshInstance3D" parent="MainRoom/Box" unique_id=1856370103]
 transform = Transform3D(0.27096376, 0, 0, 0, -8.742278e-08, -0.41746438, 0, 2, -1.8247945e-08, -4.197298, 3.242673, 6.217581)
 mesh = SubResource("BoxMesh_hjm0p")
+surface_material_override/0 = ExtResource("9_o5seq")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Box/Wall_right3" unique_id=1629865225]
 
@@ -217,10 +222,31 @@ transform = Transform3D(-0.4, 6.039832e-08, 0, -6.039832e-08, -0.4, 0, 0, 0, 0.4
 camera_attributes = SubResource("CameraAttributesPhysical_bmb82")
 
 [node name="вентилятор" parent="MainRoom/Room_objects" unique_id=607845212 instance=ExtResource("8_xfipo")]
-transform = Transform3D(-0.09, -7.86805e-09, 3.439234e-16, 0, -3.934025e-09, -0.09, 7.86805e-09, -0.09, 3.934025e-09, 2.271, 2.7, -4.358)
+transform = Transform3D(0.09, 0, 0, 0, -3.934025e-09, -0.09, 0, 0.09, -3.934025e-09, 2.1383646, 2.7, -4.358)
 
-[node name="вентилятор" parent="MainRoom/Room_objects/вентилятор" unique_id=944199813 instance=ExtResource("8_xfipo")]
-transform = Transform3D(-0.089999996, -7.86805e-09, 8.881784e-16, -8.881784e-16, -3.9340255e-09, -0.089999996, 7.86805e-09, -0.089999996, 3.934025e-09, -25.623438, 2.699997, -4.358)
+[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор" index="3" unique_id=190082247]
+transform = Transform3D(-0.49999997, -1.9470717e-07, -0.86602545, 3.8941437e-07, -1, 0, -0.86602545, -3.3724274e-07, 0.49999997, 0, 0, 0)
+
+[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор" index="4" unique_id=741585477]
+autoplay = &"Plane_006Action_005"
+
+[node name="вентилятор4" parent="MainRoom/Room_objects" unique_id=1068906776 instance=ExtResource("8_xfipo")]
+transform = Transform3D(1.0732393e-09, -0.09, 3.934025e-09, 0, -3.934025e-09, -0.09, 0.09, 1.0732393e-09, -4.6912778e-17, -2.2415159, 2.7, 10.162462)
+
+[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор4" index="3" unique_id=190082247]
+transform = Transform3D(-0.49999997, -1.9470717e-07, -0.86602545, 3.8941437e-07, -1, 0, -0.86602545, -3.3724274e-07, 0.49999997, 0, 0, 0)
+
+[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор4" index="4" unique_id=741585477]
+autoplay = &"Plane_006Action_005"
+
+[node name="вентилятор5" parent="MainRoom/Room_objects" unique_id=630479973 instance=ExtResource("8_xfipo")]
+transform = Transform3D(1.0732393e-09, -0.09, 3.934025e-09, 0, -3.934025e-09, -0.09, 0.09, 1.0732393e-09, -4.6912778e-17, -2.2415159, 2.7, 12.75466)
+
+[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор5" index="3" unique_id=190082247]
+transform = Transform3D(-0.49999997, -1.9470717e-07, -0.86602545, 3.8941437e-07, -1, 0, -0.86602545, -3.3724274e-07, 0.49999997, 0, 0, 0)
+
+[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор5" index="4" unique_id=741585477]
+autoplay = &"Plane_006Action_005"
 
 [node name="стеллаж" parent="MainRoom/Room_objects" unique_id=476936738 instance=ExtResource("12_og8p1")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 5.692563, -0.29135823, 3.5990982)
@@ -228,6 +254,96 @@ transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 5.692563, -0.29135823, 
 [node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/стеллаж" unique_id=997757055]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/стеллаж/StaticBody3D" unique_id=717057011]
+transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
+shape = SubResource("BoxShape3D_gpf6e")
+
+[node name="стеллаж4" parent="MainRoom/Room_objects" unique_id=1753943523 instance=ExtResource("12_og8p1")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 2.9301405, -0.29135823, 3.5990982)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/стеллаж4" unique_id=788356347]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/стеллаж4/StaticBody3D" unique_id=840064342]
+transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
+shape = SubResource("BoxShape3D_gpf6e")
+
+[node name="стеллаж5" parent="MainRoom/Room_objects" unique_id=565273114 instance=ExtResource("12_og8p1")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -12.1308775, -0.29135823, 6.1630297)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/стеллаж5" unique_id=68863348]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/стеллаж5/StaticBody3D" unique_id=1821771380]
+transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
+shape = SubResource("BoxShape3D_gpf6e")
+
+[node name="стеллаж8" parent="MainRoom/Room_objects" unique_id=1781428001 instance=ExtResource("12_og8p1")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -16.556011, -0.29135823, 4.166151)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/стеллаж8" unique_id=1518630440]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/стеллаж8/StaticBody3D" unique_id=1136077524]
+transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
+shape = SubResource("BoxShape3D_gpf6e")
+
+[node name="стеллаж9" parent="MainRoom/Room_objects" unique_id=359380920 instance=ExtResource("12_og8p1")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -19.247162, -0.29135823, 4.166151)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/стеллаж9" unique_id=875749628]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/стеллаж9/StaticBody3D" unique_id=12586164]
+transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
+shape = SubResource("BoxShape3D_gpf6e")
+
+[node name="стеллаж10" parent="MainRoom/Room_objects" unique_id=1529699593 instance=ExtResource("12_og8p1")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -22.005983, -0.29135823, 4.166151)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/стеллаж10" unique_id=1023913236]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/стеллаж10/StaticBody3D" unique_id=1335193294]
+transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
+shape = SubResource("BoxShape3D_gpf6e")
+
+[node name="стеллаж11" parent="MainRoom/Room_objects" unique_id=1361067662 instance=ExtResource("12_og8p1")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -22.005983, -0.29135823, 15.619057)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/стеллаж11" unique_id=2115636573]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/стеллаж11/StaticBody3D" unique_id=730474240]
+transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
+shape = SubResource("BoxShape3D_gpf6e")
+
+[node name="стеллаж12" parent="MainRoom/Room_objects" unique_id=554988905 instance=ExtResource("12_og8p1")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -19.363005, -0.29135823, 15.619057)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/стеллаж12" unique_id=1381732951]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/стеллаж12/StaticBody3D" unique_id=207380527]
+transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
+shape = SubResource("BoxShape3D_gpf6e")
+
+[node name="стеллаж13" parent="MainRoom/Room_objects" unique_id=631916664 instance=ExtResource("12_og8p1")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -16.632412, -0.29135823, 15.619057)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/стеллаж13" unique_id=245494711]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/стеллаж13/StaticBody3D" unique_id=1125781886]
+transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
+shape = SubResource("BoxShape3D_gpf6e")
+
+[node name="стеллаж6" parent="MainRoom/Room_objects" unique_id=902940264 instance=ExtResource("12_og8p1")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -9.386969, -0.29135823, 6.1630297)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/стеллаж6" unique_id=1518665054]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/стеллаж6/StaticBody3D" unique_id=1147212955]
+transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
+shape = SubResource("BoxShape3D_gpf6e")
+
+[node name="стеллаж7" parent="MainRoom/Room_objects" unique_id=1900803326 instance=ExtResource("12_og8p1")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -6.6043196, -0.29135823, 6.1630297)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/стеллаж7" unique_id=875339996]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainRoom/Room_objects/стеллаж7/StaticBody3D" unique_id=511495118]
 transform = Transform3D(6.149248, 0, 0, 0, 14.226813, 0, 0, 0, 2.1250985, -2.9687805, 2.9147706, 0.9890003)
 shape = SubResource("BoxShape3D_gpf6e")
 
@@ -252,20 +368,39 @@ shape = SubResource("BoxShape3D_3vm3l")
 [node name="вентилятор2" parent="MainRoom/Room_objects" unique_id=1727411472 instance=ExtResource("8_xfipo")]
 transform = Transform3D(0.09, 0, 0, 0, -3.934025e-09, -0.09, 0, 0.09, -3.934025e-09, -0.517, 2.7, -4.358)
 
+[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор2" index="3" unique_id=190082247]
+transform = Transform3D(-0.49999997, -1.9470717e-07, -0.86602545, 3.8941437e-07, -1, 0, -0.86602545, -3.3724274e-07, 0.49999997, 0, 0, 0)
+
+[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор2" index="4" unique_id=741585477]
+autoplay = &"Plane_006Action_005"
+
 [node name="вентилятор3" parent="MainRoom/Room_objects" unique_id=1202734777 instance=ExtResource("8_xfipo")]
 transform = Transform3D(0.09, 0, 0, 0, -3.934025e-09, -0.09, 0, 0.09, -3.934025e-09, 4.815, 2.7, -4.358)
 
+[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор3" index="3" unique_id=190082247]
+transform = Transform3D(-0.49999997, -1.9470717e-07, -0.86602545, 3.8941437e-07, -1, 0, -0.86602545, -3.3724274e-07, 0.49999997, 0, 0, 0)
+
+[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор3" index="4" unique_id=741585477]
+autoplay = &"Plane_006Action_005"
+
 [node name="вентиляция" parent="MainRoom/Room_objects" unique_id=179084216 instance=ExtResource("14_wruq6")]
-transform = Transform3D(-6.119594e-08, 5.2848534e-08, -0.7, -0.7, 5.284853e-08, 6.119594e-08, 5.2848534e-08, 0.7, 5.284853e-08, -4.1968765, 4.6611834, 4.412526)
+transform = Transform3D(1.3374798e-15, -3.059797e-08, 0.7, -0.7, -3.059797e-08, 0, 3.059797e-08, -0.7, -3.059797e-08, -4.1968765, 4.6611834, 4.412526)
+
+[node name="вентиляция4" parent="MainRoom/Room_objects" unique_id=876007694 instance=ExtResource("14_wruq6")]
+transform = Transform3D(3.059797e-08, -0.7, -6.119594e-08, -0.7, -3.059797e-08, 0, -2.6749597e-15, 6.119594e-08, -0.7, -2.1169357, 4.6611834, 7.8953705)
 
 [node name="вентиляция2" parent="MainRoom/Room_objects" unique_id=1054531860 instance=ExtResource("14_wruq6")]
-transform = Transform3D(1.3374798e-15, -3.059797e-08, -0.7, -0.7, -3.059797e-08, 0, -3.059797e-08, 0.7, -3.059797e-08, -2.3390028, 4.661282, 4.413)
+transform = Transform3D(1.3374798e-15, -3.059797e-08, 0.7, -0.7, -3.059797e-08, 0, 3.059797e-08, -0.7, -3.059797e-08, -2.3390028, 4.661282, 4.413)
 
 [node name="вентиляция3" parent="MainRoom/Room_objects" unique_id=1763253198 instance=ExtResource("14_wruq6")]
-transform = Transform3D(1.3374798e-15, -3.059797e-08, -0.7, -0.7, -3.059797e-08, 0, -3.059797e-08, 0.7, -3.059797e-08, -0.5515573, 4.661282, 4.413)
+transform = Transform3D(1.3374798e-15, -3.059797e-08, 0.7, -0.7, -3.059797e-08, 0, 3.059797e-08, -0.7, -3.059797e-08, -0.5515573, 4.661282, 4.413)
 
 [node name="комната_пустая2" parent="MainRoom/Room_objects" unique_id=2071442509 instance=ExtResource("6_knoj5")]
 transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.8412401e-08, 0.0562722, -0.45870167, 0.00022435188)
+
+[node name="Cylinder_001" parent="MainRoom/Room_objects/комната_пустая2" index="5" unique_id=1158610967]
+transform = Transform3D(7.445451e-09, 0.06769026, -0.059710994, 0.06245697, -8.069309e-09, 7.118105e-09, 2.646978e-23, -0.22067499, -0.018315861, -3.495255, 3.4512372, -4.6421943)
+visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MainRoom/Room_objects/комната_пустая2" unique_id=447619473]
 
@@ -273,7 +408,7 @@ transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.841240
 shape = SubResource("ConvexPolygonShape3D_knoj5")
 
 [node name="щиток" parent="MainRoom" unique_id=777848184 instance=ExtResource("11_itmb2")]
-transform = Transform3D(-2.622683e-08, -2.6226836e-08, 0.6, -0.6, -2.6226834e-08, -2.6226832e-08, 2.6226836e-08, -0.6, -2.6226834e-08, 0.1437769, 2.296129, 4.37575)
+transform = Transform3D(-2.622683e-08, -2.6226836e-08, 0.6, -0.6, -2.6226834e-08, -2.6226832e-08, 2.6226836e-08, -0.6, -2.6226834e-08, -1.1490834, 2.296129, 4.37575)
 
 [node name="FactoryRoom" parent="." unique_id=900522601 instance=ExtResource("15_gpf6e")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8.501455, -3.8146973e-06, 10.278127)
@@ -284,15 +419,6 @@ transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.841240
 [node name="CollisionShape3D" parent="FactoryRoom/Box/Floor/StaticBody3D" parent_id_path=PackedInt32Array(900522601, 718908318) index="0" unique_id=1912312562]
 transform = Transform3D(0.9999999, 0, -7.1054274e-15, 0, 0.99999994, 0, 7.1054274e-15, 0, 0.99999994, 0, 0.14322239, 0)
 
-[node name="Wall_front4" type="MeshInstance3D" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="15" unique_id=866347304]
-transform = Transform3D(-8.047853e-09, -2, 0, -8.047853e-09, 3.821371e-15, -0.953127, 0.18411344, -8.742278e-08, -4.1662503e-08, 6.8264923, 1.199367, -4.5871553)
-mesh = SubResource("BoxMesh_id0bx")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="FactoryRoom/Box/Wall_front4" unique_id=352670997]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FactoryRoom/Box/Wall_front4/StaticBody3D" unique_id=970316759]
-shape = SubResource("ConvexPolygonShape3D_002rk")
-
 [node name="Wall_front5" type="MeshInstance3D" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="10" unique_id=287970488]
 transform = Transform3D(-8.951201e-09, -2, 0, -8.951201e-09, 3.821371e-15, -0.953127, 0.20477962, -8.742278e-08, -4.1662503e-08, 6.8264914, 1.199367, 7.1982613)
 mesh = SubResource("BoxMesh_id0bx")
@@ -301,6 +427,33 @@ mesh = SubResource("BoxMesh_id0bx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FactoryRoom/Box/Wall_front5/StaticBody3D" unique_id=479916229]
 shape = SubResource("ConvexPolygonShape3D_002rk")
+
+[node name="Wall_front4" type="MeshInstance3D" parent="FactoryRoom/Box" parent_id_path=PackedInt32Array(900522601, 557079649) index="16" unique_id=866347304]
+transform = Transform3D(-8.047853e-09, -2, 0, -8.047853e-09, 3.821371e-15, -0.953127, 0.18411344, -8.742278e-08, -4.1662503e-08, 6.8264923, 1.199367, -4.5871553)
+mesh = SubResource("BoxMesh_id0bx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FactoryRoom/Box/Wall_front4" unique_id=352670997]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FactoryRoom/Box/Wall_front4/StaticBody3D" unique_id=970316759]
+shape = SubResource("ConvexPolygonShape3D_002rk")
+
+[node name="SpotLight3D" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 1562660145) index="0" unique_id=363957452]
+transform = Transform3D(-1.4615066e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.569448e-07, 9.75885, 0, 0)
+
+[node name="SpotLight3D2" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 1562660145) index="1" unique_id=1079019029]
+transform = Transform3D(-1.4615066e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.569448e-07, 11.889099, 0, -67.580284)
+
+[node name="SpotLight3D3" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 1562660145) index="2" unique_id=1219140275]
+transform = Transform3D(-1.4615063e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.5694455e-07, 8.295349, 0, -134.33466)
+
+[node name="SpotLight3D4" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 1562660145) index="3" unique_id=1728925349]
+transform = Transform3D(-1.4615053e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.56944e-07, 12.677185, 0, -200.75656)
+
+[node name="SpotLight3D5" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 1562660145) index="4" unique_id=1656204995]
+transform = Transform3D(-1.4615053e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.56944e-07, 9.464722, 0, -268.07568)
+
+[node name="SpotLight3D6" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 1562660145) index="5" unique_id=723294229]
+transform = Transform3D(-1.4615039e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.569432e-07, 10.008362, 0, -335.3588)
 
 [node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats" parent_id_path=PackedInt32Array(900522601, 1564050712) index="5" unique_id=1803374159]
 texture = SubResource("ViewportTexture_o5seq")
@@ -320,6 +473,40 @@ texture = SubResource("ViewportTexture_gdty0")
 [node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats6" parent_id_path=PackedInt32Array(900522601, 1955069142) index="5" unique_id=1803374159]
 texture = SubResource("ViewportTexture_7w0bs")
 
+[node name="Title" parent="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen" parent_id_path=PackedInt32Array(900522601, 267126241) index="1" unique_id=1565265518]
+offset_top = 0.0
+offset_bottom = 80.0
+
+[node name="PagesController" parent="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen" parent_id_path=PackedInt32Array(900522601, 267126241) index="2" unique_id=1353941563]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="Page1" parent="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen/PagesController" index="0" unique_id=2142831072]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="FactoriesRow" parent="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen/PagesController/Page1" index="0" unique_id=1438976166]
+offset_left = -467.0
+offset_top = -236.0
+offset_right = 467.0
+offset_bottom = 236.0
+
+[node name="Page2" parent="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen/PagesController" index="1" unique_id=1754038003]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="FactoriesRow" parent="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen/PagesController/Page2" index="0" unique_id=1114311352]
+offset_left = -467.0
+offset_top = -236.0
+offset_right = 467.0
+offset_bottom = 236.0
+
 [node name="BigButtonRoom" parent="." unique_id=2143751424 instance=ExtResource("16_e8u5p")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -20.375832, 0, 10.276939)
 
@@ -327,10 +514,16 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -20.
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14322239, 0)
 
 [node name="Door" parent="." unique_id=872421070 instance=ExtResource("18_3vm3l")]
-transform = Transform3D(1.605, 0, 0, 0, 1.47, 0, 0, 0, 1.47, -3.116874, 1.8484224, 4.6088886)
+transform = Transform3D(1.605, 0, 0, 0, 1.47, 0, 0, 0, 1.47, -3.1948113, 1.8484224, 4.6088886)
 
 [connection signal="button_clicked" from="MainRoom/Buttons/ClickButton" to="." method="_on_click_button_button_clicked"]
 
+[editable path="MainRoom/Room_objects/вентилятор"]
+[editable path="MainRoom/Room_objects/вентилятор4"]
+[editable path="MainRoom/Room_objects/вентилятор5"]
+[editable path="MainRoom/Room_objects/вентилятор2"]
+[editable path="MainRoom/Room_objects/вентилятор3"]
+[editable path="MainRoom/Room_objects/комната_пустая2"]
 [editable path="FactoryRoom"]
 [editable path="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats"]
 [editable path="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats2"]
@@ -338,4 +531,11 @@ transform = Transform3D(1.605, 0, 0, 0, 1.47, 0, 0, 0, 1.47, -3.116874, 1.848422
 [editable path="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats4"]
 [editable path="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats5"]
 [editable path="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats6"]
+[editable path="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen"]
+[editable path="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen/PagesController/Page1/FactoriesRow/WoodenFactory"]
+[editable path="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen/PagesController/Page1/FactoriesRow/StoneFactory"]
+[editable path="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen/PagesController/Page1/FactoriesRow/CooperFactory"]
+[editable path="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen/PagesController/Page2/FactoriesRow/IronFactory"]
+[editable path="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen/PagesController/Page2/FactoriesRow/GoldenFactory"]
+[editable path="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen/PagesController/Page2/FactoriesRow/DiamondFactory"]
 [editable path="BigButtonRoom"]

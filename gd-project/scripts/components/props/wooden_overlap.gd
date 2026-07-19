@@ -34,7 +34,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		is_collide = true
 		crash.emit()
 		self.freeze = false
-		var material = mesh_plate.material_override
+
 		var tween = create_tween()
 		tween.tween_property(mesh_plate, "transparency", 1.0, destroy_time)
 		tween.finished.connect(destroy)
