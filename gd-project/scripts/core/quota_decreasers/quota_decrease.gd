@@ -23,12 +23,6 @@ func _ready() -> void:
 
 
 func _on_big_button_button_clicked() -> void:
-	get_tree().call_group(
-		&"hint_receivers",
-		&"show_context_hint",
-		&"big_button"
-	)
-
 	jump_registered.emit()
 	print("Big Button Clicked")
 	data.add_click()

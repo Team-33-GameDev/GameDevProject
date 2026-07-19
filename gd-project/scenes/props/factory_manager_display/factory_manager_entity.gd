@@ -38,11 +38,6 @@ func click() -> void:
 		QuotaManager.current_state
 		== QuotaManager.GameState.RUNNING
 	):
-		get_tree().call_group(
-			&"hint_receivers",
-			&"show_context_hint",
-			&"terminal_locked"
-		)
 		return
 
 	## Получаем камеру

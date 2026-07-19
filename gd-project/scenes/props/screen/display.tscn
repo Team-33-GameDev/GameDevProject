@@ -24,7 +24,7 @@ shader_parameter/negative_intensity = 0.9150000434625
 [node name="Display" type="Sprite3D" unique_id=1972858391]
 texture = SubResource("ViewportTexture_m2rlg")
 
-[node name="SubViewport" type="SubViewport" parent="." unique_id=1930082567 node_paths=PackedStringArray("eyes_screen", "score_screen") groups=["hint_receivers"]]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1930082567 node_paths=PackedStringArray("eyes_screen", "score_screen")]
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 script = ExtResource("1_s4uqy")

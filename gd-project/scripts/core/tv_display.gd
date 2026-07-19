@@ -9,9 +9,6 @@ const BOSS_VOICE: AudioStream = preload(
 @export var eyes_screen: Control
 @export var score_screen: Control
 
-@export_range(2.0, 10.0, 0.5)
-var hint_duration: float = 5.0
-
 
 var lbl_score_title: Label
 var lbl_score_val: Label
@@ -22,21 +19,13 @@ var lbl_quota_val: Label
 var lbl_timer: Label
 var lbl_cps: Label
 var lbl_cost: Label
-var lbl_hint: Label
 
 
 var _intro_active: bool = true
-var _hint_active: bool = false
-var _hint_generation: int = 0
-var _hint_queue: Array[StringName] = []
 
 # Общая ссылка для всех экземпляров TVDisplay.
 # Не позволяет двум вступительным голосам звучать одновременно.
 static var _active_boss_voice_player: AudioStreamPlayer
-
-# Подсказки повторяются после полного перезапуска игры, но не спамят
-# при переходах между комнатами в одной игровой сессии.
-static var _shown_hint_ids: Dictionary = {}
 
 var _boss_voice_player: AudioStreamPlayer
 var _factory_manager: FactoryManager
@@ -85,7 +74,6 @@ func _ready() -> void:
 
 	_show_main_screen()
 	_update_display()
-	show_context_hint(&"begin_quota")
 
 
 func _exit_tree() -> void:
@@ -102,7 +90,6 @@ func _exit_tree() -> void:
 		QuotaManager.set_boss_intro_active(false)
 
 	_disconnect_shop_backend()
-	_disconnect_factory_manager()
 
 
 # -------------------------------------------------------------------
@@ -188,41 +175,9 @@ func _connect_factory_manager() -> void:
 			_on_cps_changed
 		)
 
-	if not _factory_manager.factory_updated.is_connected(
-		_on_factory_updated
-	):
-		_factory_manager.factory_updated.connect(
-			_on_factory_updated
-		)
-
 	_update_cps_display(
 		_factory_manager.get_total_cps()
 	)
-
-
-func _disconnect_factory_manager() -> void:
-	if _factory_manager == null:
-		return
-
-	if not is_instance_valid(_factory_manager):
-		_factory_manager = null
-		return
-
-	if _factory_manager.cps_changed.is_connected(
-		_on_cps_changed
-	):
-		_factory_manager.cps_changed.disconnect(
-			_on_cps_changed
-		)
-
-	if _factory_manager.factory_updated.is_connected(
-		_on_factory_updated
-	):
-		_factory_manager.factory_updated.disconnect(
-			_on_factory_updated
-		)
-
-	_factory_manager = null
 
 
 func _connect_shop_backend() -> void:
@@ -272,13 +227,6 @@ func _connect_shop_backend() -> void:
 			_on_click_upgraded
 		)
 
-	if not _shop_backend.crowbar_purchased.is_connected(
-		_on_crowbar_purchased
-	):
-		_shop_backend.crowbar_purchased.connect(
-			_on_crowbar_purchased
-		)
-
 	_update_click_power_display(
 		_get_current_click_power()
 	)
@@ -297,13 +245,6 @@ func _disconnect_shop_backend() -> void:
 	):
 		_shop_backend.click_upgraded.disconnect(
 			_on_click_upgraded
-		)
-
-	if _shop_backend.crowbar_purchased.is_connected(
-		_on_crowbar_purchased
-	):
-		_shop_backend.crowbar_purchased.disconnect(
-			_on_crowbar_purchased
 		)
 
 	_shop_backend = null
@@ -433,10 +374,6 @@ func _find_labels() -> void:
 		"Cost"
 	) as Label
 
-	lbl_hint = score_screen.get_node_or_null(
-		"HintBanner"
-	) as Label
-
 
 func _setup_labels() -> void:
 	var labels: Array[Label] = [
@@ -446,8 +383,7 @@ func _setup_labels() -> void:
 		lbl_quota_val,
 		lbl_timer,
 		lbl_cps,
-		lbl_cost,
-		lbl_hint
+		lbl_cost
 	]
 
 	for label: Label in labels:
@@ -463,9 +399,6 @@ func _setup_labels() -> void:
 		)
 
 		label.pivot_offset = label.size / 2.0
-
-	if lbl_hint != null:
-		lbl_hint.hide()
 
 
 # -------------------------------------------------------------------
@@ -556,8 +489,6 @@ func _on_run_started() -> void:
 	if lbl_timer != null:
 		lbl_timer.modulate = Color.WHITE
 
-	show_context_hint(&"active_quota")
-
 
 func _on_run_ended(
 	success: bool
@@ -588,7 +519,6 @@ func _on_preparation_phase_started() -> void:
 		lbl_quota_title.text = "QUOTA"
 
 	_update_display()
-	show_context_hint(&"preparation")
 
 
 # -------------------------------------------------------------------
@@ -599,12 +529,6 @@ func _on_cps_changed(
 	new_cps: float
 ) -> void:
 	_update_cps_display(new_cps)
-
-
-func _on_factory_updated(
-	_factory: Factory
-) -> void:
-	show_context_hint(&"factory_maintenance")
 
 
 func _update_cps_display(
@@ -637,151 +561,6 @@ func _on_click_upgraded(
 	_update_click_power_display(
 		_get_current_click_power()
 	)
-
-	show_context_hint(&"click_upgrade")
-
-
-func _on_crowbar_purchased() -> void:
-	show_context_hint(&"crowbar")
-
-
-# -------------------------------------------------------------------
-# Контекстные системные директивы
-# -------------------------------------------------------------------
-
-func show_context_hint(
-	hint_id: StringName
-) -> void:
-	if lbl_hint == null:
-		return
-
-	if _shown_hint_ids.has(hint_id):
-		return
-
-	if _get_hint_text(hint_id).is_empty():
-		return
-
-	if _is_priority_hint(hint_id):
-		_interrupt_current_hint()
-
-	_shown_hint_ids[hint_id] = true
-	_hint_queue.append(hint_id)
-
-	if not _hint_active:
-		call_deferred("_display_next_hint")
-
-
-func _display_next_hint() -> void:
-	if _hint_active or _hint_queue.is_empty():
-		return
-
-	if lbl_hint == null or not is_inside_tree():
-		return
-
-	_hint_active = true
-	var hint_id: StringName = _hint_queue.pop_front()
-	var generation: int = _hint_generation
-
-	lbl_hint.text = _get_hint_text(hint_id)
-	lbl_hint.modulate = _get_hint_color(hint_id)
-	lbl_hint.show()
-
-	# process_always=false: подсказка не сгорает, пока магазин или
-	# менеджер фабрик держит игру на паузе.
-	await get_tree().create_timer(
-		hint_duration,
-		false
-	).timeout
-
-	if not is_inside_tree():
-		return
-
-	if generation != _hint_generation:
-		return
-
-	lbl_hint.hide()
-	_hint_active = false
-
-	if not _hint_queue.is_empty():
-		call_deferred("_display_next_hint")
-
-
-func _interrupt_current_hint() -> void:
-	_hint_generation += 1
-	_hint_queue.clear()
-	_hint_active = false
-
-	if lbl_hint != null:
-		lbl_hint.hide()
-
-
-func _is_priority_hint(
-	hint_id: StringName
-) -> bool:
-	return hint_id in [
-		&"active_quota",
-		&"preparation",
-		&"terminal_locked",
-	]
-
-
-func _get_hint_text(
-	hint_id: StringName
-) -> String:
-	match hint_id:
-		&"begin_quota":
-			return (
-				"[ DIRECTIVE ] STRIKE THE MAIN BUTTON "
-				+ "TO BEGIN YOUR ASSIGNED QUOTA"
-			)
-		&"active_quota":
-			return (
-				"[ PROTOCOL ] REACH QUOTA BEFORE TIME EXPIRES "
-				+ "// REQUIRED FUNDS ARE LOCKED"
-			)
-		&"preparation":
-			return (
-				"[ CLEARANCE ] SURPLUS RELEASED "
-				+ "// SHOP AND FACTORY TERMINALS ONLINE"
-			)
-		&"terminal_locked":
-			return (
-				"[ ACCESS DENIED ] TERMINALS ARE LOCKED "
-				+ "DURING AN ACTIVE QUOTA"
-			)
-		&"crowbar":
-			return (
-				"[ EQUIPMENT ] CROWBAR DISPENSED "
-				+ "// BREAK WOODEN BARRICADES"
-			)
-		&"factory_maintenance":
-			return (
-				"[ MAINTENANCE ] FACTORIES LOSE HP "
-				+ "// USE GREEN BUTTONS TO RESTORE THEM"
-			)
-		&"click_upgrade":
-			return (
-				"[ UPGRADE APPLIED ] MANUAL CLICK OUTPUT UPDATED"
-			)
-		&"big_button":
-			return (
-				"[ CONTINGENCY ] 3 JUMPS REDUCE QUOTA BY 5% "
-				+ "// LIMIT 30%"
-			)
-
-	return ""
-
-
-func _get_hint_color(
-	hint_id: StringName
-) -> Color:
-	if hint_id == &"terminal_locked":
-		return Color(1.0, 0.48, 0.42, 1.0)
-
-	if hint_id == &"factory_maintenance":
-		return Color(1.0, 0.78, 0.35, 1.0)
-
-	return Color(0.72, 0.86, 1.0, 1.0)
 
 
 func _update_click_power_display(

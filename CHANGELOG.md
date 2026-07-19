@@ -6,7 +6,6 @@
 - Preserve score earned above a completed quota and reserve the active quota from purchases.
 - Expand and rebalance the campaign to 12 runs and at least 15 minutes of active play.
 - Add a reproducible economy model for click rates, purchases, and factory output.
-- Add contextual CRT system directives for quotas, terminals, equipment, upgrades, and factory maintenance.
 
 ### Bug Fixes
 
