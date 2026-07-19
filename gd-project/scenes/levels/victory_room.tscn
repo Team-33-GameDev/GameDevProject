@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" uid="uid://c2glqnrfiocn1" path="res://scripts/core/victory_room.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://6stmcgq62iml" path="res://scenes/characters/player.tscn" id="2_player"]
-[ext_resource type="AudioStream" uid="uid://hbd1oj5bjpqj" path="res://assets/audio/ambient.mp3.mp3" id="3_ambient"]
+[ext_resource type="AudioStream" uid="uid://iq0535p0iou5" path="res://assets/audio/victory.wav" id="3_3llpw"]
 [ext_resource type="Texture2D" uid="uid://b7t6qmgwp6bil" path="res://assets/display/eyes/blue_eyes.png" id="4_blue_eyes"]
 [ext_resource type="PackedScene" uid="uid://bi431ovil5hhi" path="res://assets/models/portal_cake.glb" id="5_cake"]
-[ext_resource type="Texture2D" uid="uid://cfkyvy4yxpkqd" path="res://assets/display/eyes/red_eyes.png" id="6_screamer"]
+[ext_resource type="Texture2D" uid="uid://d2e4d7glu2fcr" path="res://assets/display/eyes/red_eyes_points.png" id="6_screamer"]
 [ext_resource type="AudioStream" uid="uid://cw7agek2tn7q" path="res://assets/audio/cake_screamer.wav" id="7_scream_audio"]
+[ext_resource type="Script" uid="uid://d3s8r2h5m7kq1" path="res://scripts/core/cake_screamer_trigger.gd" id="8_cake_trigger"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_room"]
 size = Vector3(7.255, 0.29367676, 7.12)
@@ -44,7 +45,7 @@ radius = 0.98
 [sub_resource type="Environment" id="Environment_wh7pi"]
 background_energy_multiplier = 16.0
 
-[node name="VictoryRoom" type="Node3D" unique_id=2136011880]
+[node name="VictoryRoom" type="Node3D" unique_id=2136011880 groups=["clickable"]]
 script = ExtResource("1_script")
 
 [node name="BlueSpotLight" type="SpotLight3D" parent="." unique_id=1189716721]
@@ -130,7 +131,7 @@ surface_material_override/0 = SubResource("Material_room")
 shape = SubResource("Shape_room")
 
 [node name="Ambient" type="AudioStreamPlayer" parent="." unique_id=695422048]
-stream = ExtResource("3_ambient")
+stream = ExtResource("3_3llpw")
 autoplay = true
 
 [node name="EyesBack" type="Sprite3D" parent="." unique_id=2123224097]
@@ -194,6 +195,7 @@ transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.466, 3.02, -2.05)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.466, 3.68, -2.05)
 collision_layer = 16
 collision_mask = 0
+script = ExtResource("8_cake_trigger")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CakeHitbox" unique_id=650487876]
 shape = SubResource("Shape_cake")
@@ -205,7 +207,7 @@ stream = ExtResource("7_scream_audio")
 layer = 100
 visible = false
 
-[node name="Background" type="ColorRect" parent="ScreamerOverlay" unique_id=1361691311]
+[node name="Blackout" type="ColorRect" parent="ScreamerOverlay" unique_id=404022593]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -214,7 +216,21 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="ScreamerImage" type="TextureRect" parent="ScreamerOverlay" unique_id=1176318412]
+[node name="EyesCenter" type="CenterContainer" parent="ScreamerOverlay" unique_id=1047184786]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EyesFrame" type="Control" parent="ScreamerOverlay/EyesCenter" unique_id=560023965]
+custom_minimum_size = Vector2(720, 405)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ScreamerImage" type="TextureRect" parent="ScreamerOverlay/EyesCenter/EyesFrame" unique_id=1446079821]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -223,16 +239,15 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("6_screamer")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
-[node name="Flash" type="ColorRect" parent="ScreamerOverlay" unique_id=200626062]
+[node name="Flash" type="ColorRect" parent="ScreamerOverlay" unique_id=1354886568]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(1, 1, 1, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1628355949]
 environment = SubResource("Environment_wh7pi")

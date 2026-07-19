@@ -9,15 +9,15 @@ signal boss_intro_state_changed(active: bool)
 
 # Состояния игры для контроля логики
 enum GameState { IDLE, RUNNING, GAME_OVER }
+
+const VICTORY_ROOM_SCENE := "res://scenes/levels/victory_room.tscn"
 var current_state: GameState = GameState.IDLE
 
 # Список квот: время в секундах, необходимое количество очков
 var quotas: Array = [
 	[10.0, 30],
 	[10.0, 100],
-	[10.0, 2000],
-	[30.0, 5000],
-	[30.0, 11000]
+	[10.0, 1000]
 ]
 
 var current_quota_index: int = 0
@@ -139,9 +139,23 @@ func _evaluate_quota() -> void:
 func _trigger_victory() -> void:
 	print("🏆 ALL QUOTAS COMPLETED. ENTERING THE VICTORY ROOM.")
 	time_left = 0.0
+	current_quota_target = 0
 	GameManager.score = 0
 	current_state = GameState.GAME_OVER
-	get_tree().change_scene_to_file("res://scenes/levels/victory_room.tscn")
+	timer_updated.emit(0.0)
+
+	# Переход вызывается отложенно, чтобы не удалять текущую сцену
+	# посреди обработки таймера и сигналов текущего кадра.
+	call_deferred("_open_victory_room")
+
+
+func _open_victory_room() -> void:
+	var error := get_tree().change_scene_to_file(VICTORY_ROOM_SCENE)
+	if error != OK:
+		push_error(
+			"QuotaManager: failed to open victory room. Error code: %d"
+			% error
+		)
 
 
 func _trigger_game_over() -> void:
