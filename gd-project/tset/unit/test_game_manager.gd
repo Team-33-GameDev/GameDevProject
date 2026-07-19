@@ -9,10 +9,11 @@ func before_each():
 	GameManager._additive_bonuses.clear()
 	GameManager._multiplicative_bonuses.clear()
 	GameManager._recalculate_click_power()
-	# IMPORTANT: QuotaManager listens to score_changed and starts a run
-	# on the first score change from IDLE. Set GAME_OVER so score tests
+	# IMPORTANT: QuotaManager listens to player clicks and starts a run
+	# on the first active click from IDLE. Set GAME_OVER so score tests
 	# don't accidentally start the game timer.
 	QuotaManager.current_state = QuotaManager.GameState.GAME_OVER
+	QuotaManager.current_quota_target = 0
 
 func after_all():
 	# Restore managers to a clean state after the whole suite
@@ -54,6 +55,35 @@ func test_spend_exact_amount():
 	var ok = GameManager.spend_score(50)
 	assert_true(ok)
 	assert_eq(GameManager.score, 0, "spending the exact amount leaves 0")
+
+func test_running_quota_is_reserved_from_purchases():
+	GameManager.add_score(140)
+	QuotaManager.current_quota_target = 100
+	QuotaManager.current_state = QuotaManager.GameState.RUNNING
+	assert_eq(GameManager.get_spendable_score(), 40)
+	assert_true(GameManager.has_score(40))
+	assert_false(GameManager.has_score(41))
+
+func test_spending_does_not_consume_running_quota():
+	GameManager.add_score(140)
+	QuotaManager.current_quota_target = 100
+	QuotaManager.current_state = QuotaManager.GameState.RUNNING
+	assert_true(GameManager.spend_score(40))
+	assert_eq(GameManager.score, 100)
+	assert_false(GameManager.spend_score(1),
+		"the reserved quota cannot be spent")
+
+func test_reservation_change_emits_available_balance():
+	GameManager.add_score(140)
+	QuotaManager.current_quota_target = 100
+	QuotaManager.current_state = QuotaManager.GameState.RUNNING
+	watch_signals(GameManager)
+	GameManager.notify_score_reservation_changed()
+	assert_signal_emitted_with_parameters(
+		GameManager,
+		"spendable_score_changed",
+		[40]
+	)
 
 func test_score_changed_signal_emitted():
 	watch_signals(GameManager)

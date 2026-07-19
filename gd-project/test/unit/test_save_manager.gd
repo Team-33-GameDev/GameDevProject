@@ -41,7 +41,7 @@ func before_each():
 	GameManager._recalculate_click_power()
 	QuotaManager.current_quota_index = 0
 	# GAME_OVER so score changes in tests don't start a run.
-	# (QuotaManager listens to score_changed and starts the timer from IDLE,
+	# (QuotaManager listens to player clicks and starts the timer from IDLE,
 	# which would trip the "no save mid-run" guard and break these tests.)
 	QuotaManager.current_state = QuotaManager.GameState.GAME_OVER
 

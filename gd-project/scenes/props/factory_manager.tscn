@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b1htddpscxdvm" path="res://scenes/props/factory.tscn" id="2_xpgwd"]
 [ext_resource type="Resource" uid="uid://c4ht5bctjrnew" path="res://resources/shop_items/autoclicker/wooden_autoclick_data.tres" id="3_xpgwd"]
 [ext_resource type="Resource" uid="uid://bjhiwvsk7wuyt" path="res://resources/shop_items/autoclicker/stone_autoclick_data.tres" id="4_7iaml"]
+[ext_resource type="Resource" uid="uid://c2ijhoo14fo43" path="res://resources/shop_items/autoclicker/copper_autoclick_data.tres" id="4_copper"]
 [ext_resource type="Resource" uid="uid://djqxsc7nehn86" path="res://resources/shop_items/autoclicker/iron_autoclick_data.tres" id="4_hje2w"]
 [ext_resource type="Resource" uid="uid://sbox2wvyuheu" path="res://resources/shop_items/autoclicker/golden_autoclick_data.tres" id="5_7iaml"]
 [ext_resource type="Resource" uid="uid://bth7nk6gjlecx" path="res://resources/shop_items/autoclicker/diamond_autoclick_data.tres" id="6_s5rr6"]
@@ -25,6 +26,7 @@ label_text = "Factory 1"
 
 [node name="Factory3" parent="." unique_id=1102059553 groups=["factory"] instance=ExtResource("2_xpgwd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8417144, 0, 0)
+template_data = ExtResource("4_copper")
 label_color = Color(0, 0, 0, 1)
 label_text = "Factory 2"
 

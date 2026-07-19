@@ -4,9 +4,18 @@ class_name Shop
 
 signal click
 signal click_upgraded(upgrade_type: String)
+signal crowbar_purchased
 
 
 @export var click_upgrade_data: ClickUpgradeData
+
+@export_category("Crowbar")
+@export_range(0, 1000000, 1)
+var crowbar_price: int = 25
+
+
+var _crowbar: Node3D = null
+var _crowbar_purchased: bool = false
 
 
 func _ready() -> void:
@@ -17,6 +26,76 @@ func _ready() -> void:
 		SaveManager.register_click_upgrade_data(
 			click_upgrade_data
 		)
+
+	call_deferred("_setup_crowbar")
+
+
+# ------------------------------------------------------------------
+# Crowbar
+# ------------------------------------------------------------------
+
+func _setup_crowbar() -> void:
+	_crowbar = _find_crowbar()
+
+	if _crowbar == null:
+		push_warning(
+			"ShopSystem: Crowbar was not found."
+		)
+		return
+
+	if _crowbar.has_method(&"set_available"):
+		_crowbar.call(
+			&"set_available",
+			_crowbar_purchased
+		)
+
+
+func _find_crowbar() -> Node3D:
+	var crowbar_node: Node = (
+		get_tree().get_first_node_in_group(&"crowbar")
+	)
+
+	if crowbar_node is Node3D:
+		return crowbar_node as Node3D
+
+	return null
+
+
+func buy_crowbar() -> bool:
+	if _crowbar_purchased:
+		return false
+
+	if _crowbar == null or not is_instance_valid(_crowbar):
+		_crowbar = _find_crowbar()
+
+	if _crowbar == null:
+		push_error(
+			"ShopSystem: Crowbar purchase failed: "
+			+ "scene instance was not found."
+		)
+		return false
+
+	if not GameManager.spend_score(crowbar_price):
+		return false
+
+	_crowbar_purchased = true
+
+	if _crowbar.has_method(&"set_available"):
+		_crowbar.call(&"set_available", true)
+	else:
+		_crowbar.visible = true
+
+	crowbar_purchased.emit()
+
+	return true
+
+
+func get_crowbar_price() -> int:
+	return crowbar_price
+
+
+func is_crowbar_purchased() -> bool:
+	return _crowbar_purchased
 
 
 # ------------------------------------------------------------------

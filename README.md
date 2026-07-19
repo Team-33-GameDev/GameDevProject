@@ -1,6 +1,6 @@
 # Click to Live
 
-**Click to Live** is a rogue-lite incremental clicker game developed in Godot 4.6. Set in a dystopian world, players must fulfill oppressive quotas by clicking under extreme time pressure, balancing high-stress clicking phases with relaxed preparation and meta-progression phases.
+**Click to Live** is a rogue-lite incremental clicker game developed in Godot 4.7. Set in a dystopian world, players must fulfill oppressive quotas by clicking under extreme time pressure, balancing high-stress clicking phases with relaxed preparation and meta-progression phases.
 
 ---
 
