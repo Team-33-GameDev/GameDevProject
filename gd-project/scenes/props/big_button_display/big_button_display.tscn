@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/core/quota_decreasers/big_button_display.gd" id="1_script"]
+[ext_resource type="Shader" path="res://scripts/shaders/display.gdshader" id="2_shader"]
+[ext_resource type="FontFile" path="res://assets/fonts/VT323-Regular.ttf" id="3_font"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_display"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_display"]
+shader = ExtResource("2_shader")
+shader_parameter/intensity = 1.0
+shader_parameter/glitch_frequency = 2.0
+shader_parameter/glitch_duration = 0.01
+shader_parameter/red_displacement = 0.019
+shader_parameter/green_displacement = 0.02
+shader_parameter/blue_displacement = 0.1
+shader_parameter/scanline_intensity = 0.05
+shader_parameter/noise_intensity = 0.366
+shader_parameter/slice_intensity = 0.564
+shader_parameter/ghost_intensity = 0.5
+shader_parameter/negative_intensity = 0.915
+
+[sub_resource type="StyleBoxFlat" id="ProgressBackground"]
+bg_color = Color(0, 0, 0, 0.35)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.45)
+
+[sub_resource type="StyleBoxFlat" id="ProgressFill"]
+bg_color = Color(1, 1, 1, 0.9)
+
+[node name="BigButtonDisplay" type="Sprite3D"]
+pixel_size = 0.003
+texture_filter = 1
+texture = SubResource("ViewportTexture_display")
+script = ExtResource("1_script")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+size = Vector2i(960, 540)
+render_target_update_mode = 4
+
+[node name="Background" type="ColorRect" parent="SubViewport"]
+material = SubResource("ShaderMaterial_display")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.11372549, 0.2627451, 0.8509804, 1)
+
+[node name="Margin" type="MarginContainer" parent="SubViewport/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 26
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 26
+
+[node name="VBox" type="VBoxContainer" parent="SubViewport/Background/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="Label" parent="SubViewport/Background/Margin/VBox"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 58
+text = "CURRENT QUOTA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuotaValue" type="Label" parent="SubViewport/Background/Margin/VBox"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 130
+text = "2,000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Effect" type="Label" parent="SubViewport/Background/Margin/VBox"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.8)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 36
+text = "-5% AFTER 3 JUMPS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="JumpProgress" type="Label" parent="SubViewport/Background/Margin/VBox"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 40
+text = "JUMPS: 0 / 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="JumpProgressBar" type="ProgressBar" parent="SubViewport/Background/Margin/VBox"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+mouse_filter = 2
+max_value = 3.0
+show_percentage = false
+theme_override_styles/background = SubResource("ProgressBackground")
+theme_override_styles/fill = SubResource("ProgressFill")

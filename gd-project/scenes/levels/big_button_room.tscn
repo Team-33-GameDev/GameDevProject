@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dofa43wuhxybx" path="res://assets/models/lamp.glb" id="1_l0wp4"]
 [ext_resource type="PackedScene" uid="uid://bhhhng2em6bwo" path="res://assets/models/room_empty_big_button.glb" id="1_nmjpf"]
 [ext_resource type="PackedScene" uid="uid://6qjvhtlc0prv" path="res://scenes/props/quota_value_decrease.tscn" id="3_bv6ui"]
+[ext_resource type="PackedScene" uid="uid://cep4g0a1wn7tn" path="res://scenes/props/big_button_display/big_button_screen.tscn" id="4_a5v4h"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_f1n2c"]
 size = Vector3(7.255, 0.3, 7.12)
@@ -107,3 +108,8 @@ shadow_enabled = true
 
 [node name="QuotaValueDecrease" parent="." unique_id=2115439831 instance=ExtResource("3_bv6ui")]
 transform = Transform3D(2.25, 0, 0, 0, 2.25, 0, 0, 0, 2.25, -0.06286895, -0.056441247, -0.2769413)
+
+[node name="BigButtonScreen" parent="." unique_id=1974455932 instance=ExtResource("4_a5v4h")]
+transform = Transform3D(-3.4969112e-08, 0, -1.6, 0, 0.8, 0, 0.8, 0, -6.9938224e-08, 0, 1.5608788, -4.3972893)
+
+[connection signal="jump_registered" from="QuotaValueDecrease" to="BigButtonScreen" method="_on_jump_registered"]
