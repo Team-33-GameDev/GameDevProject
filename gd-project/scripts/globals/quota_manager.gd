@@ -176,14 +176,13 @@ func _trigger_game_over() -> void:
 	
 	GameManager.add_tickets(current_quota_index)
 	
-	SaveManager.reset_progress()
-	
 	current_quota_index = 0 
 	current_quota_target = 0
 	_base_quota_target = 0
 	
 	GameManager.score = 0 
 	current_state = GameState.IDLE 
+	SaveManager.save_after_death()
 	get_tree().change_scene_to_file("res://scenes/levels/death_room.tscn")
 
 func pause_game() -> void:

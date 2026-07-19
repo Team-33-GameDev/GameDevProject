@@ -38,10 +38,12 @@ func _on_settings_closed():
 
 func _on_menu_pressed():
 	AudioManager.play_sfx("menu_click")
+	SaveManager.save_before_return_to_menu()
 	get_tree().paused = false
 	
-	# Сбрасываем прогресс игры
+	# Runtime очищается только после записи файла.
 	QuotaManager.reset_game()
+	GameManager.reset_game()
 	
 	# Переходим в главное меню
 	get_tree().change_scene_to_file("res://scenes/ui/mainmenu.tscn")
