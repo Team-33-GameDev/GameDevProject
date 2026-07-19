@@ -80,7 +80,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_7gl3f")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_y7ktm"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_5b6bq"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wnyko"]
@@ -135,13 +135,13 @@ transform = Transform3D(12.500001, 0, 0, 0, 1.0928962, 0, 0, 0, 0.6293267, -11.2
 [node name="ClickShopDisplay" parent="Cube_003/Node3D" unique_id=1832568296 groups=["clickable"] instance=ExtResource("3_display")]
 transform = Transform3D(-1.0490733e-08, 0, 0.24, 0, 0.25, 0, -0.24, 0, -1.0490733e-08, 0.91971064, 4.3051243, -0.73961633)
 modulate = Color(0.3882353, 0.5921569, 1, 1)
-texture = SubResource("ViewportTexture_y7ktm")
+texture = SubResource("ViewportTexture_5b6bq")
 
-[node name="Area3D" type="Area3D" parent="Cube_003/Node3D/ClickShopDisplay" unique_id=272811509]
+[node name="Area3D" type="Area3D" parent="Cube_003/Node3D/ClickShopDisplay" unique_id=272811509 groups=["clickable"]]
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube_003/Node3D/ClickShopDisplay/Area3D" unique_id=1000639356]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube_003/Node3D/ClickShopDisplay/Area3D" unique_id=1000639356 groups=["clickable"]]
 transform = Transform3D(1.0000008, 0, 1.2860824e-12, 0, 7.4709735, 0, -4.6185278e-14, 0, 1, 0.104682446, -0.10009003, 0.2084086)
 shape = SubResource("BoxShape3D_wnyko")
 
