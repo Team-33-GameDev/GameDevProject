@@ -96,7 +96,7 @@ The diagram shows the tension-release cycle that forms the core of the game expe
 The deployment view shows the development and distribution pipeline:
 
 **Development:**
-- Godot Editor 4.6+ (Forward Plus renderer)
+- Godot Editor 4.7 (Forward Plus renderer)
 - GDScript source code
 - Blender assets for 3D models
 - Git version control

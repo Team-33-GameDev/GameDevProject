@@ -19,8 +19,7 @@ const MIN_DPS: float = 1.0
 # Текущее значение, показываемое на экране.
 @export var dps: float = 1.0
 
-# Значение, которое прибавляется к DPS
-# при каждом улучшении CPS.
+# Базовое значение урона в секунду для отображения и сохранений.
 @export var base_dps: float = 1.0
 
 @export var dmg_tick_period: int = 30
@@ -30,7 +29,7 @@ const MIN_DPS: float = 1.0
 
 
 @export_category("Upgrades Data")
-@export var upg_price_multiplier: float = 2.0
+@export var upg_price_multiplier: float = 1.75
 
 @export var bonus_max_hp: int = 1
 @export var ubp_max_hp: int = 100
@@ -51,8 +50,6 @@ const MIN_DPS: float = 1.0
 @export var max_lvl: int = 100
 
 
-# Начальное значение DPS конкретной фабрики.
-# Каждое улучшение CPS добавляет именно это значение.
 var cur_hp: int = max_hp
 
 var upg_lvl_hp: int = 0
@@ -165,31 +162,30 @@ func is_upg_valid_(
 
 # UPGRADES METHODS
 
-## Возвращает заданное вручную значение DPS.
-##
-## tick_interval оставлен в сигнатуре, чтобы не менять
-## уже существующие вызовы из других скриптов.
 func get_dps(
-	_tick_interval: float
+	tick_interval: float
 ) -> float:
-	return maxf(
-		MIN_DPS,
-		dps
+	if tick_interval <= 0.0:
+		return 0.0
+
+	var damage_interval: float = (
+		tick_interval
+		* float(maxi(1, dmg_tick_period))
 	)
+
+	return float(dmg) / damage_interval
 
 
 ## Исправляет некорректные значения из старых данных.
 ##
 ## tick_interval оставлен в сигнатуре для совместимости.
 func normalize_dps(
-	_tick_interval: float
+	tick_interval: float
 ) -> void:
 	dmg = maxi(1, dmg)
 	dmg_tick_period = maxi(1, dmg_tick_period)
-	dps = maxf(MIN_DPS, dps)
-
-	if base_dps <= 0.0:
-		base_dps = dps
+	dps = get_dps(tick_interval)
+	base_dps = dps
 
 
 func upg_click_value() -> int:
@@ -202,10 +198,6 @@ func upg_click_value() -> int:
 	spend_score(cur_price_click)
 
 	click_value += bonus_click_value
-
-	# Каждая фабрика прибавляет собственное
-	# базовое значение DPS.
-	dps += base_dps
 
 	upg_lvl_click += 1
 
@@ -240,14 +232,9 @@ func upg_max_hp() -> int:
 
 
 func upg_dmg(
-	_tick_interval: float
+	tick_interval: float
 ) -> float:
-	# При минимальном DPS улучшение больше недоступно.
-	# Проверка выполняется до списания очков.
-	if (
-		dps <= MIN_DPS
-		or is_equal_approx(dps, MIN_DPS)
-	):
+	if dmg <= 1:
 		return 0.0
 
 	if not is_upg_valid_(
@@ -256,19 +243,20 @@ func upg_dmg(
 	):
 		return 0.0
 
-	var next_dps: float = maxf(
-		MIN_DPS,
-		dps / 2.0
+	var damage_reduction: int = maxi(
+		1,
+		absi(bonus_dmg)
 	)
 
-	# Дополнительная защита от покупки улучшения,
-	# которое уже не изменяет характеристику.
-	if is_equal_approx(next_dps, dps):
-		return 0.0
+	var next_dmg: int = maxi(
+		1,
+		dmg - damage_reduction
+	)
 
 	spend_score(cur_price_dmg)
 
-	dps = next_dps
+	dmg = next_dmg
+	dps = get_dps(tick_interval)
 	upg_lvl_dmg += 1
 
 	cur_price_dmg = int(
@@ -288,9 +276,9 @@ func upg_dmg_period() -> float:
 
 	spend_score(cur_price_dmg_period)
 
-	dmg_tick_period = maxi(
+	dmg_tick_period += maxi(
 		1,
-		dmg_tick_period - bonus_dmg_period
+		bonus_dmg_period
 	)
 
 	upg_lvl_dmg_period += 1

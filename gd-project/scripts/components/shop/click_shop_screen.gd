@@ -71,10 +71,10 @@ func _ready() -> void:
 			_on_hammer_pressed
 		)
 
-	if not GameManager.score_changed.is_connected(
+	if not GameManager.spendable_score_changed.is_connected(
 		_on_score_changed
 	):
-		GameManager.score_changed.connect(
+		GameManager.spendable_score_changed.connect(
 			_on_score_changed
 		)
 
@@ -100,16 +100,26 @@ func setup(new_shop_backend: Shop) -> void:
 			_on_click_upgraded
 		)
 
+	if (
+		shop_backend != null
+		and not shop_backend.crowbar_purchased.is_connected(
+			_on_crowbar_purchased
+		)
+	):
+		shop_backend.crowbar_purchased.connect(
+			_on_crowbar_purchased
+		)
+
 	_refresh()
 
 
 func _exit_tree() -> void:
 	_disconnect_shop_backend()
 
-	if GameManager.score_changed.is_connected(
+	if GameManager.spendable_score_changed.is_connected(
 		_on_score_changed
 	):
-		GameManager.score_changed.disconnect(
+		GameManager.spendable_score_changed.disconnect(
 			_on_score_changed
 		)
 
@@ -128,13 +138,22 @@ func _disconnect_shop_backend() -> void:
 			_on_click_upgraded
 		)
 
+	if shop_backend.crowbar_purchased.is_connected(
+		_on_crowbar_purchased
+	):
+		shop_backend.crowbar_purchased.disconnect(
+			_on_crowbar_purchased
+		)
+
 
 # ------------------------------------------------------------------
 # Screen refresh
 # ------------------------------------------------------------------
 
 func _refresh() -> void:
-	balance_label.text = "SCORE: %d" % GameManager.score
+	balance_label.text = "AVAILABLE: %d" % (
+		GameManager.get_spendable_score()
+	)
 
 	_refresh_placeholders()
 
@@ -200,14 +219,43 @@ func _refresh() -> void:
 
 
 func _refresh_placeholders() -> void:
-	crowbar_card.set_content(
-		"CROWBAR",
-		"OPENS FACTORY ROOM",
-		"STATUS",
-		"COMING SOON",
-		true,
-		false
-	)
+	if (
+		shop_backend != null
+		and is_instance_valid(shop_backend)
+	):
+		var crowbar_price: int = (
+			shop_backend.get_crowbar_price()
+		)
+
+		var crowbar_is_purchased: bool = (
+			shop_backend.is_crowbar_purchased()
+		)
+		var caption_text: String = (
+			"STATUS" if crowbar_is_purchased else "COST"
+		)
+		var value_text: String = (
+			"PURCHASED"
+			if crowbar_is_purchased
+			else str(crowbar_price)
+		)
+
+		crowbar_card.set_content(
+			"CROWBAR",
+			"BREAKS BOARDS | OPENS NEW ROOMS",
+			caption_text,
+			value_text,
+			GameManager.has_score(crowbar_price),
+			not crowbar_is_purchased
+		)
+	else:
+		crowbar_card.set_content(
+			"CROWBAR",
+			"SHOP BACKEND NOT FOUND",
+			"COST",
+			"--",
+			false,
+			false
+		)
 
 	hammer_card.set_content(
 		"HAMMER",
@@ -324,15 +372,33 @@ func _on_multiplicative_pressed() -> void:
 
 
 # ------------------------------------------------------------------
-# Future item placeholders
+# World items
 # ------------------------------------------------------------------
 
 func _on_crowbar_pressed() -> void:
 	crowbar_requested.emit()
 
-	_set_status(
-		"CROWBAR IS NOT AVAILABLE YET"
-	)
+	if shop_backend == null:
+		_set_status("SHOP BACKEND NOT FOUND")
+		return
+
+	if shop_backend.is_crowbar_purchased():
+		_set_status("CROWBAR ALREADY PURCHASED")
+		return
+
+	var price: int = shop_backend.get_crowbar_price()
+
+	if shop_backend.buy_crowbar():
+		_set_status(
+			"PURCHASED: CROWBAR APPEARED IN THE ROOM"
+		)
+	else:
+		_set_status(
+			"NOT ENOUGH AVAILABLE SCORE - NEED %d"
+			% price
+		)
+
+	_refresh()
 
 
 func _on_hammer_pressed() -> void:
@@ -356,6 +422,10 @@ func _on_score_changed(
 func _on_click_upgraded(
 	_upgrade_type: String
 ) -> void:
+	_refresh()
+
+
+func _on_crowbar_purchased() -> void:
 	_refresh()
 
 
