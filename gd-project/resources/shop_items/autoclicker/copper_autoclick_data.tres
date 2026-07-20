@@ -14,7 +14,6 @@ bonus_max_hp = 50
 ubp_max_hp = 400
 bonus_click_value = 3
 ubp_click_value = 500
-bonus_dmg = -1
 ubp_dmg = 500
 bonus_dmg_period = 25
 ubp_dmg_period = 500

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7h3kx9w2mn5c"]
+[gd_scene format=3 uid="uid://b7h3kyaw2mn5c"]
 
 [ext_resource type="Script" uid="uid://dm2v8a4pk6r1q" path="res://scripts/components/ui/context_hint_popup.gd" id="1_script"]
 [ext_resource type="FontFile" path="res://assets/ui/VT323-Regular.ttf" id="2_font"]

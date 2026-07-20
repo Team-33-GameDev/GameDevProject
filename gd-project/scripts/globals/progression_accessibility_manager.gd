@@ -42,23 +42,28 @@ const CLICK_UPGRADE_PROPERTIES: Array[StringName] = [
 const BOSS_SUBTITLE_CUES: Array[Dictionary] = [
 	{
 		"start": 0.0,
-		"end": 5.2,
-		"text": "WELCOME TO YOUR NEW ASSIGNMENT, EMPLOYEE.",
+		"end": 4.0,
+		"text": "WELCOME TO YOUR NEW JOB. YOU HAVE ARRIVED AT THE CLICKING STATION",
 	},
 	{
-		"start": 5.2,
-		"end": 10.4,
-		"text": "MEET EACH PRODUCTION QUOTA BEFORE THE TIMER EXPIRES.",
+		"start": 4.0,
+		"end": 7.5,
+		"text": "PRESS THE BUTTON TO CONTINUE EXISTING.",
 	},
 	{
-		"start": 10.4,
-		"end": 15.7,
-		"text": "UPGRADE YOUR OUTPUT AND KEEP THE FACTORIES RUNNING.",
+		"start": 7.5,
+		"end": 12.2,
+		"text": "QUOTAS WILL NOW DEFINE YOUR SURVIVAL. YOU EXIST TO FULFILL THEM.",
 	},
 	{
-		"start": 15.7,
-		"end": 21.0,
-		"text": "FAILURE WILL RESULT IN IMMEDIATE DISPOSAL.",
+		"start": 12.2,
+		"end": 16.0,
+		"text": "FAIL EVEN ONCE AND YOU WILL BE REMOVED.",
+	},
+	{
+		"start": 16.0,
+		"end": 19.5,
+		"text": "DO YOU UNDERSTAND THE RULES OF YOUR LIFE? BEGIN!",
 	},
 ]
 
@@ -602,7 +607,7 @@ func _create_hud() -> void:
 		0.25,
 		0.75
 	)
-	_prompt_label = _create_label(30)
+	_prompt_label = _create_label(36)
 	_prompt_panel.add_child(_prompt_label)
 	_hud_layer.add_child(_prompt_panel)
 	_prompt_panel.hide()
@@ -614,7 +619,7 @@ func _create_hud() -> void:
 		0.12,
 		0.88
 	)
-	_subtitle_label = _create_label(30)
+	_subtitle_label = _create_label(36)
 	_subtitle_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_subtitle_panel.add_child(_subtitle_label)
 	_hud_layer.add_child(_subtitle_panel)
@@ -657,13 +662,42 @@ func _create_panel(
 
 func _create_label(font_size: int) -> Label:
 	var label := Label.new()
+
+	var custom_font := load(
+		"res://assets/ui/VT323-Regular.ttf"
+	) as Font
+
+	if custom_font != null:
+		label.add_theme_font_override(
+			&"font",
+			custom_font
+		)
+	else:
+		push_warning(
+			"ProgressionAccessibilityManager: "
+			+ "VT323-Regular.ttf was not found."
+		)
+
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	label.add_theme_font_size_override(&"font_size", font_size)
-	label.add_theme_color_override(&"font_color", Color(0.84, 0.94, 1.0))
-	label.add_theme_color_override(&"font_outline_color", Color.BLACK)
-	label.add_theme_constant_override(&"outline_size", 6)
+	label.add_theme_font_size_override(
+		&"font_size",
+		font_size
+	)
+	label.add_theme_color_override(
+		&"font_color",
+		Color(0.84, 0.94, 1.0)
+	)
+	label.add_theme_color_override(
+		&"font_outline_color",
+		Color.BLACK
+	)
+	label.add_theme_constant_override(
+		&"outline_size",
+		6
+	)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
 	return label
 
 

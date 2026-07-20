@@ -24,7 +24,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	# Никакой отладочной выдачи score здесь больше нет.
-	GameManager.add_score(10000000000)
+	#GameManager.add_score(10000000000)
 	_discover_factories()
 	_connect_factory_signals()
 	_create_timer()
