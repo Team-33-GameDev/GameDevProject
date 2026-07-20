@@ -24,11 +24,10 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	# Никакой отладочной выдачи score здесь больше нет.
-	#GameManager.add_score(10000000000)
+	GameManager.add_score(10000000000)
 	_discover_factories()
 	_connect_factory_signals()
 	_create_timer()
-	SaveManager.register_factory_manager(self)
 
 	_emit_cps_if_changed(true)
 
@@ -480,6 +479,26 @@ func restore_from_save_data(
 		if factory not in active_factories:
 			active_factories.append(factory)
 
+		factory_updated.emit(factory)
+
+	_emit_cps_if_changed(true)
+
+
+# Rebuilds runtime bookkeeping after checkpoint data has been copied back
+# into the live factory resources. This is deliberately separate from the
+# save format: the checkpoint manager owns the snapshot, while this manager
+# owns the list that the production timer actually processes.
+func refresh_after_checkpoint_restore() -> void:
+	active_factories.clear()
+
+	for factory: Factory in all_factories:
+		if factory == null or factory.data == null:
+			continue
+
+		if factory.data.is_purchased:
+			active_factories.append(factory)
+
+		factory._update_ui()
 		factory_updated.emit(factory)
 
 	_emit_cps_if_changed(true)

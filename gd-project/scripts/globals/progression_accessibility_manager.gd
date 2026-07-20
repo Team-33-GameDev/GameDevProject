@@ -89,6 +89,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_load_checkpoint()
 	_connect_save_signal()
+	_connect_quota_signals()
 	_create_hud()
 	call_deferred("refresh_game_room")
 
@@ -134,6 +135,13 @@ func _finish_game_room_refresh() -> void:
 
 	_factory_manager = get_tree().get_first_node_in_group(&"factory_manager")
 	_shop_backend = get_tree().get_first_node_in_group(&"shop_backend")
+	_connect_tool_purchase_signals()
+	_connect_factory_progress_signal()
+
+	# A fresh run needs a lightweight base save so the extended progression
+	# checkpoint remains discoverable from the main menu.
+	if not SaveManager.has_save():
+		SaveManager.save_game()
 
 	_face_player_toward_monitor()
 	_restore_checkpoint()
@@ -156,6 +164,78 @@ func _connect_save_signal() -> void:
 		SaveManager.connect(&"game_saved", callback)
 
 
+func _connect_quota_signals() -> void:
+	if not QuotaManager.run_started.is_connected(_on_quota_started):
+		QuotaManager.run_started.connect(_on_quota_started)
+
+	if not QuotaManager.run_ended.is_connected(_on_quota_ended):
+		QuotaManager.run_ended.connect(_on_quota_ended)
+
+
+func _connect_tool_purchase_signals() -> void:
+	if _shop_backend == null or not is_instance_valid(_shop_backend):
+		return
+
+	for signal_name: StringName in [
+		&"crowbar_purchased",
+		&"sledgehammer_purchased",
+	]:
+		if not _shop_backend.has_signal(signal_name):
+			continue
+
+		if not _shop_backend.is_connected(signal_name, _on_tool_purchased):
+			_shop_backend.connect(signal_name, _on_tool_purchased)
+
+
+func _connect_factory_progress_signal() -> void:
+	if _factory_manager == null or not is_instance_valid(_factory_manager):
+		return
+
+	if not _factory_manager.has_signal(&"factory_updated"):
+		return
+
+	if not _factory_manager.is_connected(
+		&"factory_updated",
+		_on_factory_progress_changed
+	):
+		_factory_manager.connect(
+			&"factory_updated",
+			_on_factory_progress_changed
+		)
+
+
+func _on_quota_started() -> void:
+	_capture_checkpoint()
+	_write_checkpoint()
+
+
+func _on_quota_ended(success: bool) -> void:
+	if success or _checkpoint.is_empty():
+		return
+
+	# A failed attempt retries the same quota with exactly the factory and
+	# manual-click progression it had when the quota began.
+	_restore_factories(_checkpoint.get("factories", []))
+	_restore_click_upgrades(_checkpoint.get("click_upgrades", {}))
+	_write_checkpoint()
+
+
+func _on_tool_purchased() -> void:
+	if QuotaManager.current_state == QuotaManager.GameState.RUNNING:
+		_capture_persistent_progress()
+	else:
+		_capture_checkpoint()
+
+	_write_checkpoint()
+
+
+func _on_factory_progress_changed(_factory: Node) -> void:
+	if QuotaManager.current_state == QuotaManager.GameState.RUNNING:
+		return
+
+	SaveManager.save_game()
+
+
 func _on_base_game_saved() -> void:
 	_capture_checkpoint()
 	_write_checkpoint()
@@ -168,8 +248,22 @@ func _capture_checkpoint() -> void:
 		"factories": _capture_factories(),
 		"click_upgrades": _capture_click_upgrades(),
 		"crowbar_purchased": _capture_crowbar_purchase(),
+		"sledgehammer_purchased": _capture_sledgehammer_purchase(),
 		"broken_barriers": _broken_barriers.keys(),
 	}
+
+
+func _capture_persistent_progress() -> void:
+	if _checkpoint.is_empty():
+		_capture_checkpoint()
+		return
+
+	_checkpoint["version"] = EXTENDED_SAVE_VERSION
+	_checkpoint["crowbar_purchased"] = _capture_crowbar_purchase()
+	_checkpoint["sledgehammer_purchased"] = (
+		_capture_sledgehammer_purchase()
+	)
+	_checkpoint["broken_barriers"] = _broken_barriers.keys()
 
 
 func _restore_checkpoint() -> void:
@@ -180,6 +274,9 @@ func _restore_checkpoint() -> void:
 	_restore_click_upgrades(_checkpoint.get("click_upgrades", {}))
 	_restore_crowbar_purchase(
 		bool(_checkpoint.get("crowbar_purchased", false))
+	)
+	_restore_sledgehammer_purchase(
+		bool(_checkpoint.get("sledgehammer_purchased", false))
 	)
 	_restore_broken_barriers()
 
@@ -209,8 +306,6 @@ func _restore_factories(saved_factories: Variant) -> void:
 		return
 
 	var factories := _get_factories()
-	var active_factories: Array = []
-
 	for index in range(factories.size()):
 		var factory: Node = factories[index]
 		var data := _get_object_property(factory, &"data") as Object
@@ -224,6 +319,20 @@ func _restore_factories(saved_factories: Variant) -> void:
 				var key := str(property_name)
 				if saved_data.has(key) and _has_property(data, property_name):
 					data.set(property_name, saved_data[key])
+
+	if (
+		_factory_manager != null
+		and _factory_manager.has_method(&"refresh_after_checkpoint_restore")
+	):
+		_factory_manager.call(&"refresh_after_checkpoint_restore")
+		return
+
+	# Compatibility fallback for scenes that still use an older manager.
+	var active_factories: Array = []
+	for factory: Node in factories:
+		var data := _get_object_property(factory, &"data") as Object
+		if data == null:
+			continue
 
 		if bool(_get_object_property(data, &"is_purchased", false)):
 			active_factories.append(factory)
@@ -314,6 +423,44 @@ func _restore_crowbar_purchase(is_purchased: bool) -> void:
 		crowbar.call(&"set_available", is_purchased)
 
 
+func _capture_sledgehammer_purchase() -> bool:
+	if _shop_backend == null or not is_instance_valid(_shop_backend):
+		return false
+
+	if _shop_backend.has_method(&"is_sledgehammer_purchased"):
+		return bool(_shop_backend.call(&"is_sledgehammer_purchased"))
+
+	return bool(
+		_get_object_property(
+			_shop_backend,
+			&"_sledgehammer_purchased",
+			false
+		)
+	)
+
+
+func _restore_sledgehammer_purchase(is_purchased: bool) -> void:
+	if _shop_backend != null and is_instance_valid(_shop_backend):
+		if _shop_backend.has_method(&"restore_sledgehammer_purchase"):
+			_shop_backend.call(
+				&"restore_sledgehammer_purchase",
+				is_purchased
+			)
+			return
+
+	var sledgehammer := get_tree().get_first_node_in_group(&"sledgehammer")
+	if sledgehammer is not RigidBody3D:
+		return
+
+	var body := sledgehammer as RigidBody3D
+	body.visible = is_purchased
+	if is_purchased:
+		if not body.is_in_group(&"pickable"):
+			body.add_to_group(&"pickable")
+	else:
+		body.remove_from_group(&"pickable")
+
+
 func _connect_wooden_barriers() -> void:
 	if _current_game_room == null:
 		return
@@ -339,7 +486,7 @@ func _connect_wooden_barriers() -> void:
 
 func _on_wooden_barrier_crashed(progress_id: String) -> void:
 	_broken_barriers[progress_id] = true
-	_capture_checkpoint()
+	_capture_persistent_progress()
 	_write_checkpoint()
 
 
@@ -528,6 +675,8 @@ func _get_prompt_description(target: Node, fallback: String) -> String:
 	var path_text := str(target.get_path()).to_lower()
 	var node_name := target.name.to_lower()
 
+	if "sledgehammer" in path_text or "hammer" in node_name:
+		return "PICK UP SLEDGEHAMMER"
 	if "crowbar" in path_text or "lom" in path_text:
 		return "PICK UP CROWBAR"
 	if "door" in path_text:

@@ -101,6 +101,21 @@ def _resource_properties(path: Path) -> dict[str, float]:
     return properties
 
 
+def _autoclicker_defaults() -> dict[str, float]:
+    source = (
+        ROOT / "gd-project/resources/shop_items/autoclicker_data.gd"
+    ).read_text(encoding="utf-8")
+    return {
+        key: float(value)
+        for key, value in re.findall(
+            r"^@export var ([a-z_]+): [a-z]+ = "
+            r"(-?[0-9]+(?:\.[0-9]+)?)$",
+            source,
+            flags=re.MULTILINE,
+        )
+    }
+
+
 def validate_project_values() -> None:
     """Fail if the Godot resources drift away from this model."""
     quota_source = (
@@ -115,7 +130,7 @@ def validate_project_values() -> None:
         )
     )
     assert project_runs == RUNS, "QuotaManager.quotas differs from RUNS"
-    assert "MINIMUM_QUOTA_RATIO: float = 0.90" in quota_source
+    assert "MINIMUM_QUOTA_RATIO: float = 0.70" in quota_source
 
     click = _resource_properties(
         ROOT / "gd-project/resources/shop_items/basic_click.tres"
@@ -126,19 +141,25 @@ def validate_project_values() -> None:
     assert click["mult_price_base"] == 1_500
     assert click["mult_price_mult"] == 3.0
 
-    button = _resource_properties(
+    button_source = (
         ROOT
-        / "gd-project/resources/shop_items/quota/quota_decrease.tres"
-    )
-    assert button["condition_click"] == 5
-    assert button["q_decrease_percent"] == 0.02
+        / "gd-project/scripts/core/quota_decreasers/quota_decrease.gd"
+    ).read_text(encoding="utf-8")
+    assert "REQUIRED_JUMPS: int = 3" in button_source
+    assert "DECREASE_PERCENT: float = 0.05" in button_source
 
     resource_root = (
         ROOT / "gd-project/resources/shop_items/autoclicker"
     )
+    defaults = _autoclicker_defaults()
+    autoclicker_source = (
+        ROOT / "gd-project/resources/shop_items/autoclicker_data.gd"
+    ).read_text(encoding="utf-8")
+    assert "FACTORY_WEAR_MULTIPLIER: int = 2" in autoclicker_source
+
     for name, expected in FACTORIES.items():
         resource_name = FACTORY_RESOURCES[name]
-        data = _resource_properties(
+        data = defaults | _resource_properties(
             resource_root / f"{resource_name}_autoclick_data.tres"
         )
         tick_period = data.get("click_ticks_period", 20)
@@ -238,7 +259,7 @@ def main() -> None:
     )
 
     scenarios = (
-        ("accessibility", 3, 0.10),
+        ("accessibility", 3, 0.30),
         ("baseline", 4, 0.00),
         ("experienced", 5, 0.00),
     )

@@ -18,14 +18,13 @@ func test_click_upgrade_curve_matches_balance_model() -> void:
 
 
 func test_big_button_is_an_accessibility_buffer_not_main_income() -> void:
-	var data := load(
-		"res://resources/shop_items/quota/quota_decrease.tres"
-	) as QuotaData
+	var controller := preload(
+		"res://scripts/core/quota_decreasers/quota_decrease.gd"
+	)
 
-	assert_not_null(data)
-	assert_eq(data.condition_click, 5)
-	assert_almost_eq(data.q_decrease_percent, 0.02, 0.0001)
-	assert_almost_eq(QuotaManager.MINIMUM_QUOTA_RATIO, 0.90, 0.0001)
+	assert_eq(controller.REQUIRED_JUMPS, 3)
+	assert_almost_eq(controller.DECREASE_PERCENT, 0.05, 0.0001)
+	assert_almost_eq(QuotaManager.MINIMUM_QUOTA_RATIO, 0.70, 0.0001)
 
 
 func test_factory_curve_matches_balance_model() -> void:

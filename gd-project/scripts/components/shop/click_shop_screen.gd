@@ -166,6 +166,16 @@ func setup(new_shop_backend: Shop) -> void:
 			_on_crowbar_purchased
 		)
 
+	if (
+		shop_backend != null
+		and not shop_backend.sledgehammer_purchased.is_connected(
+			_on_sledgehammer_purchased
+		)
+	):
+		shop_backend.sledgehammer_purchased.connect(
+			_on_sledgehammer_purchased
+		)
+
 	_refresh()
 
 
@@ -199,6 +209,13 @@ func _disconnect_shop_backend() -> void:
 	):
 		shop_backend.crowbar_purchased.disconnect(
 			_on_crowbar_purchased
+		)
+
+	if shop_backend.sledgehammer_purchased.is_connected(
+		_on_sledgehammer_purchased
+	):
+		shop_backend.sledgehammer_purchased.disconnect(
+			_on_sledgehammer_purchased
 		)
 
 
@@ -313,14 +330,27 @@ func _refresh_placeholders() -> void:
 			false
 		)
 
-	hammer_card.set_content(
-		"HAMMER",
-		"OPENS BIG BUTTON ROOM",
-		"STATUS",
-		"COMING SOON",
-		true,
-		false
-	)
+	if shop_backend != null and is_instance_valid(shop_backend):
+		var hammer_price := shop_backend.get_sledgehammer_price()
+		var hammer_purchased := shop_backend.is_sledgehammer_purchased()
+
+		hammer_card.set_content(
+			"SLEDGEHAMMER",
+			"BREAKS BRICKS | OPENS BIG BUTTON ROOM",
+			"STATUS" if hammer_purchased else "COST",
+			"PURCHASED" if hammer_purchased else str(hammer_price),
+			GameManager.has_score(hammer_price),
+			not hammer_purchased
+		)
+	else:
+		hammer_card.set_content(
+			"SLEDGEHAMMER",
+			"SHOP BACKEND NOT FOUND",
+			"COST",
+			"--",
+			false,
+			false
+		)
 
 
 func _show_missing_backend() -> void:
@@ -460,9 +490,27 @@ func _on_crowbar_pressed() -> void:
 func _on_hammer_pressed() -> void:
 	hammer_requested.emit()
 
-	_set_status(
-		"HAMMER IS NOT AVAILABLE YET"
-	)
+	if shop_backend == null:
+		_set_status("SHOP BACKEND NOT FOUND")
+		return
+
+	if shop_backend.is_sledgehammer_purchased():
+		_set_status("SLEDGEHAMMER ALREADY PURCHASED")
+		return
+
+	var price := shop_backend.get_sledgehammer_price()
+
+	if shop_backend.buy_sledgehammer():
+		_set_status(
+			"PURCHASED: SLEDGEHAMMER READY IN THE ROOM"
+		)
+	else:
+		_set_status(
+			"NOT ENOUGH AVAILABLE SCORE - NEED %d"
+			% price
+		)
+
+	_refresh()
 
 
 # ------------------------------------------------------------------
@@ -482,6 +530,10 @@ func _on_click_upgraded(
 
 
 func _on_crowbar_purchased() -> void:
+	_refresh()
+
+
+func _on_sledgehammer_purchased() -> void:
 	_refresh()
 
 

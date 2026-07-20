@@ -38,6 +38,7 @@ var _base_quota_target: int = 0
 # Пока идёт вступительный монолог, ручной клик не должен
 # запускать квоту. Значение меняет TVDisplay.
 var _boss_intro_active: bool = false
+var _boss_intro_completed: bool = false
 
 # Переменная для предотвращения спама в консоли (выводим только при смене секунды)
 var _last_printed_second: int = -1
@@ -91,6 +92,14 @@ func set_boss_intro_active(value: bool) -> void:
 
 func is_boss_intro_active() -> bool:
 	return _boss_intro_active
+
+
+func should_play_boss_intro() -> bool:
+	return not _boss_intro_completed
+
+
+func mark_boss_intro_completed() -> void:
+	_boss_intro_completed = true
 
 
 func should_pause_terminal_ui() -> bool:
@@ -226,6 +235,7 @@ func pause_game() -> void:
 func reset_game() -> void:
 	# Полный сброс состояния игры
 	_boss_intro_active = false
+	_boss_intro_completed = false
 	current_state = GameState.IDLE
 	current_quota_index = 0
 	time_left = 0.0
@@ -238,7 +248,7 @@ func reset_game() -> void:
 
 
 # Кнопка в комнате помогает с квотой, но не заменяет основной цикл.
-# За один забег цель можно снизить максимум на 10%.
+# За один забег цель можно снизить максимум на 30%.
 func decrease_quota(decrease_percent: float) -> bool:
 	if (
 		current_state != GameState.RUNNING

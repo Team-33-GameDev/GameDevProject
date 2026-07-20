@@ -84,6 +84,16 @@ const HINTS := {
 		),
 		"color": Color("ffb454"),
 	},
+	&"sledgehammer": {
+		"code": "EQUIPMENT NOTICE // 09",
+		"title": "SLEDGEHAMMER DISPENSED",
+		"body": (
+			"Heavy equipment unlocked. Pick up the sledgehammer "
+			+ "with LMB, carry it to the brick wall, then throw it "
+			+ "to open the Big Button sector."
+		),
+		"color": Color("7dff9c"),
+	},
 }
 
 
@@ -244,6 +254,13 @@ func _connect_scene_sources() -> void:
 				_on_crowbar_purchased
 			)
 
+		if not shop_backend.sledgehammer_purchased.is_connected(
+			_on_sledgehammer_purchased
+		):
+			shop_backend.sledgehammer_purchased.connect(
+				_on_sledgehammer_purchased
+			)
+
 	var shop_station: Node = get_tree().get_first_node_in_group(
 		&"click_shop_station"
 	)
@@ -330,6 +347,10 @@ func _on_factory_manager_opened() -> void:
 
 func _on_crowbar_purchased() -> void:
 	show_hint(&"crowbar")
+
+
+func _on_sledgehammer_purchased() -> void:
+	show_hint(&"sledgehammer")
 
 
 func _on_click_upgraded(
