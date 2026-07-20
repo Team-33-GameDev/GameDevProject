@@ -29,6 +29,16 @@ func test_terminal_ui_still_pauses_during_preparation() -> void:
 	assert_true(QuotaManager.should_pause_terminal_ui())
 
 
+func test_active_quota_score_can_be_spent_on_upgrades() -> void:
+	QuotaManager.current_state = QuotaManager.GameState.RUNNING
+	GameManager.score = 100
+
+	assert_eq(GameManager.get_reserved_score(), 0)
+	assert_eq(GameManager.get_spendable_score(), 100)
+	assert_true(GameManager.spend_score(40))
+	assert_eq(GameManager.score, 60)
+
+
 func test_shop_station_opens_during_active_quota() -> void:
 	var station := ShopStationController.new()
 	watch_signals(station)

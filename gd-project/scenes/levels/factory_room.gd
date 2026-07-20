@@ -30,6 +30,8 @@ func _ready() -> void:
 	# подготовительной фазы.
 	factory_manager_overlay.process_mode = \
 		Node.PROCESS_MODE_ALWAYS
+	factory_manager_screen.process_mode = \
+		Node.PROCESS_MODE_ALWAYS
 
 	factory_manager_overlay.visible = false
 
@@ -101,6 +103,9 @@ func _setup_factory_backend() -> void:
 	)
 
 func _open_factory_manager() -> void:
+	if factory_backend != null:
+		factory_manager_screen.setup(factory_backend)
+
 	_paused_tree_by_factory_manager = (
 		not get_tree().paused
 		and QuotaManager.should_pause_terminal_ui()

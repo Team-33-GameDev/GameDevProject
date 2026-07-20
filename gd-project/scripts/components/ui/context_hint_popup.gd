@@ -24,8 +24,9 @@ const HINTS := {
 		"code": "PRODUCTION DIRECTIVE // 02",
 		"title": "QUOTA ACTIVE",
 		"body": (
-			"Reach the target before the timer expires. "
-			+ "Required funds are reserved until inspection."
+			"Shop and factory terminals stay online. "
+			+ "Purchases reduce quota progress, so leave enough "
+			+ "score for inspection."
 		),
 		"color": Color("ffb454"),
 	},
@@ -33,8 +34,8 @@ const HINTS := {
 		"code": "CLEARANCE NOTICE // 03",
 		"title": "PREPARATION WINDOW",
 		"body": (
-			"Quota cleared. Your surplus is available. "
-			+ "Shop and factory terminals are online."
+			"Quota cleared. Your remaining score is available. "
+			+ "Terminals pause production while you plan."
 		),
 		"color": Color("7dff9c"),
 	},
@@ -42,8 +43,8 @@ const HINTS := {
 		"code": "TERMINAL HELP // 04",
 		"title": "UPGRADE TERMINAL",
 		"body": (
-			"Spend surplus on manual output upgrades. "
-			+ "The crowbar opens routes blocked by wooden barricades."
+			"Spend score on manual output upgrades. During a quota, "
+			+ "every purchase lowers current progress."
 		),
 		"color": Color("77c9ff"),
 	},
