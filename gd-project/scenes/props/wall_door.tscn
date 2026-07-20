@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://du8s7ewkly2fb"]
+
+[ext_resource type="PackedScene" uid="uid://cjgglqfxw6h5m" path="res://scenes/props/brick_overlap.tscn" id="1_uprua"]
+
+[node name="Wall_door" type="Node3D" unique_id=1362025772]
+
+[node name="Brick_overlap" parent="." unique_id=1527927369 instance=ExtResource("1_uprua")]
+
+[node name="Brick_overlap2" parent="." unique_id=166724601 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.0615119)
+
+[node name="Brick_overlap3" parent="." unique_id=1545038871 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.0519714)
+
+[node name="Brick_overlap4" parent="." unique_id=157138680 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5144639, -0.1962322)
+
+[node name="Brick_overlap5" parent="." unique_id=1572617807 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5144639, 0.8652797)
+
+[node name="Brick_overlap6" parent="." unique_id=1803270256 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5144639, -1.2482036)
+
+[node name="Brick_overlap7" parent="." unique_id=1323143864 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049236536, 1.0186381, -0.008277401)
+
+[node name="Brick_overlap8" parent="." unique_id=127444626 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0186381, 1.0532345)
+
+[node name="Brick_overlap9" parent="." unique_id=2037080292 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0186381, -1.0602489)
+
+[node name="Brick_overlap10" parent="." unique_id=465161618 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4564811, -0.36017877)
+
+[node name="Brick_overlap11" parent="." unique_id=1815182552 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4564811, 0.7013331)
+
+[node name="Brick_overlap12" parent="." unique_id=302230310 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04381293, 1.4564811, -1.4121501)
+
+[node name="Brick_overlap13" parent="." unique_id=228227499 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026110768, 1.9440457, -0.058360815)
+
+[node name="Brick_overlap14" parent="." unique_id=1069066488 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9440457, 1.0031509)
+
+[node name="Brick_overlap15" parent="." unique_id=46037504 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9440457, -1.1103323)
+
+[node name="Brick_overlap16" parent="." unique_id=450790318 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4351883, -0.35856616)
+
+[node name="Brick_overlap17" parent="." unique_id=1350182817 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4351883, 0.7029456)
+
+[node name="Brick_overlap18" parent="." unique_id=1499970608 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.028591156, 2.4351883, -1.4105376)
+
+[node name="Brick_overlap19" parent="." unique_id=396639238 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.057334423, 2.9293983, 0.01653862)
+
+[node name="Brick_overlap20" parent="." unique_id=402831655 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9293983, 1.0780504)
+
+[node name="Brick_overlap21" parent="." unique_id=382677729 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9293983, -1.0354328)
+
+[node name="Brick_overlap22" parent="." unique_id=1031448403 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4361703, -0.41108978)
+
+[node name="Brick_overlap23" parent="." unique_id=2101347690 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4361703, 0.650422)
+
+[node name="Brick_overlap24" parent="." unique_id=279116814 instance=ExtResource("1_uprua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4361703, -1.4630612)

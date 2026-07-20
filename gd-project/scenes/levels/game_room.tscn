@@ -20,6 +20,8 @@
 [ext_resource type="PackedScene" path="res://scenes/props/shop_system.tscn" id="15_shop"]
 [ext_resource type="PackedScene" uid="uid://4sebpbpjva8v" path="res://scenes/levels/big_button_room.tscn" id="16_e8u5p"]
 [ext_resource type="PackedScene" uid="uid://bknhtc6u4v20n" path="res://scenes/props/door_scene.tscn" id="18_3vm3l"]
+[ext_resource type="PackedScene" uid="uid://dn20rlb02lidp" path="res://scenes/props/sledgehammer.tscn" id="20_p05v7"]
+[ext_resource type="PackedScene" uid="uid://du8s7ewkly2fb" path="res://scenes/props/wall_door.tscn" id="21_4h8x8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k1bj6"]
 size = Vector3(0.727478, 0.9760742, 0.9622803)
@@ -518,6 +520,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14322239, 0)
 
 [node name="Door" parent="." unique_id=872421070 instance=ExtResource("18_3vm3l")]
 transform = Transform3D(1.605, 0, 0, 0, 1.47, 0, 0, 0, 1.47, -3.1948113, 1.8484224, 4.6088886)
+
+[node name="Sledgehammer" parent="." unique_id=1406690060 instance=ExtResource("20_p05v7")]
+transform = Transform3D(0.44699705, 0.547934, -0.7070798, 0.44018432, 0.5533875, 0.70710677, 0.77873707, -0.6273201, 0.006170611, 4.1567335, 1.7801791, -1.1279567)
+
+[node name="Wall_door" parent="." unique_id=1362025772 instance=ExtResource("21_4h8x8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.004082, 0.21199796, 10.555289)
 
 [connection signal="button_clicked" from="MainRoom/Buttons/ClickButton" to="." method="_on_click_button_button_clicked"]
 
