@@ -93,6 +93,10 @@ func is_boss_intro_active() -> bool:
 	return _boss_intro_active
 
 
+func should_pause_terminal_ui() -> bool:
+	return current_state != GameState.RUNNING
+
+
 # Этот метод срабатывает каждый раз, когда меняется score в GameManager
 func _on_player_click_performed(_amount: int) -> void:
 	if _boss_intro_active:

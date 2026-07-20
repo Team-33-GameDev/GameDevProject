@@ -22,11 +22,14 @@ extends Node3D
 @onready var factory_backend: FactoryManager = \
 	$FactoryBackend
 
+var _paused_tree_by_factory_manager: bool = false
+
 func _ready() -> void:
-	# Полноэкранный интерфейс должен продолжать получать ввод,
-	# когда SceneTree поставлен на паузу.
+	# Терминал работает и во время активной квоты, когда таймер
+	# должен продолжать идти, и во время поставленной на паузу
+	# подготовительной фазы.
 	factory_manager_overlay.process_mode = \
-		Node.PROCESS_MODE_WHEN_PAUSED
+		Node.PROCESS_MODE_ALWAYS
 
 	factory_manager_overlay.visible = false
 
@@ -98,12 +101,30 @@ func _setup_factory_backend() -> void:
 	)
 
 func _open_factory_manager() -> void:
+	_paused_tree_by_factory_manager = (
+		not get_tree().paused
+		and QuotaManager.should_pause_terminal_ui()
+	)
+
 	factory_manager_overlay.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	get_tree().paused = true
+
+	if _paused_tree_by_factory_manager:
+		get_tree().paused = true
 
 
 func _close_factory_manager() -> void:
 	factory_manager_overlay.visible = false
-	get_tree().paused = false
+
+	if _paused_tree_by_factory_manager:
+		get_tree().paused = false
+
+	_paused_tree_by_factory_manager = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func _exit_tree() -> void:
+	if _paused_tree_by_factory_manager:
+		get_tree().paused = false
+
+	_paused_tree_by_factory_manager = false
