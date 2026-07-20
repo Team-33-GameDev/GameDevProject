@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://4glx11jioakk" path="res://scripts/components/props/crowbar.gd" id="1_saqbf"]
 [ext_resource type="PackedScene" uid="uid://g00ptqwlkr1f" path="res://assets/models/lom.glb" id="2_a3h07"]
+[ext_resource type="Resource" uid="uid://bf3r75mi2pte4" path="res://resources/shop_items/crowbar.tres" id="2_lbxgy"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g4kdn"]
 friction = 0.48
@@ -24,6 +25,7 @@ collision_mask = 49
 mass = 5.0
 physics_material_override = SubResource("PhysicsMaterial_g4kdn")
 script = ExtResource("1_saqbf")
+template_data = ExtResource("2_lbxgy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1382101152 groups=["clickable"]]
 transform = Transform3D(-6.993857e-09, 0.15999998, 0, -0.15999998, -6.993857e-09, 0, 0, 0, 0.16, 0.046635408, 1.3699725e-09, 0)

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ShopItemData" format=3 uid="uid://u4ohayls8mae"]
+
+[ext_resource type="Script" uid="uid://o4vf8eokv83x" path="res://resources/shop_items/shop_item_data.gd" id="1_a61gc"]
+
+[resource]
+script = ExtResource("1_a61gc")
+description = "Sledgehammer"
+item_price = 1000
+metadata/_custom_type_script = "uid://o4vf8eokv83x"

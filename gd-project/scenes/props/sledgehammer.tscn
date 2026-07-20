@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dn20rlb02lidp"]
+
+[ext_resource type="Script" uid="uid://c410gdtiic07h" path="res://scripts/components/props/sledgehammer.gd" id="1_h7x2r"]
+[ext_resource type="PackedScene" uid="uid://g00ptqwlkr1f" path="res://assets/models/lom.glb" id="2_d6nil"]
+[ext_resource type="Resource" uid="uid://u4ohayls8mae" path="res://resources/shop_items/sledgehammer.tres" id="2_it3n3"]
+[ext_resource type="Material" uid="uid://bltc0qqqevy2b" path="res://assets/models/Metal.tres" id="3_d6nil"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_it3n3"]
+radius = 0.918
+height = 11.509
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dj8lx"]
+size = Vector3(1, 1, 1.0390625)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yhltu"]
+size = Vector3(1.0878906, 1, 2.5732422)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_711gs"]
+size = Vector3(2.7823334, 1.2197876, 1.0405273)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4kdn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_it3n3"]
+albedo_color = Color(0.4383328, 0.6783571, 0.8118549, 1)
+metallic = 1.0
+roughness = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g4kdn"]
+top_radius = 0.053710938
+bottom_radius = 0.053710938
+height = 1.6765137
+
+[node name="Sledgehammer" type="RigidBody3D" unique_id=1406690060 groups=["pickable", "sledgehammer"]]
+collision_layer = 18
+collision_mask = 49
+mass = 10.0
+script = ExtResource("1_h7x2r")
+template_data = ExtResource("2_it3n3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1847164335 groups=["clickable"]]
+transform = Transform3D(-6.993857e-09, 0.15999998, 0, -0.15999998, -6.993857e-09, 0, 0, 0, 0.16, 0.046635408, 1.3699725e-09, 0)
+shape = SubResource("CapsuleShape3D_it3n3")
+debug_color = Color(0, 0.650854, 0.08529771, 0.41960785)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=180152873 groups=["clickable"]]
+transform = Transform3D(-6.9938744e-09, 0.16384275, 0, -0.15999998, -7.161848e-09, 0, 0, 0, 0.4542808, 0.9230132, 1.3699725e-09, 0.15267275)
+shape = SubResource("BoxShape3D_dj8lx")
+debug_color = Color(0, 0.6509804, 0.08627451, 0.41960785)
+
+[node name="Unlocking_zone" type="Area3D" parent="." unique_id=1203241578 groups=["clickable", "interactable"]]
+transform = Transform3D(1.7251993, 0, 0, 0, 0.20305263, 0, 0, 0, 0.14501594, 0.096897244, 0, -0.17010143)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Unlocking_zone" unique_id=1281248123 groups=["clickable", "interactable"]]
+transform = Transform3D(1.0000002, 0, 0, 0, 1.3342717, 0, 0, 0, 1.4079003, 0.043945327, 0, 1.1074835)
+shape = SubResource("BoxShape3D_yhltu")
+debug_color = Color(0.64899206, 0.5207767, 1.92523e-07, 0.41960785)
+
+[node name="Area3D" type="Area3D" parent="Unlocking_zone" unique_id=1770062664]
+transform = Transform3D(0.089, 0, 0, 0, 0.375, 0, 0, 0, 2.565, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Unlocking_zone/Area3D" unique_id=718397171]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 1, 0.24629971, 0.012298584, 0.0017089847)
+shape = SubResource("BoxShape3D_711gs")
+debug_color = Color(0.4868123, 0.5858021, 0, 0.41960785)
+
+[node name="lom" parent="." unique_id=454097513 instance=ExtResource("2_d6nil")]
+transform = Transform3D(-1.2848339e-09, 0.050000004, 2.1855695e-09, 0, -2.1855695e-09, 0.050000004, 0.029393574, 2.1855695e-09, 9.553428e-17, 0, 0, 0)
+visible = false
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=2003426393]
+transform = Transform3D(-1.1942182e-08, 0.2435049, 0, -0.2732053, -1.0643936e-08, 0, 0, 0, 0.6347223, 0.9878367, -6.456393e-10, 0)
+material_override = ExtResource("3_d6nil")
+mesh = SubResource("BoxMesh_g4kdn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2046159248]
+transform = Transform3D(-4.371138e-08, 0.9999999, 0, -0.9999999, -4.371138e-08, 0, 0, 0, 1, 0.029334962, -6.456393e-10, 0)
+material_override = SubResource("StandardMaterial3D_it3n3")
+mesh = SubResource("CylinderMesh_g4kdn")

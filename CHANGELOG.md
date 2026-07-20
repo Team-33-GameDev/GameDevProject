@@ -691,3 +691,4 @@ feat: add factory manager with click interaction and overlay menu
 
 - Add user stories
 - Update CHANGELOG.md information for latest version
+gi

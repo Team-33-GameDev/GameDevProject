@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ShopItemData" format=3 uid="uid://bf3r75mi2pte4"]
+
+[ext_resource type="Script" uid="uid://o4vf8eokv83x" path="res://resources/shop_items/shop_item_data.gd" id="1_b5oeq"]
+
+[resource]
+script = ExtResource("1_b5oeq")
+description = "Crowbar for crack a wodden plates"
+metadata/_custom_type_script = "uid://o4vf8eokv83x"

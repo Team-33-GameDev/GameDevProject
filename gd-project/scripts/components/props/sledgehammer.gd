@@ -12,7 +12,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if template_data == null:
-		push_error("Crowbar: template_data is null!")
+		push_error("Sledgehammer: template_data is null!")
 		return
 	
 func click():
