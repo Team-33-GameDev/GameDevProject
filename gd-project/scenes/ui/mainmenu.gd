@@ -56,8 +56,8 @@ func _ready():
 func _on_continue_button_pressed():
 	AudioManager.play_sfx("menu_click")
 	AudioManager.stop_music()
-	SaveManager.load_game()
-	get_tree().change_scene_to_file("res://scenes/levels/game_room.tscn")
+	if SaveManager.load_game():
+		get_tree().change_scene_to_file("res://scenes/levels/game_room.tscn")
 
 func _on_play_button_pressed():
 	AudioManager.play_sfx("menu_click")
@@ -76,7 +76,7 @@ func _on_settings_pressed():
 
 func _on_quit_pressed():
 	AudioManager.play_sfx("menu_click")
-	SaveManager.save_game()
+	# Сохранение уже создано при входе в главное меню.
 	get_tree().quit()
 
 func _on_play_button_mouse_entered():
