@@ -233,10 +233,10 @@ func setup(manager, index: int) -> void:
 			_on_factory_updated
 		)
 
-	if not GameManager.score_changed.is_connected(
+	if not GameManager.spendable_score_changed.is_connected(
 		_on_score_changed
 	):
-		GameManager.score_changed.connect(
+		GameManager.spendable_score_changed.connect(
 			_on_score_changed
 		)
 
@@ -456,10 +456,11 @@ func _refresh_upgrade_buttons(data) -> void:
 
 	_update_upgrade_button(
 		up_dps_button,
-		"UP DPS",
+		"REDUCE DPS",
 		data.cur_price_dmg,
 		data.upg_lvl_dmg,
-		data.max_lvl
+		data.max_lvl,
+		data.dmg > 1
 	)
 
 	_update_upgrade_button(
@@ -476,8 +477,15 @@ func _update_upgrade_button(
 	title: String,
 	price: int,
 	level: int,
-	max_level: int
+	max_level: int,
+	is_upgrade_available: bool = true
 ) -> void:
+	if not is_upgrade_available:
+		button.text = "%s\nMIN" % title
+		button.disabled = true
+		button.tooltip_text = "Minimum self-damage reached."
+		return
+
 	if level >= max_level:
 		button.text = "%s\nMAX" % title
 		button.disabled = true

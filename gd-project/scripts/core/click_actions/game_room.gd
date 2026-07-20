@@ -10,6 +10,7 @@ signal click
 var test_sound_player: AudioStreamPlayer3D
 
 func _ready() -> void:
+	
 	if not QuotaManager.boss_intro_state_changed.is_connected(
 		_on_boss_intro_state_changed
 	):

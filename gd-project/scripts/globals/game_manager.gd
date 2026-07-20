@@ -1,6 +1,7 @@
 extends Node
 
 signal score_changed(new_score: int)
+signal spendable_score_changed(new_score: int)
 signal player_click_performed(amount: int)
 signal click_power_changed(new_power: int)
 
@@ -9,6 +10,7 @@ var score: int = 0:
 	set(value):
 		score = value
 		score_changed.emit(score)
+		_notify_spendable_score_changed()
 		#print("game_manager: Score ", score)
 
 # Flat click system
@@ -21,8 +23,43 @@ var total_click_power: int = 1 :
 		total_click_power = value
 		click_power_changed.emit(value)
 		
+func get_reserved_score() -> int:
+	# GameManager загружается раньше QuotaManager как autoload.
+	# Во время первичной инициализации резерв ещё отсутствует.
+	if not is_inside_tree():
+		return 0
+
+	if (
+		QuotaManager.current_state
+		== QuotaManager.GameState.RUNNING
+	):
+		return maxi(
+			QuotaManager.current_quota_target,
+			0
+		)
+
+	return 0
+
+
+func get_spendable_score() -> int:
+	return maxi(
+		score - get_reserved_score(),
+		0
+	)
+
+
+func notify_score_reservation_changed() -> void:
+	_notify_spendable_score_changed()
+
+
+func _notify_spendable_score_changed() -> void:
+	spendable_score_changed.emit(
+		get_spendable_score()
+	)
+
+
 func has_score(a_score: int) -> bool:
-	return score >= a_score
+	return get_spendable_score() >= a_score
 	
 func spend_score(cost: int) -> bool:
 	if has_score(cost):
@@ -128,7 +165,6 @@ func add_tickets(amount: int) -> void:
 func reset_game() -> void:
 	score = 0
 	tickets = 0
-	score_changed.emit(score)
 	#pass # Replace with function body.wwda s
 
 

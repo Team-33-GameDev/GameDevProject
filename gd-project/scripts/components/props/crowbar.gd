@@ -1,9 +1,12 @@
-extends Node3D
+extends RigidBody3D
 
-@export var template_data: ShopItemData
-var data: ShopItemData
 
-# Called when the node enters the scene tree for the first time.
+@export var available_on_start: bool = false
+
+
+var _is_available: bool = false
+
+
 func _ready() -> void:
 	data = template_data.duplicate_data()
 	pass # Replace with function body.

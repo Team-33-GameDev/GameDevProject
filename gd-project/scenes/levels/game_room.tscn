@@ -226,28 +226,28 @@ camera_attributes = SubResource("CameraAttributesPhysical_bmb82")
 [node name="вентилятор" parent="MainRoom/Room_objects" unique_id=607845212 instance=ExtResource("8_xfipo")]
 transform = Transform3D(0.09, 0, 0, 0, -3.934025e-09, -0.09, 0, 0.09, -3.934025e-09, 2.1383646, 2.7, -4.358)
 
-[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор" index="3" unique_id=910057577]
+[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор" index="3" unique_id=1308984349]
 transform = Transform3D(-0.49999997, -1.9470717e-07, -0.86602545, 3.8941437e-07, -1, 0, -0.86602545, -3.3724274e-07, 0.49999997, 0, 0, 0)
 
-[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор" index="4" unique_id=1596516069]
+[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор" index="4" unique_id=1593002650]
 autoplay = &"Plane_006Action_005"
 
 [node name="вентилятор4" parent="MainRoom/Room_objects" unique_id=1068906776 instance=ExtResource("8_xfipo")]
 transform = Transform3D(1.0732393e-09, -0.09, 3.934025e-09, 0, -3.934025e-09, -0.09, 0.09, 1.0732393e-09, -4.6912778e-17, -2.2415159, 2.7, 10.162462)
 
-[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор4" index="3" unique_id=910057577]
+[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор4" index="3" unique_id=1308984349]
 transform = Transform3D(-0.49999997, -1.9470717e-07, -0.86602545, 3.8941437e-07, -1, 0, -0.86602545, -3.3724274e-07, 0.49999997, 0, 0, 0)
 
-[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор4" index="4" unique_id=1596516069]
+[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор4" index="4" unique_id=1593002650]
 autoplay = &"Plane_006Action_005"
 
 [node name="вентилятор5" parent="MainRoom/Room_objects" unique_id=630479973 instance=ExtResource("8_xfipo")]
 transform = Transform3D(1.0732393e-09, -0.09, 3.934025e-09, 0, -3.934025e-09, -0.09, 0.09, 1.0732393e-09, -4.6912778e-17, -2.2415159, 2.7, 12.75466)
 
-[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор5" index="3" unique_id=910057577]
+[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор5" index="3" unique_id=1308984349]
 transform = Transform3D(-0.49999997, -1.9470717e-07, -0.86602545, 3.8941437e-07, -1, 0, -0.86602545, -3.3724274e-07, 0.49999997, 0, 0, 0)
 
-[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор5" index="4" unique_id=1596516069]
+[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор5" index="4" unique_id=1593002650]
 autoplay = &"Plane_006Action_005"
 
 [node name="стеллаж" parent="MainRoom/Room_objects" unique_id=476936738 instance=ExtResource("12_og8p1")]
@@ -370,19 +370,19 @@ shape = SubResource("BoxShape3D_3vm3l")
 [node name="вентилятор2" parent="MainRoom/Room_objects" unique_id=1727411472 instance=ExtResource("8_xfipo")]
 transform = Transform3D(0.09, 0, 0, 0, -3.934025e-09, -0.09, 0, 0.09, -3.934025e-09, -0.517, 2.7, -4.358)
 
-[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор2" index="3" unique_id=910057577]
+[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор2" index="3" unique_id=1308984349]
 transform = Transform3D(-0.49999997, -1.9470717e-07, -0.86602545, 3.8941437e-07, -1, 0, -0.86602545, -3.3724274e-07, 0.49999997, 0, 0, 0)
 
-[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор2" index="4" unique_id=1596516069]
+[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор2" index="4" unique_id=1593002650]
 autoplay = &"Plane_006Action_005"
 
 [node name="вентилятор3" parent="MainRoom/Room_objects" unique_id=1202734777 instance=ExtResource("8_xfipo")]
 transform = Transform3D(0.09, 0, 0, 0, -3.934025e-09, -0.09, 0, 0.09, -3.934025e-09, 4.815, 2.7, -4.358)
 
-[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор3" index="3" unique_id=910057577]
+[node name="Plane_004" parent="MainRoom/Room_objects/вентилятор3" index="3" unique_id=1308984349]
 transform = Transform3D(-0.49999997, -1.9470717e-07, -0.86602545, 3.8941437e-07, -1, 0, -0.86602545, -3.3724274e-07, 0.49999997, 0, 0, 0)
 
-[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор3" index="4" unique_id=1596516069]
+[node name="AnimationPlayer" parent="MainRoom/Room_objects/вентилятор3" index="4" unique_id=1593002650]
 autoplay = &"Plane_006Action_005"
 
 [node name="вентиляция" parent="MainRoom/Room_objects" unique_id=179084216 instance=ExtResource("14_wruq6")]
@@ -400,7 +400,7 @@ transform = Transform3D(1.3374798e-15, -3.059797e-08, 0.7, -0.7, -3.059797e-08, 
 [node name="комната_пустая2" parent="MainRoom/Room_objects" unique_id=2071442509 instance=ExtResource("6_knoj5")]
 transform = Transform3D(-2.8412401e-08, 0, 0.65, 0, 0.65, 0, -0.65, 0, -2.8412401e-08, 0.0562722, -0.45870167, 0.00022435188)
 
-[node name="Cylinder_001" parent="MainRoom/Room_objects/комната_пустая2" index="5" unique_id=368753659]
+[node name="Cylinder_001" parent="MainRoom/Room_objects/комната_пустая2" index="5" unique_id=1278900375]
 transform = Transform3D(7.445451e-09, 0.06769026, -0.059710994, 0.06245697, -8.069309e-09, 7.118105e-09, 2.646978e-23, -0.22067499, -0.018315861, -3.495255, 3.4512372, -4.6421943)
 visible = false
 
@@ -439,22 +439,22 @@ mesh = SubResource("BoxMesh_id0bx")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FactoryRoom/Box/Wall_front4/StaticBody3D" unique_id=970316759]
 shape = SubResource("ConvexPolygonShape3D_002rk")
 
-[node name="SpotLight3D" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 685563115) index="0" unique_id=363957452]
+[node name="SpotLight3D" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 976975381) index="0" unique_id=363957452]
 transform = Transform3D(-1.4615066e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.569448e-07, 9.75885, 0, 0)
 
-[node name="SpotLight3D2" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 685563115) index="1" unique_id=1079019029]
+[node name="SpotLight3D2" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 976975381) index="1" unique_id=1079019029]
 transform = Transform3D(-1.4615066e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.569448e-07, 11.889099, 0, -67.580284)
 
-[node name="SpotLight3D3" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 685563115) index="2" unique_id=1219140275]
+[node name="SpotLight3D3" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 976975381) index="2" unique_id=1219140275]
 transform = Transform3D(-1.4615063e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.5694455e-07, 8.295349, 0, -134.33466)
 
-[node name="SpotLight3D4" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 685563115) index="3" unique_id=1728925349]
+[node name="SpotLight3D4" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 976975381) index="3" unique_id=1728925349]
 transform = Transform3D(-1.4615053e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.56944e-07, 12.677185, 0, -200.75656)
 
-[node name="SpotLight3D5" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 685563115) index="4" unique_id=1656204995]
+[node name="SpotLight3D5" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 976975381) index="4" unique_id=1656204995]
 transform = Transform3D(-1.4615053e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.56944e-07, 9.464722, 0, -268.07568)
 
-[node name="SpotLight3D6" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 685563115) index="5" unique_id=723294229]
+[node name="SpotLight3D6" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats/Cube_003" parent_id_path=PackedInt32Array(900522601, 1564050712, 976975381) index="5" unique_id=723294229]
 transform = Transform3D(-1.4615039e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.569432e-07, 10.008362, 0, -335.3588)
 
 [node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats" parent_id_path=PackedInt32Array(900522601, 1564050712) index="5" unique_id=1803374159]

@@ -1,3 +1,17 @@
+## Unreleased
+
+### Features
+
+- Connect the Crowbar shop card to the existing world item.
+- Preserve score earned above a completed quota and reserve the active quota from purchases.
+- Rebalance the four-run campaign, click upgrades, factories, and factory durability.
+
+### Bug Fixes
+
+- Assign the missing Copper Factory data resource.
+- Make factory damage-reduction upgrades reduce actual self-damage.
+- Limit Big Button quota reduction to 30% per run.
+
 ## [4.0]
 
 ### 🚀 Features

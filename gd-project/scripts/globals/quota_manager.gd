@@ -11,18 +11,21 @@ signal boss_intro_state_changed(active: bool)
 enum GameState { IDLE, RUNNING, GAME_OVER }
 
 const VICTORY_ROOM_SCENE := "res://scenes/levels/victory_room.tscn"
+const MINIMUM_QUOTA_RATIO: float = 0.70
 var current_state: GameState = GameState.IDLE
 
 # Список квот: время в секундах, необходимое количество очков
 var quotas: Array = [
-	[10.0, 30],
-	[10.0, 100],
-	[10.0, 1000]
+	[30.0, 100],
+	[30.0, 200],
+	[30.0, 800],
+	[30.0, 1500]
 ]
 
 var current_quota_index: int = 0
 var time_left: float = 0.0
 var current_quota_target: int = 0
+var _base_quota_target: int = 0
 
 # Пока идёт вступительный монолог, ручной клик не должен
 # запускать квоту. Значение меняет TVDisplay.
@@ -102,6 +105,8 @@ func _start_run() -> void:
 	var quota_data = quotas[current_quota_index]
 	time_left = quota_data[0]
 	current_quota_target = quota_data[1]
+	_base_quota_target = current_quota_target
+	GameManager.notify_score_reservation_changed()
 	_last_printed_second = -1 # Сбрасываем для корректного вывода
 	run_started.emit()
 	quota_updated.emit(current_quota_target)
@@ -117,17 +122,24 @@ func _evaluate_quota() -> void:
 	run_ended.emit(success)
 	if GameManager.score >= current_quota_target:
 		print("✅ SUCCESS! Quota reached.")
-	
-	# Вычитаем квоту из счета
-		GameManager.score = 0
+
+		# Квота сгорает, а заработанный сверх неё
+		# излишек остаётся игроку для покупок.
+		GameManager.score = maxi(
+			GameManager.score - current_quota_target,
+			0
+		)
 	
 		current_quota_index += 1
+		current_quota_target = 0
+		_base_quota_target = 0
 
 		if current_quota_index >= quotas.size():
 			_trigger_victory()
 			return
 
 		current_state = GameState.IDLE
+		GameManager.notify_score_reservation_changed()
 
 	# Эмитим сигнал о начале фазы подготовки
 		preparation_phase_started.emit()
@@ -140,6 +152,7 @@ func _trigger_victory() -> void:
 	print("🏆 ALL QUOTAS COMPLETED. ENTERING THE VICTORY ROOM.")
 	time_left = 0.0
 	current_quota_target = 0
+	_base_quota_target = 0
 	GameManager.score = 0
 	current_state = GameState.GAME_OVER
 	timer_updated.emit(0.0)
@@ -166,6 +179,8 @@ func _trigger_game_over() -> void:
 	SaveManager.reset_progress()
 	
 	current_quota_index = 0 
+	current_quota_target = 0
+	_base_quota_target = 0
 	
 	GameManager.score = 0 
 	current_state = GameState.IDLE 
@@ -175,6 +190,8 @@ func pause_game() -> void:
 	current_state = GameState.IDLE
 	time_left = 0.0
 	current_quota_index = 0
+	current_quota_target = 0
+	_base_quota_target = 0
 	_last_printed_second = -1
 	
 	# Сбросить очки
@@ -188,22 +205,41 @@ func reset_game() -> void:
 	current_quota_index = 0
 	time_left = 0.0
 	current_quota_target = 0
+	_base_quota_target = 0
 	_last_printed_second = -1
 	GameManager.score = 0
 	
 	print("🔄 Game progress reset.")
 
 
-#Some logic of qouta decreasing 
-func decrease_quota(decrease_percent : float) -> bool:
-	print("QuotaManager: 
-	Target quota %d, 
-	Decrease percent %.2f, 
-	Total Decrease %d" % [current_quota_target, decrease_percent, int(float(current_quota_target) * decrease_percent)])
-
-	current_quota_target -= int(float(current_quota_target) * decrease_percent)
-	if (current_quota_target < 0): 
-		current_quota_target = 0
+# Кнопка в комнате помогает с квотой, но не заменяет основной цикл.
+# За один забег цель можно снизить максимум на 30%.
+func decrease_quota(decrease_percent: float) -> bool:
+	if (
+		current_state != GameState.RUNNING
+		or decrease_percent <= 0.0
+		or current_quota_target <= 0
+		or _base_quota_target <= 0
+	):
 		return false
+
+	var minimum_target: int = ceili(
+		float(_base_quota_target)
+		* MINIMUM_QUOTA_RATIO
+	)
+	var decrease_amount: int = maxi(
+		1,
+		int(float(current_quota_target) * decrease_percent)
+	)
+	var new_target: int = maxi(
+		minimum_target,
+		current_quota_target - decrease_amount
+	)
+
+	if new_target == current_quota_target:
+		return false
+
+	current_quota_target = new_target
+	GameManager.notify_score_reservation_changed()
 	quota_updated.emit(current_quota_target)
 	return true
