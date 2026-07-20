@@ -1,6 +1,5 @@
 extends GutTest
-# SaveManager tests: save/load roundtrip, corrupted files, protection
-# against saving mid-run.
+# SaveManager tests: save/load roundtrip and corrupted files.
 #
 # NOTE: SaveManager writes to the real user://savegame.json.
 # To avoid wiping the developer's own save, we back it up in before_all
@@ -101,11 +100,21 @@ func test_load_resets_score_to_zero():
 
 # ============ GUARDS ============
 
-func test_no_save_during_run():
-	QuotaManager.current_state = QuotaManager.GameState.RUNNING
+func test_save_during_run_restarts_same_quota():
+	QuotaManager.current_quota_index = 1
+	QuotaManager.current_state = QuotaManager.GameState.IDLE
+	GameManager.score = 0
 	SaveManager.save_game()
-	assert_false(SaveManager.has_save(),
-		"saving mid-run must be blocked")
+	QuotaManager.current_state = QuotaManager.GameState.RUNNING
+	GameManager.score = 999
+	SaveManager.save_game()
+	assert_true(SaveManager.has_save())
+	QuotaManager.current_quota_index = 0
+	SaveManager.load_game()
+	assert_eq(QuotaManager.current_quota_index, 1,
+		"Continue must restart the same quota")
+	assert_eq(GameManager.score, 0,
+		"unfinished clicking-phase score must not be restored")
 
 func test_corrupted_save_returns_false():
 	var f = FileAccess.open(SAVE_PATH, FileAccess.WRITE)

@@ -26,6 +26,7 @@ func _ready() -> void:
 		SaveManager.register_click_upgrade_data(
 			click_upgrade_data
 		)
+	SaveManager.register_shop(self)
 
 	call_deferred("_setup_crowbar")
 
@@ -86,6 +87,7 @@ func buy_crowbar() -> bool:
 		_crowbar.visible = true
 
 	crowbar_purchased.emit()
+	SaveManager.save_game()
 
 	return true
 
@@ -96,6 +98,19 @@ func get_crowbar_price() -> int:
 
 func is_crowbar_purchased() -> bool:
 	return _crowbar_purchased
+
+
+func restore_crowbar_purchase(value: bool) -> void:
+	_crowbar_purchased = value
+	if _crowbar == null or not is_instance_valid(_crowbar):
+		_crowbar = _find_crowbar()
+	if _crowbar == null:
+		call_deferred("_setup_crowbar")
+		return
+	if _crowbar.has_method(&"set_available"):
+		_crowbar.call(&"set_available", value)
+	else:
+		_crowbar.visible = value
 
 
 # ------------------------------------------------------------------

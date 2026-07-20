@@ -14,15 +14,20 @@ transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0.051
 
 [node name="Wooden_Overlap" parent="Overlaps" unique_id=1090349405 instance=ExtResource("2_g2gv6")]
 transform = Transform3D(-4.3711385e-08, 0.017452404, 0.9998476, 0, 0.99984753, -0.017452404, -0.9999998, -7.6286877e-10, -4.3704727e-08, -0.75378793, 0.0015934708, -0.21136078)
+persistent_id = "door_board_1"
 
 [node name="Wooden_Overlap3" parent="Overlaps" unique_id=1897784031 instance=ExtResource("2_g2gv6")]
 transform = Transform3D(-4.3711385e-08, 0.017452404, 0.9998476, 0, 0.99984765, -0.017452406, -0.99999994, -7.628689e-10, -4.370473e-08, -0.75378793, -0.81525624, -0.2113608)
+persistent_id = "door_board_2"
 
 [node name="Wooden_Overlap5" parent="Overlaps" unique_id=1674857771 instance=ExtResource("2_g2gv6")]
 transform = Transform3D(-4.3711385e-08, 0.017452404, 0.9998476, 0, 0.9998475, -0.017452404, -0.99999976, -7.6286866e-10, -4.3704727e-08, -0.75378793, 0.8417714, -0.21136077)
+persistent_id = "door_board_3"
 
 [node name="Wooden_Overlap2" parent="Overlaps" unique_id=650089621 instance=ExtResource("2_g2gv6")]
 transform = Transform3D(-4.371138e-08, -0.29237163, 0.9563046, 0, 0.9563043, 0.29237154, -0.9999995, 1.27799655e-08, -4.180139e-08, -0.75378793, -0.36016428, -0.310518)
+persistent_id = "door_board_4"
 
 [node name="Wooden_Overlap4" parent="Overlaps" unique_id=470219564 instance=ExtResource("2_g2gv6")]
 transform = Transform3D(-4.371138e-08, -0.29237163, 0.9563046, 0, 0.9563042, 0.2923715, -0.99999946, 1.2779965e-08, -4.1801385e-08, -0.75378793, 0.44338903, -0.29058692)
+persistent_id = "door_board_5"

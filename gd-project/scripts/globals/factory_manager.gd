@@ -28,6 +28,7 @@ func _ready() -> void:
 	_discover_factories()
 	_connect_factory_signals()
 	_create_timer()
+	SaveManager.register_factory_manager(self)
 
 	_emit_cps_if_changed(true)
 
