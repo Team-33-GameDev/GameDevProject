@@ -25,11 +25,12 @@ python3 tools/balance_model.py
 
 ## Economy Rules
 
-- The active quota is reserved. Only `score - current_quota` is spendable.
+- Quota progress and purchases share one score pool. Buying during an active
+  quota lowers current progress and creates a deliberate risk/reward choice.
 - Completing a run deducts the current quota; surplus carries into preparation.
-- Shop and factory upgrade terminals open only during preparation because their
-  overlays pause the scene tree. Physical factory repair buttons remain usable
-  during a run.
+- Shop and factory upgrade terminals remain functional during active quotas;
+  their overlays do not pause the timer or factory simulation. During
+  preparation the same interfaces pause the scene tree for planning.
 - The Big Button reduces 2% of the current target after every five registered
   jumps, up to 10% of the run's original target. It is a recovery tool rather
   than the dominant source of progress.

@@ -93,6 +93,10 @@ func is_boss_intro_active() -> bool:
 	return _boss_intro_active
 
 
+func should_pause_terminal_ui() -> bool:
+	return current_state != GameState.RUNNING
+
+
 # Этот метод срабатывает каждый раз, когда меняется score в GameManager
 func _on_player_click_performed(_amount: int) -> void:
 	if _boss_intro_active:
@@ -180,18 +184,32 @@ func _open_victory_room() -> void:
 
 
 func _trigger_game_over() -> void:
-	print("💀 GAME OVER. Restarting simulation...")
+	print(
+		"💀 GAME OVER. Quota %d will be retried."
+		% (current_quota_index + 1)
+	)
 	
 	GameManager.add_tickets(current_quota_index)
-	
-	current_quota_index = 0 
+	_reset_failed_quota_attempt()
+	SaveManager.save_game()
+
+	get_tree().change_scene_to_file(
+		"res://scenes/levels/death_room.tscn"
+	)
+
+
+func _reset_failed_quota_attempt() -> void:
+	# current_quota_index намеренно не меняется: после смерти
+	# игрок повторяет последнюю невыполненную квоту.
+	time_left = 0.0
 	current_quota_target = 0
 	_base_quota_target = 0
-	
-	GameManager.score = 0 
-	current_state = GameState.IDLE 
-	SaveManager.save_after_death()
-	get_tree().change_scene_to_file("res://scenes/levels/death_room.tscn")
+	_last_printed_second = -1
+	GameManager.score = 0
+	current_state = GameState.IDLE
+	GameManager.notify_score_reservation_changed()
+	quota_updated.emit(0)
+	timer_updated.emit(0.0)
 
 func pause_game() -> void:
 	current_state = GameState.IDLE

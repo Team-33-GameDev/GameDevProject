@@ -24,20 +24,9 @@ var total_click_power: int = 1 :
 		click_power_changed.emit(value)
 		
 func get_reserved_score() -> int:
-	# GameManager загружается раньше QuotaManager как autoload.
-	# Во время первичной инициализации резерв ещё отсутствует.
-	if not is_inside_tree():
-		return 0
-
-	if (
-		QuotaManager.current_state
-		== QuotaManager.GameState.RUNNING
-	):
-		return maxi(
-			QuotaManager.current_quota_target,
-			0
-		)
-
+	# Прогресс квоты и покупки используют один общий счёт.
+	# Покупка во время активной фазы уменьшает текущий прогресс,
+	# оставляя игроку осмысленный выбор между риском и усилением.
 	return 0
 
 

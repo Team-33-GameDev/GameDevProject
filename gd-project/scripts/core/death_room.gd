@@ -19,12 +19,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		_restart_run()
 
 func _restart_run() -> void:
-	print("🔄 Restarting run...")
-	SaveManager.load_game()
+	print(
+		"🔄 Retrying quota %d..."
+		% (QuotaManager.current_quota_index + 1)
+	)
 	
-	# На этом этапе GameManager уже обнулил score и current_quota_index 
-	# в методе _trigger_game_over() перед переходом сюда.
-	# Мета-прогресс (tickets) сохранился, так как GameManager в Autoload.
+	# QuotaManager очистил только состояние неудачной попытки.
+	# Индекс квоты, улучшения и мета-прогресс сохранены.
 	
 	# Загружаем сцену офиса заново
 	get_tree().change_scene_to_file(OFFICE_SCENE_PATH)

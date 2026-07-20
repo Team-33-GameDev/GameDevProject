@@ -163,7 +163,10 @@ func _open_shop() -> void:
 	shop_screen.setup(shop_backend)
 
 	_previous_mouse_mode = Input.mouse_mode
-	_paused_tree_by_shop = not get_tree().paused
+	_paused_tree_by_shop = (
+		not get_tree().paused
+		and QuotaManager.should_pause_terminal_ui()
+	)
 
 	_set_station_preview_visible(false)
 
