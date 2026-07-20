@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" path="res://scenes/props/shop_system.tscn" id="15_shop"]
 [ext_resource type="PackedScene" uid="uid://4sebpbpjva8v" path="res://scenes/levels/big_button_room.tscn" id="16_e8u5p"]
 [ext_resource type="PackedScene" uid="uid://bknhtc6u4v20n" path="res://scenes/props/door_scene.tscn" id="18_3vm3l"]
+[ext_resource type="PackedScene" uid="uid://dn20rlb02lidp" path="res://scenes/props/sledgehammer.tscn" id="20_p05v7"]
+[ext_resource type="PackedScene" uid="uid://du8s7ewkly2fb" path="res://scenes/props/wall_door.tscn" id="21_4h8x8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k1bj6"]
 size = Vector3(0.727478, 0.9760742, 0.9622803)
@@ -51,12 +53,6 @@ size = Vector3(7.255, 0.3, 7.12)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_002rk"]
 points = PackedVector3Array(3.6850567, 0.25305554, 3.6374202, -3.6850786, -0.20757934, -3.617579, -3.6850786, -0.20757934, 3.6374202, -3.6850786, 0.25305554, -3.617579, 3.6850567, -0.20757934, -3.617579, -3.6850786, 0.25305554, 3.6374202, 3.6850567, -0.20757934, 3.6374202, 3.6850567, 0.25305554, -3.617579)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_o5seq"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_p05v7"]
-viewport_path = NodePath("SubViewport")
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_4h8x8"]
 viewport_path = NodePath("SubViewport")
 
@@ -67,6 +63,12 @@ viewport_path = NodePath("SubViewport")
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7w0bs"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_bdve4"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3s0nq"]
 viewport_path = NodePath("SubViewport")
 
 [node name="GameRoom" type="Node3D" unique_id=1207060130]
@@ -456,22 +458,22 @@ transform = Transform3D(-1.4615053e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375
 transform = Transform3D(-1.4615039e-06, 0, -57.023533, 0, 3.215639, 0, 33.435375, 0, -8.569432e-07, 10.008362, 0, -335.3588)
 
 [node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats" parent_id_path=PackedInt32Array(900522601, 1564050712) index="5" unique_id=1803374159]
-texture = SubResource("ViewportTexture_o5seq")
-
-[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats2" parent_id_path=PackedInt32Array(900522601, 737505982) index="5" unique_id=1803374159]
-texture = SubResource("ViewportTexture_p05v7")
-
-[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats3" parent_id_path=PackedInt32Array(900522601, 1303793399) index="5" unique_id=1803374159]
 texture = SubResource("ViewportTexture_4h8x8")
 
-[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats4" parent_id_path=PackedInt32Array(900522601, 1313431968) index="5" unique_id=1803374159]
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats2" parent_id_path=PackedInt32Array(900522601, 737505982) index="5" unique_id=1803374159]
 texture = SubResource("ViewportTexture_vhf6d")
 
-[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats5" parent_id_path=PackedInt32Array(900522601, 1727946551) index="5" unique_id=1803374159]
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats3" parent_id_path=PackedInt32Array(900522601, 1303793399) index="5" unique_id=1803374159]
 texture = SubResource("ViewportTexture_gdty0")
 
-[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats6" parent_id_path=PackedInt32Array(900522601, 1955069142) index="5" unique_id=1803374159]
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats4" parent_id_path=PackedInt32Array(900522601, 1313431968) index="5" unique_id=1803374159]
 texture = SubResource("ViewportTexture_7w0bs")
+
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats5" parent_id_path=PackedInt32Array(900522601, 1727946551) index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_bdve4")
+
+[node name="FactoryStatsDisplay" parent="FactoryRoom/Box/FactoryStatsDisplays/WoodenStats6" parent_id_path=PackedInt32Array(900522601, 1955069142) index="5" unique_id=1803374159]
+texture = SubResource("ViewportTexture_3s0nq")
 
 [node name="Title" parent="FactoryRoom/FactoryManagerOverlay/FactoryManagerScreen" parent_id_path=PackedInt32Array(900522601, 267126241) index="1" unique_id=1565265518]
 offset_top = 0.0
@@ -515,6 +517,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14322239, 0)
 
 [node name="Door" parent="." unique_id=872421070 instance=ExtResource("18_3vm3l")]
 transform = Transform3D(1.605, 0, 0, 0, 1.47, 0, 0, 0, 1.47, -3.1948113, 1.8484224, 4.6088886)
+
+[node name="Sledgehammer" parent="." unique_id=1406690060 instance=ExtResource("20_p05v7")]
+transform = Transform3D(0.44699705, 0.547934, -0.7070798, 0.44018432, 0.5533875, 0.70710677, 0.77873707, -0.6273201, 0.006170611, 4.1567335, 1.7801791, -1.1279567)
+
+[node name="Wall_door" parent="." unique_id=1362025772 instance=ExtResource("21_4h8x8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.004082, 0.21199796, 10.555289)
 
 [connection signal="button_clicked" from="MainRoom/Buttons/ClickButton" to="." method="_on_click_button_button_clicked"]
 

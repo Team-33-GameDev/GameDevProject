@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cjgglqfxw6h5m"]
+
+[ext_resource type="Script" uid="uid://smkaaj6v03wg" path="res://scripts/components/props/brick_overlap.gd" id="1_td2ha"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4kdn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_77llw"]
+size = Vector3(2.7823334, 1.2197876, 1.0405273)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6so8"]
+albedo_color = Color(0.40832946, 0.40832946, 0.40832946, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4kdn"]
+
+[node name="Brick_overlap" type="RigidBody3D" unique_id=1527927369]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_td2ha")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=807159794]
+transform = Transform3D(0.3580554, 0, 0, 0, 0.46934623, 0, 0, 0, 1.0556082, 0, 0, 0)
+shape = SubResource("BoxShape3D_g4kdn")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1460778192]
+transform = Transform3D(0.089, 0, 0, 0, 0.375, 0, 0, 0, 2.565, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=994860261]
+transform = Transform3D(1.315523, 0, 0, 0, 1.0430193, 0, 0, 0, 0.3851558, 0.24629971, 0.012298584, 0.0017089847)
+shape = SubResource("BoxShape3D_77llw")
+debug_color = Color(0.4868123, 0.5858021, 0, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1307699846]
+transform = Transform3D(0.3580554, 0, 0, 0, 0.46934623, 0, 0, 0, 1.0556082, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_s6so8")
+mesh = SubResource("BoxMesh_g4kdn")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

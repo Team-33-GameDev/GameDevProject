@@ -53,6 +53,7 @@ clickable="Object that can be clicked by mouse botton and will do something afte
 can_click_big_button=""
 pickable=""
 crowbar=""
+sledgehammer=""
 
 [input]
 
