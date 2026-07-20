@@ -20,6 +20,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _restart_run() -> void:
 	print("🔄 Restarting run...")
+	SaveManager.load_game()
 	
 	# На этом этапе GameManager уже обнулил score и current_quota_index 
 	# в методе _trigger_game_over() перед переходом сюда.

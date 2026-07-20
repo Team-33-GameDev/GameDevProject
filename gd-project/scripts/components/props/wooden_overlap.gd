@@ -1,50 +1,44 @@
 extends RigidBody3D
 
 signal crash
-var is_collide: bool = false 
-var destroy_time: float = 3.0
-@onready var mesh_plate = $CollisionShape3D/Wooden_plate
-# Called when the node enters the scene tree for the first time.
+
+@export var persistent_id: String = ""
+@export var destroy_time: float = 3.0
+
+var is_collide: bool = false
+
+
 func _ready() -> void:
-	self.freeze = true
-	pass
-	
+	freeze = true
+	if not persistent_id.is_empty() and SaveManager.is_board_broken(persistent_id):
+		call_deferred("queue_free")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-func destroy():
-	print("DONE")
+func destroy() -> void:
+	if not persistent_id.is_empty():
+		SaveManager.mark_board_broken(persistent_id)
 	queue_free()
 
 
-#func _on_body_entered(body: Node) -> void:
-	#print("YES I WAS HERE!")
-	#if !is_collide and body.is_in_group("crowbar"):
-		#crash.emit()
-		#self.freeze = false
-		
-		
+func _on_body_entered(body: Node) -> void:
+	_try_break(body)
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	if !is_collide and body.is_in_group("crowbar"):
-		is_collide = true
-		crash.emit()
-		self.freeze = false
-		var my_timer = Timer.new()
-		add_child(my_timer)
-		my_timer.wait_time = destroy_time
-		my_timer.one_shot = true
-		my_timer.timeout.connect(destroy)
-		my_timer.start()
-
-		#var tween = create_tween()
-		#tween.tween_property(mesh_plate, "transparency", 1.0, destroy_time)
-		#tween.finished.connect(destroy)
+	_try_break(body)
 
 
+func _try_break(body: Node) -> void:
+	if is_collide or body == null or not body.is_in_group("crowbar"):
+		return
 
-		
+	is_collide = true
+	crash.emit()
+	freeze = false
+
+	var timer := Timer.new()
+	add_child(timer)
+	timer.wait_time = maxf(destroy_time, 0.0)
+	timer.one_shot = true
+	timer.timeout.connect(destroy)
+	timer.start()
