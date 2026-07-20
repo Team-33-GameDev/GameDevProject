@@ -184,19 +184,32 @@ func _open_victory_room() -> void:
 
 
 func _trigger_game_over() -> void:
-	print("💀 GAME OVER. Restarting simulation...")
+	print(
+		"💀 GAME OVER. Quota %d will be retried."
+		% (current_quota_index + 1)
+	)
 	
 	GameManager.add_tickets(current_quota_index)
-	
-	SaveManager.reset_progress()
-	
-	current_quota_index = 0 
+	_reset_failed_quota_attempt()
+	SaveManager.save_game()
+
+	get_tree().change_scene_to_file(
+		"res://scenes/levels/death_room.tscn"
+	)
+
+
+func _reset_failed_quota_attempt() -> void:
+	# current_quota_index намеренно не меняется: после смерти
+	# игрок повторяет последнюю невыполненную квоту.
+	time_left = 0.0
 	current_quota_target = 0
 	_base_quota_target = 0
-	
-	GameManager.score = 0 
-	current_state = GameState.IDLE 
-	get_tree().change_scene_to_file("res://scenes/levels/death_room.tscn")
+	_last_printed_second = -1
+	GameManager.score = 0
+	current_state = GameState.IDLE
+	GameManager.notify_score_reservation_changed()
+	quota_updated.emit(0)
+	timer_updated.emit(0.0)
 
 func pause_game() -> void:
 	current_state = GameState.IDLE
