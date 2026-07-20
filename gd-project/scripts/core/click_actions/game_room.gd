@@ -1,6 +1,9 @@
 extends Node3D
 
 const POST_RUN_BUTTON_COOLDOWN: float = 1.25
+const PROGRESSION_ACCESSIBILITY_MANAGER = preload(
+	"res://scripts/globals/progression_accessibility_manager.gd"
+)
 
 @onready var mc_button = $MainRoom/Buttons/ClickButton
 @onready var shop = $ShopSystem
@@ -14,7 +17,8 @@ var _boss_intro_active: bool = false
 var _button_cooldown_active: bool = false
 
 func _ready() -> void:
-	
+	_ensure_progression_accessibility_manager()
+
 	if not QuotaManager.boss_intro_state_changed.is_connected(
 		_on_boss_intro_state_changed
 	):
@@ -34,6 +38,19 @@ func _ready() -> void:
 	_on_boss_intro_state_changed(
 		QuotaManager.is_boss_intro_active()
 	)
+
+
+func _ensure_progression_accessibility_manager() -> void:
+	var manager := get_tree().root.get_node_or_null(
+		"ProgressionAccessibilityManager"
+	)
+
+	if manager == null:
+		manager = PROGRESSION_ACCESSIBILITY_MANAGER.new()
+		manager.name = "ProgressionAccessibilityManager"
+		get_tree().root.add_child(manager)
+	else:
+		manager.call_deferred("refresh_game_room")
 
 
 func _on_boss_intro_state_changed(
