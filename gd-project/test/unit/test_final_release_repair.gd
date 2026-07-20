@@ -64,3 +64,40 @@ func test_failed_quota_restores_starting_click_upgrades() -> void:
 	assert_eq(click_data.add_level, 2)
 	manager.free()
 	shop.free()
+
+
+func test_failed_quota_rebuilds_factories_from_starting_checkpoint() -> void:
+	var manager := ProgressionAccessibilityManager.new()
+	var factory_manager := FactoryManager.new()
+	var wooden := Factory.new()
+	var stone := Factory.new()
+
+	wooden.data = AutoClickerData.new()
+	stone.data = AutoClickerData.new()
+	wooden.data.is_purchased = true
+	wooden.data.upg_lvl_click = 2
+	wooden.data.click_value = 9
+	stone.data.is_purchased = false
+
+	factory_manager.all_factories = [wooden, stone]
+	factory_manager.active_factories = [wooden]
+	manager._factory_manager = factory_manager
+	manager._capture_checkpoint()
+
+	wooden.data.upg_lvl_click = 5
+	wooden.data.click_value = 30
+	stone.data.is_purchased = true
+	factory_manager.active_factories.append(stone)
+
+	manager._on_quota_ended(false)
+
+	assert_true(wooden.data.is_purchased)
+	assert_eq(wooden.data.upg_lvl_click, 2)
+	assert_eq(wooden.data.click_value, 9)
+	assert_false(stone.data.is_purchased)
+	assert_eq(factory_manager.active_factories, [wooden])
+
+	manager.free()
+	factory_manager.free()
+	wooden.free()
+	stone.free()

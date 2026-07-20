@@ -33,3 +33,21 @@ func test_first_quota_retry_remains_first_quota() -> void:
 	QuotaManager._reset_failed_quota_attempt()
 
 	assert_eq(QuotaManager.current_quota_index, 0)
+
+
+func test_failed_retry_does_not_replay_boss_intro() -> void:
+	assert_true(QuotaManager.should_play_boss_intro())
+
+	QuotaManager.mark_boss_intro_completed()
+	QuotaManager.current_quota_index = 2
+	QuotaManager._reset_failed_quota_attempt()
+
+	assert_false(QuotaManager.should_play_boss_intro())
+	assert_eq(QuotaManager.current_quota_index, 2)
+
+
+func test_new_game_restores_boss_intro() -> void:
+	QuotaManager.mark_boss_intro_completed()
+	QuotaManager.reset_game()
+
+	assert_true(QuotaManager.should_play_boss_intro())

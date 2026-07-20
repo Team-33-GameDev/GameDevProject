@@ -482,3 +482,23 @@ func restore_from_save_data(
 		factory_updated.emit(factory)
 
 	_emit_cps_if_changed(true)
+
+
+# Rebuilds runtime bookkeeping after checkpoint data has been copied back
+# into the live factory resources. This is deliberately separate from the
+# save format: the checkpoint manager owns the snapshot, while this manager
+# owns the list that the production timer actually processes.
+func refresh_after_checkpoint_restore() -> void:
+	active_factories.clear()
+
+	for factory: Factory in all_factories:
+		if factory == null or factory.data == null:
+			continue
+
+		if factory.data.is_purchased:
+			active_factories.append(factory)
+
+		factory._update_ui()
+		factory_updated.emit(factory)
+
+	_emit_cps_if_changed(true)

@@ -37,15 +37,6 @@ func _ready() -> void:
 	_setup_labels()
 	_connect_global_signals()
 
-	# Пока монолог не завершён, основная кнопка не должна
-	# начислять очки или запускать клик-фазу.
-	QuotaManager.set_boss_intro_active(true)
-
-	# Глаза должны быть видны с первого кадра.
-	_intro_active = true
-	_show_eyes()
-	_update_display()
-
 	# Backend-узлы могут завершить свой _ready()
 	# немного позже этого SubViewport.
 	call_deferred("_connect_factory_manager")
@@ -59,8 +50,27 @@ func _ready() -> void:
 	if current_scene_path == null or not current_scene_path.ends_with("game_room.tscn"):
 		print("🔇 TVDisplay: Мы в меню (сцена: ", current_scene_path, "). Голос отменен.")
 		_intro_active = false
+		QuotaManager.set_boss_intro_active(false)
 		_show_main_screen() # Сразу показываем обычный экран
+		_update_display()
 		return # ПРЕРЫВАЕМ выполнение, _play_boss_intro() НЕ вызовется
+
+	# Монолог — одноразовое вступление. После смерти
+	# QuotaManager переживает смену сцены, поэтому повторный
+	# вход сразу показывает рабочий экран.
+	if not QuotaManager.should_play_boss_intro():
+		_intro_active = false
+		QuotaManager.set_boss_intro_active(false)
+		_show_main_screen()
+		_update_display()
+		return
+
+	# Пока монолог не завершён, основная кнопка не должна
+	# начислять очки или запускать клик-фазу.
+	QuotaManager.set_boss_intro_active(true)
+	_intro_active = true
+	_show_eyes()
+	_update_display()
 
 	# Если мы дошли сюда, значит это НАСТОЯЩАЯ игра
 	await _play_boss_intro()
@@ -70,6 +80,7 @@ func _ready() -> void:
 		return
 
 	_intro_active = false
+	QuotaManager.mark_boss_intro_completed()
 	QuotaManager.set_boss_intro_active(false)
 
 	_show_main_screen()

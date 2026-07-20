@@ -79,6 +79,9 @@ func load_game() -> bool:
 	# --- Восстановление состояния ---
 	QuotaManager.current_quota_index = int(parsed.get("quota_index", 0))
 	QuotaManager.current_state = QuotaManager.GameState.IDLE
+	# Continue opens an existing run, so the onboarding monologue has already
+	# been seen and must not replay when the game room is instantiated.
+	QuotaManager.mark_boss_intro_completed()
 	GameManager.score = 0
 
 	GameManager.tickets = int(parsed.get("tickets", 0))

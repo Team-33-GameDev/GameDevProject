@@ -217,6 +217,7 @@ func _on_quota_ended(success: bool) -> void:
 	# manual-click progression it had when the quota began.
 	_restore_factories(_checkpoint.get("factories", []))
 	_restore_click_upgrades(_checkpoint.get("click_upgrades", {}))
+	_write_checkpoint()
 
 
 func _on_tool_purchased() -> void:
@@ -305,8 +306,6 @@ func _restore_factories(saved_factories: Variant) -> void:
 		return
 
 	var factories := _get_factories()
-	var active_factories: Array = []
-
 	for index in range(factories.size()):
 		var factory: Node = factories[index]
 		var data := _get_object_property(factory, &"data") as Object
@@ -320,6 +319,20 @@ func _restore_factories(saved_factories: Variant) -> void:
 				var key := str(property_name)
 				if saved_data.has(key) and _has_property(data, property_name):
 					data.set(property_name, saved_data[key])
+
+	if (
+		_factory_manager != null
+		and _factory_manager.has_method(&"refresh_after_checkpoint_restore")
+	):
+		_factory_manager.call(&"refresh_after_checkpoint_restore")
+		return
+
+	# Compatibility fallback for scenes that still use an older manager.
+	var active_factories: Array = []
+	for factory: Node in factories:
+		var data := _get_object_property(factory, &"data") as Object
+		if data == null:
+			continue
 
 		if bool(_get_object_property(data, &"is_purchased", false)):
 			active_factories.append(factory)
