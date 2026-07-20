@@ -1,12 +1,9 @@
-extends RigidBody3D
+extends Node3D
 
+@export var template_data: ShopItemData
+var data: ShopItemData
 
-@export var available_on_start: bool = false
-
-
-var _is_available: bool = false
-
-
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	data = template_data.duplicate_data()
 	pass # Replace with function body.
@@ -15,7 +12,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if template_data == null:
-		push_error("Crowbar: template_data is null!")
+		push_error("Sledgehammer: template_data is null!")
 		return
 	
 func click():
