@@ -17,6 +17,7 @@ func test_hint_catalogue_contains_core_gameplay_topics() -> void:
 		&"shop",
 		&"factory",
 		&"crowbar",
+		&"sledgehammer",
 		&"big_button",
 	]
 

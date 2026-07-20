@@ -13,10 +13,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
-		SaveManager.save_before_return_to_menu()
-
+		# Полный сброс игры
 		if has_node("/root/QuotaManager"):
-			QuotaManager.reset_game()
+			QuotaManager.pause_game()
 		if has_node("/root/GameManager"):
 			GameManager.reset_game()
 		

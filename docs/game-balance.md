@@ -31,8 +31,8 @@ python3 tools/balance_model.py
 - Shop and factory upgrade terminals remain functional during active quotas;
   their overlays do not pause the timer or factory simulation. During
   preparation the same interfaces pause the scene tree for planning.
-- The Big Button reduces 2% of the current target after every five registered
-  jumps, up to 10% of the run's original target. It is a recovery tool rather
+- The Big Button reduces 5% of the current target after every three registered
+  jumps, up to 30% of the run's original target. It is a recovery tool rather
   than the dominant source of progress.
 - Factories produce and take damage only while a quota is running. The balance
   model assumes they start repaired and receive no mid-run repairs, so attentive
@@ -58,7 +58,7 @@ python3 tools/balance_model.py
 This route proves affordability; it is not enforced. The player can exchange
 some CPS purchases for durability, faster restoration, or saved score. At four
 clicks per second the conservative route finishes with about 48,000 surplus.
-At three clicks per second and a full 10% quota reduction it still completes.
+At three clicks per second and a full 30% quota reduction it still completes.
 
 ## Manual Click Curve
 

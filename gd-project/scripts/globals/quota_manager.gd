@@ -238,7 +238,7 @@ func reset_game() -> void:
 
 
 # Кнопка в комнате помогает с квотой, но не заменяет основной цикл.
-# За один забег цель можно снизить максимум на 10%.
+# За один забег цель можно снизить максимум на 30%.
 func decrease_quota(decrease_percent: float) -> bool:
 	if (
 		current_state != GameState.RUNNING

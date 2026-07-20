@@ -122,7 +122,6 @@ func restore_hp() -> void:
 	if data.restore_hp():
 		data_updated.emit()
 		_update_ui()
-		SaveManager.save_game()
 		
 
 

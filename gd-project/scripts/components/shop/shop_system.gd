@@ -5,6 +5,7 @@ class_name Shop
 signal click
 signal click_upgraded(upgrade_type: String)
 signal crowbar_purchased
+signal sledgehammer_purchased
 
 
 @export var click_upgrade_data: ClickUpgradeData
@@ -16,6 +17,8 @@ var crowbar_price: int = 25
 
 var _crowbar: Node3D = null
 var _crowbar_purchased: bool = false
+var _sledgehammer: RigidBody3D = null
+var _sledgehammer_purchased: bool = false
 
 
 func _ready() -> void:
@@ -26,9 +29,9 @@ func _ready() -> void:
 		SaveManager.register_click_upgrade_data(
 			click_upgrade_data
 		)
-	SaveManager.register_shop(self)
 
 	call_deferred("_setup_crowbar")
+	call_deferred("_setup_sledgehammer")
 
 
 # ------------------------------------------------------------------
@@ -102,15 +105,116 @@ func is_crowbar_purchased() -> bool:
 
 func restore_crowbar_purchase(value: bool) -> void:
 	_crowbar_purchased = value
+
 	if _crowbar == null or not is_instance_valid(_crowbar):
 		_crowbar = _find_crowbar()
+
 	if _crowbar == null:
 		call_deferred("_setup_crowbar")
 		return
+
 	if _crowbar.has_method(&"set_available"):
 		_crowbar.call(&"set_available", value)
 	else:
 		_crowbar.visible = value
+
+
+# Compatibility with the accessibility checkpoint introduced after the
+# original crowbar shop integration.
+func restore_crowbar_purchased(value: bool) -> void:
+	restore_crowbar_purchase(value)
+
+
+# ------------------------------------------------------------------
+# Sledgehammer
+#
+# Its original physics and interaction script stay untouched. The shop only
+# controls visibility and whether the player may pick it up. Collision remains
+# active while hidden, so the body settles naturally on the floor.
+# ------------------------------------------------------------------
+
+func _setup_sledgehammer() -> void:
+	_sledgehammer = _find_sledgehammer()
+
+	if _sledgehammer == null:
+		push_warning("ShopSystem: Sledgehammer was not found.")
+		return
+
+	_set_sledgehammer_available(_sledgehammer_purchased)
+
+
+func _find_sledgehammer() -> RigidBody3D:
+	var node := get_tree().get_first_node_in_group(
+		&"sledgehammer"
+	)
+
+	if node is RigidBody3D:
+		return node as RigidBody3D
+
+	return null
+
+
+func buy_sledgehammer() -> bool:
+	if _sledgehammer_purchased:
+		return false
+
+	if _sledgehammer == null or not is_instance_valid(_sledgehammer):
+		_sledgehammer = _find_sledgehammer()
+
+	if _sledgehammer == null:
+		push_error(
+			"ShopSystem: Sledgehammer purchase failed: "
+			+ "scene instance was not found."
+		)
+		return false
+
+	if not GameManager.spend_score(get_sledgehammer_price()):
+		return false
+
+	_sledgehammer_purchased = true
+	_set_sledgehammer_available(true)
+	sledgehammer_purchased.emit()
+	SaveManager.save_game()
+	return true
+
+
+func get_sledgehammer_price() -> int:
+	if _sledgehammer != null and is_instance_valid(_sledgehammer):
+		var item_data: Variant = _sledgehammer.get(&"data")
+		if item_data is ShopItemData:
+			return maxi(0, (item_data as ShopItemData).item_price)
+
+	return 1000
+
+
+func is_sledgehammer_purchased() -> bool:
+	return _sledgehammer_purchased
+
+
+func restore_sledgehammer_purchase(value: bool) -> void:
+	_sledgehammer_purchased = value
+
+	if _sledgehammer == null or not is_instance_valid(_sledgehammer):
+		_sledgehammer = _find_sledgehammer()
+
+	if _sledgehammer == null:
+		call_deferred("_setup_sledgehammer")
+		return
+
+	_set_sledgehammer_available(value)
+
+
+func _set_sledgehammer_available(value: bool) -> void:
+	if _sledgehammer == null or not is_instance_valid(_sledgehammer):
+		return
+
+	_sledgehammer.visible = value
+
+	if value:
+		if not _sledgehammer.is_in_group(&"pickable"):
+			_sledgehammer.add_to_group(&"pickable")
+	else:
+		_sledgehammer.remove_from_group(&"pickable")
 
 
 # ------------------------------------------------------------------

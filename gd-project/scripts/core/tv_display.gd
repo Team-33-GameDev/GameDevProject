@@ -36,31 +36,33 @@ func _ready() -> void:
 	_find_labels()
 	_setup_labels()
 	_connect_global_signals()
-	call_deferred("_connect_factory_manager")
-	call_deferred("_connect_shop_backend")
 
-	var current_scene := get_tree().current_scene
-	var current_scene_path := ""
-	if current_scene != null:
-		current_scene_path = current_scene.scene_file_path
-
-	if (
-		not current_scene_path.ends_with("game_room.tscn")
-		or SaveManager.has_intro_played()
-	):
-		_intro_active = false
-		QuotaManager.set_boss_intro_active(false)
-		_show_main_screen()
-		_update_display()
-		return
-
-	# Блокируем начало квоты только при самом первом проигрывании.
+	# Пока монолог не завершён, основная кнопка не должна
+	# начислять очки или запускать клик-фазу.
 	QuotaManager.set_boss_intro_active(true)
+
+	# Глаза должны быть видны с первого кадра.
 	_intro_active = true
 	_show_eyes()
 	_update_display()
-	SaveManager.mark_intro_played()
 
+	# Backend-узлы могут завершить свой _ready()
+	# немного позже этого SubViewport.
+	call_deferred("_connect_factory_manager")
+	call_deferred("_connect_shop_backend")
+
+	# === ЖЕЛЕЗОБЕТОННАЯ ПРОВЕРКА ===
+	# Проверяем путь к файлу текущей сцены.
+	var current_scene_path = get_tree().current_scene.scene_file_path
+
+	# Если путь не заканчивается на "game_room.tscn", значит мы в меню или другой сцене
+	if current_scene_path == null or not current_scene_path.ends_with("game_room.tscn"):
+		print("🔇 TVDisplay: Мы в меню (сцена: ", current_scene_path, "). Голос отменен.")
+		_intro_active = false
+		_show_main_screen() # Сразу показываем обычный экран
+		return # ПРЕРЫВАЕМ выполнение, _play_boss_intro() НЕ вызовется
+
+	# Если мы дошли сюда, значит это НАСТОЯЩАЯ игра
 	await _play_boss_intro()
 
 	# Узел мог быть удалён во время смены сцены.
