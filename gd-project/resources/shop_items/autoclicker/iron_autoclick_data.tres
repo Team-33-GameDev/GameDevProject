@@ -4,21 +4,24 @@
 
 [resource]
 script = ExtResource("1_6j768")
-click_value = 50
-max_hp = 300
-rhpt = 10
+click_value = 30
+max_hp = 400
+rhpt = 100
 dmg = 10
-dmg_tick_period = 200
-bonus_max_hp = 25
-ubp_max_hp = 1000
+dmg_tick_period = 225
+upg_price_multiplier = 1.8
+bonus_max_hp = 80
+ubp_max_hp = 1200
 bonus_click_value = 10
-ubp_click_value = 2500
-ubp_dmg = 1400
-ubp_dmg_period = 1400
-bonus_rhpt = 4
-ubp_rhpt = 1200
+ubp_click_value = 1500
+bonus_dmg = -1
+ubp_dmg = 1500
+bonus_dmg_period = 25
+ubp_dmg_period = 1500
+bonus_rhpt = 50
+ubp_rhpt = 1000
 item_name = "Iron Factory"
 description = "Automated iron factory"
-item_price = 3500
+item_price = 3000
 can_buy = true
 metadata/_custom_type_script = "uid://dofydyjcnq5qu"

@@ -4,22 +4,24 @@
 
 [resource]
 script = ExtResource("1_4jl0c")
-click_value = 1000
-max_hp = 1000
-rhpt = 25
+click_value = 270
+max_hp = 1500
+rhpt = 375
 dmg = 25
-dmg_tick_period = 150
-bonus_max_hp = 100
+dmg_tick_period = 200
+upg_price_multiplier = 1.8
+bonus_max_hp = 300
 ubp_max_hp = 20000
-bonus_click_value = 200
-ubp_click_value = 50000
+bonus_click_value = 90
+ubp_click_value = 30000
 bonus_dmg = -2
 ubp_dmg = 30000
+bonus_dmg_period = 25
 ubp_dmg_period = 30000
-bonus_rhpt = 10
-ubp_rhpt = 25000
+bonus_rhpt = 188
+ubp_rhpt = 18000
 item_name = "Diamond Factory"
 description = "Automated diamond factory"
-item_price = 60000
+item_price = 55000
 can_buy = true
 metadata/_custom_type_script = "uid://dofydyjcnq5qu"

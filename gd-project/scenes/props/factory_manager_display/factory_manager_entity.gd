@@ -31,7 +31,15 @@ signal factory_manager_opened
 				#target = target.get_parent()
 				
 func click() -> void:
-	print("factory_manager_entity: Player click shop station and method click() is runing")
+	# Экран улучшений ставит игру на паузу, поэтому он доступен только
+	# между квотами. Физические кнопки ремонта фабрик остаются активны
+	# во время забега и сохраняют решение «производить или обслуживать».
+	if (
+		QuotaManager.current_state
+		== QuotaManager.GameState.RUNNING
+	):
+		return
+
 	## Получаем камеру
 	var camera = get_viewport().get_camera_3d()
 	if not camera:

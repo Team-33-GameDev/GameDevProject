@@ -1,48 +1,134 @@
 # Game Balance
 
-This document records the baseline economy for the current four-run campaign.
-It is intended as a reproducible starting point for playtests, not as a
-substitute for telemetry and player observation.
+This document defines the economy for the 12-run campaign. The values are a
+playtest baseline: they are backed by a deterministic model, but telemetry and
+player observation must still decide the final tuning.
 
-## Assumptions
+## Experience Target
 
-- Each run lasts 30 seconds.
-- The baseline manual rate is 5 clicks per second.
+- Active quota time is exactly 900 seconds (15 minutes).
+- Preparation, shopping, repairs, and room traversal extend a normal session
+  beyond 15 minutes without padding an individual timer.
+- The baseline model uses four manual clicks per second.
+- Three clicks per second remains viable when the player uses the full Big
+  Button accessibility buffer.
+- Every preparation phase offers a useful purchase, a saving decision, or a
+  repair decision.
+- Pressure rises in waves: expensive factory unlocks create tight beats and
+  the following production spike creates a release beat.
+
+The model is executable with:
+
+```bash
+python3 tools/balance_model.py
+```
+
+## Economy Rules
+
 - The active quota is reserved. Only `score - current_quota` is spendable.
-- On success, the quota is deducted and surplus score carries into preparation.
-- The Big Button can reduce the current target by at most 30% per run.
+- Completing a run deducts the current quota; surplus carries into preparation.
+- Shop and factory upgrade terminals open only during preparation because their
+  overlays pause the scene tree. Physical factory repair buttons remain usable
+  during a run.
+- The Big Button reduces 2% of the current target after every five registered
+  jumps, up to 10% of the run's original target. It is a recovery tool rather
+  than the dominant source of progress.
+- Factories produce and take damage only while a quota is running. The balance
+  model assumes they start repaired and receive no mid-run repairs, so attentive
+  maintenance creates genuine upside.
 
-## Intended Early Progression
+## Campaign Curve
 
-| Run | Quota | Expected purchase after success |
-| --- | ---: | --- |
-| 1 | 100 | Crowbar (25) |
-| 2 | 200 | Additive click upgrade (75) |
-| 3 | 800 | Stone Factory (250) |
-| 4 | 1,500 | Complete the campaign using manual clicks and factories |
+| Run | Time | Quota | Baseline milestone after success |
+| ---: | ---: | ---: | --- |
+| 1 | 30 s | 65 | Crowbar (25), Wooden Factory (free) |
+| 2 | 40 s | 210 | Additive click level 1 (120) |
+| 3 | 50 s | 480 | Stone Factory (225) |
+| 4 | 60 s | 1,200 | Additive level 2 (240), Wooden CPS (100) |
+| 5 | 70 s | 1,700 | Copper Factory (900) |
+| 6 | 80 s | 4,500 | Multiplier level 1 (1,500), Stone CPS (150) |
+| 7 | 90 s | 6,000 | Iron Factory (3,000) |
+| 8 | 90 s | 13,000 | Additive level 3 (480), Iron CPS (1,500), Copper CPS (500) |
+| 9 | 95 s | 20,000 | Golden Factory (11,000) |
+| 10 | 95 s | 38,000 | Multiplier level 2 (4,500), Golden CPS (5,500), additive level 4 (960) |
+| 11 | 100 s | 70,000 | Diamond Factory (55,000) |
+| 12 | 100 s | 190,000 | Finale |
 
-At the baseline input rate, this route leaves a small but useful surplus at
-each preparation phase. The player may deviate by using the Big Button,
-repairing factories, or saving for a different upgrade.
+This route proves affordability; it is not enforced. The player can exchange
+some CPS purchases for durability, faster restoration, or saved score. At four
+clicks per second the conservative route finishes with about 48,000 surplus.
+At three clicks per second and a full 10% quota reduction it still completes.
+
+## Manual Click Curve
+
+| Upgrade | Effect | Price curve |
+| --- | ---: | ---: |
+| Additive | +2 click power per level | 120 × 2^level |
+| Multiplicative | ×2 after additive bonuses | 1,500 × 3^level |
+
+The milestone route produces click powers `1 → 3 → 5 → 10 → 14 → 36`.
+Multipliers are deliberately delayed: buying one feels transformative, but it
+cannot erase the early factory and repair decisions.
 
 ## Factory Curve
 
-| Factory | Price | CPS | Approx. payback | Base lifetime |
-| --- | ---: | ---: | ---: | ---: |
-| Wooden | 0 | 5 | Immediate | 30 s |
-| Stone | 250 | 25 | 10 s | 39.6 s |
-| Copper | 900 | 75 | 12 s | 60.3 s |
-| Iron | 3,500 | 250 | 14 s | 60 s |
-| Golden | 14,000 | 1,250 | 11.2 s | 61.2 s |
-| Diamond | 60,000 | 5,000 | 12 s | 60 s |
+Factory CPS is `click_value / (0.01 × 20)`. Base lifetime is calculated without
+repairs or durability upgrades.
 
-Factory lifetime is calculated without repairs or durability upgrades.
-Payback is nominal production time and does not include room traversal or
-maintenance.
+| Factory | Price | CPS | Nominal payback | Base lifetime | Repair per press |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Wooden | 0 | 5 | Immediate | 45.0 s | 25 |
+| Stone | 225 | 15 | 15.0 s | 60.0 s | 40 |
+| Copper | 900 | 50 | 18.0 s | 75.2 s | 60 |
+| Iron | 3,000 | 150 | 20.0 s | 90.0 s | 100 |
+| Golden | 11,000 | 450 | 24.4 s | 105.0 s | 190 |
+| Diamond | 55,000 | 1,350 | 40.7 s | 120.0 s | 375 |
 
-## Playtest Signals
+Production grows by roughly three times per tier while payback gradually
+lengthens. Earlier factories therefore remain relevant instead of becoming
+visual clutter. From zero health every base factory needs about four repair
+presses, keeping maintenance readable and avoiding click spam.
 
-Record completion rate and surplus after every quota, purchase order, manual
-click rate, factory downtime, and Big Button use. Adjust one variable family
-at a time: quotas, income, prices, or durability. The target experience is a
-10–15 minute session with a clear decision during every preparation phase.
+CPS upgrade bonuses are 5, 5, 15, 50, 150, and 450 CPS from Wooden through
+Diamond. Base CPS upgrade prices are 100, 150, 500, 1,500, 5,500, and 30,000.
+All factory upgrade prices grow by 1.8 per level.
+
+## Why This Shape
+
+The balance book's resource-economy and progression chapters recommend choosing
+an anchor, coordinating cost and power curves, and adding peaks and valleys
+instead of one smooth escalation. Here the anchors are player time and score per
+second. The 12 short-to-medium runs create repeated tension and preparation
+beats, while milestone purchases deliberately alternate narrow and generous
+surplus.
+
+The external references support the same structure:
+
+- [The Math of Idle Games, Part I](https://www.gamedeveloper.com/design/the-math-of-idle-games-part-i)
+  treats generator output, cost growth, and spreadsheet simulation as one
+  connected system.
+- [Quest for Progress: The Math and Design of Idle Games](https://media.gdcvault.com/gdceurope2016/presentations/Pecorella_Anthony_Quest%20for%20Progress.pdf)
+  emphasizes regular purchase choices and keeping earlier generators useful.
+- [Playing to Wait: A Taxonomy of Idle Games](https://www.researchgate.net/publication/324658906_Playing_to_Wait_A_Taxonomy_of_Idle_Games)
+  frames attention and time as resources and the shift from repeated action to
+  planning as a core idle-game experience.
+- [Simulating Mechanics to Study Emergence in Games](https://cdn.aaai.org/ojs/12477/12477-52-16005-1-2-20201228.pdf)
+  provides the sources, drains, converters, and end-condition vocabulary used
+  to audit this economy.
+
+## Playtest Protocol
+
+Run at least five fresh sessions per cohort and record:
+
+- real completion time and completion/failure run;
+- manual click rate per run;
+- score before and after every preparation phase;
+- purchase order and upgrades that are never selected;
+- factory downtime, repair presses, and deaths;
+- Big Button activations and achieved quota reduction;
+- time spent travelling and choosing purchases.
+
+Useful first targets are a 60–80% first-session completion rate, at least two
+different successful purchase routes, and no preparation phase where every
+player makes the same obvious purchase. Change only one family at a time:
+quotas, click income, factory output, prices, or durability.

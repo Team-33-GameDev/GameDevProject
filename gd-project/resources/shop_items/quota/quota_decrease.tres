@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_hsgkc")
-condition_click = 3
+condition_click = 5
+q_decrease_percent = 0.02
 metadata/_custom_type_script = "uid://ccaecqdl6cve2"

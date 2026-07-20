@@ -4,13 +4,15 @@
 
 - Connect the Crowbar shop card to the existing world item.
 - Preserve score earned above a completed quota and reserve the active quota from purchases.
-- Rebalance the four-run campaign, click upgrades, factories, and factory durability.
+- Expand and rebalance the campaign to 12 runs and at least 15 minutes of active play.
+- Add a reproducible economy model for click rates, purchases, and factory output.
 
 ### Bug Fixes
 
 - Assign the missing Copper Factory data resource.
 - Make factory damage-reduction upgrades reduce actual self-damage.
-- Limit Big Button quota reduction to 30% per run.
+- Limit Big Button quota reduction to 10% per run.
+- Prevent pausing an active quota through shop and factory upgrade terminals.
 
 ## [4.0]
 
